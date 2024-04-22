@@ -1850,9 +1850,9 @@ fnA();
 //  * Напиши функцию calculateTotalPrice(items)
 //  * которая принимает массив цен (чисел) и возвращает их сумму
 // ----------------------------
-// const sum = calculateTotalPrice([1, 2, 3]);
+// const result = calculateTotalPrice([1, 2, 3]);
 
-// console.log(`Общая сумма покупок ${sum}`); // 6
+// console.log(`Общая сумма покупок ${result}`); // 6
 // console.log(calculateTotalPrice([5, 10, 15, 20])); // 50
 // console.log(calculateTotalPrice([100, 200, 300])); // 600
 // ----------------------------
@@ -1924,12 +1924,27 @@ logItems(['клавиатура', 'наушники', 'часы']);
 //  * - Если логина нет, вывести сообщение 'Пользователь [логин] не найден.'
 //  * - Если нашли логин, вывести сообщение 'Пользователь [логин] найден.'
 // ----------------------------
-// const logins = ['m4ngoDoge', 'k1widab3st', 'poly1scute', 'aj4xth3m4n'];
+const logins = ['m4ngoDoge', 'k1widab3st', 'poly1scute', 'aj4xth3m4n'];
 
-// console.log(findLogin(logins, 'avocod3r'));
-// console.log(findLogin(logins, 'k1widab3st'));
-// console.log(findLogin(logins, 'jam4l'));
-// console.log(findLogin(logins, 'poly1scute'));
+// const findLogin = function (allLogins, loginToFinde) {
+//   let message = `Пользователь ${loginToFinde} не найден.`;
+
+//   for (const login of allLogins) {
+//     if (login === loginToFinde) {
+//       message = `Пользователь ${loginToFinde} найден.`;
+//       // return `Пользователь ${loginToFinde} найден.`;
+//     }
+//   }
+//   // return `Пользователь ${loginToFinde} не найден.`;
+//   return message;
+// };
+
+const findLogin = function (allLogins, login) {};
+
+console.log(findLogin(logins, 'avocod3r'));
+console.log(findLogin(logins, 'k1widab3st'));
+console.log(findLogin(logins, 'jam4l'));
+console.log(findLogin(logins, 'poly1scute'));
 // ----------------------------
 /** С прошлого урока задача-4
 |============================
