@@ -1851,8 +1851,8 @@ fnA();
 //  * которая принимает массив цен (чисел) и возвращает их сумму
 // ----------------------------
 // const result = calculateTotalPrice([1, 2, 3]);
-
 // console.log(`Общая сумма покупок ${result}`); // 6
+
 // console.log(calculateTotalPrice([5, 10, 15, 20])); // 50
 // console.log(calculateTotalPrice([100, 200, 300])); // 600
 // ----------------------------
@@ -1924,27 +1924,13 @@ logItems(['клавиатура', 'наушники', 'часы']);
 //  * - Если логина нет, вывести сообщение 'Пользователь [логин] не найден.'
 //  * - Если нашли логин, вывести сообщение 'Пользователь [логин] найден.'
 // ----------------------------
-const logins = ['m4ngoDoge', 'k1widab3st', 'poly1scute', 'aj4xth3m4n'];
+// const logins = ['m4ngoDoge', 'k1widab3st', 'poly1scute', 'aj4xth3m4n'];
 
-// const findLogin = function (allLogins, loginToFinde) {
-//   let message = `Пользователь ${loginToFinde} не найден.`;
+// console.log(findLogin(logins, 'avocod3r'));
+// console.log(findLogin(logins, 'k1widab3st'));
+// console.log(findLogin(logins, 'jam4l'));
+// console.log(findLogin(logins, 'poly1scute'));
 
-//   for (const login of allLogins) {
-//     if (login === loginToFinde) {
-//       message = `Пользователь ${loginToFinde} найден.`;
-//       // return `Пользователь ${loginToFinde} найден.`;
-//     }
-//   }
-//   // return `Пользователь ${loginToFinde} не найден.`;
-//   return message;
-// };
-
-const findLogin = function (allLogins, login) {};
-
-console.log(findLogin(logins, 'avocod3r'));
-console.log(findLogin(logins, 'k1widab3st'));
-console.log(findLogin(logins, 'jam4l'));
-console.log(findLogin(logins, 'poly1scute'));
 // ----------------------------
 /** С прошлого урока задача-4
 |============================
@@ -2021,6 +2007,10 @@ console.log(findLogin(logins, 'poly1scute'));
 //  * Напиши функцию findSmallesNumber(numbers) для поиска самого маленького числа в массиве,
 //  * при условии что числа уникальные (не повторяются).
 // ----------------------------
+// console.log(findSmallesNumber([3, 8, 12, -2, 15])); // -2
+// console.log(findSmallesNumber([100, 54, 8, 12, 47])); // 8
+// console.log(findSmallesNumber([7, 21, 84, 15, 4])); // 4
+// ----------------------------
 /** С прошлого урока задача-5
 |============================
 
@@ -2063,6 +2053,12 @@ console.log(findSmallesNumber([7, 21, 84, 15, 4])); // 4
 //  * Напиши функцию changeCase(string) которая заменяет регистр
 //  * каждого символа в строке на противоположный.
 //  * Например, если строка «JavaScript», то на выходе должена быть строка «jAVAsCRIPT».
+
+// console.log(changeCase('JavaScript')); // jAVAsCRIPT
+// console.log(changeCase('qweRTY')); // QWErty
+// console.log(changeCase('mAnGo')); // MaNgO
+// console.log(changeCase('AjAx')); // aJaX
+
 // ----------------------------
 /** С прошлого урока задача-7 :
 |============================
@@ -2081,6 +2077,8 @@ console.log(invertedString);
 // ----------------------------
 /** Решение:
 |============================
+// Вариант-1 с тернарным оператором
+// ________________________________
 
 const changeCase = function (string) {
   const letters = string.split('');
@@ -2097,6 +2095,24 @@ const changeCase = function (string) {
   return invertedString;
 };
 
+// Вариант-2 if else
+// _________________________________
+
+const changeCase = function (string) {
+  const letters = string.split('');
+  let invertedString = '';
+
+  for (const letter of letters) {
+    if (letter === letter.toLowerCase()) {
+      invertedString += letter.toUpperCase();
+    } else {
+      invertedString += letter.toLowerCase();
+    }
+  }
+  return invertedString;
+};
+
+// ---------------------------------------------
 console.log(changeCase('qweRTY')); // QWErty
 console.log(changeCase('mAnGo')); // MaNgO
 console.log(changeCase('AjAx')); // aJaX
@@ -2107,6 +2123,11 @@ console.log(changeCase('AjAx')); // aJaX
 // Задача-7:
 //  * Напиши функцию slugify(string) которая получает строку и возвращает URL-slug
 //  * Строка состоит только из букв и пробелов
+// -----------------------------------------------------------
+// console.log(slugify('Top 10 benefits of React framework'));
+// console.log(slugify('Azure Static Web Apps are Awesome'));
+// console.log(slugify('Technical writing tips for non-native English speakers'));
+
 // ----------------------------
 /** С прошлого урока задача-8 :
 |============================
