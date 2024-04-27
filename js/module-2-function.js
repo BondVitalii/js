@@ -792,23 +792,34 @@ console.log(calAverage(27, 43, 2, 8, 36)); // 23.2
 // Напиши функцию formatTime(minutes)
 // которая переведёт значение minutes(количество минут)
 // в строку в формате часов и минут HH: MM.
-
-// const hours = Math.floor(totalMinutes / 60);
-// const minutes = totalMinutes % 60;
-// console.log(hours);
-// console.log(minutes);
-
-// const doubleDigitHours = String(hours).padStart(2, 0);
-// const doubleDigitMinutes = String(minutes).padStart(2, 0);
-// console.log(`${doubleDigitHours}:${doubleDigitMinutes}`);
-
+// ----------------------------
 // function formatTime(minutes) {}
-
+// ----------------------------
 // console.log(formatTime(70)); // "01:10"
 // console.log(formatTime(450)); // "07:30"
 // console.log(formatTime(1441)); // "24:01"
 // ----------------------------
-/** Решение: 
+/** Изночальное решение
+|============================
+const hours = Math.floor(totalMinutes / 60);
+const minutes = totalMinutes % 60;
+console.log(hours);
+console.log(minutes);
+
+const doubleDigitHours = String(hours).padStart(2, 0);
+const doubleDigitMinutes = String(minutes).padStart(2, 0);
+console.log(`${doubleDigitHours}:${doubleDigitMinutes}`);
+
+function formatTime(minutes) {}
+
+// ----------------------------
+console.log(formatTime(70)); // "01:10"
+console.log(formatTime(450)); // "07:30"
+console.log(formatTime(1441)); // "24:01"
+|============================
+*/
+// ----------------------------
+/** Решение: Георг
 |============================
 // Решение Георг с нуля ---------------------------
 
@@ -829,15 +840,35 @@ console.log(formatTime(1441)); // "24:01"
 
 |============================
 */
+// ----------------------------
+/** Мое решение
+|============================
+function formatTime(minutesAll) {
+  const hours = Math.floor(minutesAll / 60);
+  const minutes = minutesAll % 60;
+
+  // console.log(hours);
+  // console.log(minutes);
+
+  const formattedHours = String(hours).padStart(2, 0);
+  const formattedMinutes = String(minutes).padStart(2, 0);
+
+  // console.log(formattedHours);
+  // console.log(formattedMinutes);
+
+  return `${formattedHours}:${formattedMinutes}`;
+}
+|============================
+*/
 // ________________________________________________________________________________________
 // Example 9 - Коллекция курсов (includes, indexOf, push и т. д.)
 // Напишите функции для работы с коллекцией обучающих курсов courses:
 // * addCourse(name) - добавляет курс в конец коллекции
 // * removeCourse(name) - удаляет курс из коллекции
 // * updateCourse(oldName, newName) - изменяет имя на новое
-
+// ----------------------------
 // const courses = ['HTML', 'CSS', 'JavaScript', 'React', 'PostgreSQL'];
-
+// ----------------------------
 // addCourse('Express');
 // console.log(courses); // ['HTML', 'CSS', 'JavaScript', 'React', 'PostgreSQL', 'Express']
 // addCourse('CSS'); // 'У вас уже есть такой курс'
@@ -848,9 +879,41 @@ console.log(formatTime(1441)); // "24:01"
 
 // updateCourse('Express', 'NestJS');
 // console.log(courses); // ['HTML', 'CSS', 'JavaScript', 'PostgreSQL', 'NestJS']
-// updateCourse('Express', 'NestJS');
 // ----------------------------
-/** Решение:
+/** Решение мой вариант
+|============================
+const courses = ['HTML', 'CSS', 'JavaScript', 'React', 'PostgreSQL'];
+// =========================================================
+// добавляет курс в конец коллекции
+const addCourse = name => {
+  return courses.push(name);
+};
+// ---------------
+addCourse('Express');
+console.log(courses); // ['HTML', 'CSS', 'JavaScript', 'React', 'PostgreSQL', 'Express']
+// =========================================================
+// удаляет курс из коллекции
+const removeCourse = name => {
+  const index = courses.indexOf('React');
+  courses.splice(3, 1);
+};
+// ---------------
+removeCourse('React');
+console.log(courses); // ['HTML', 'CSS', 'JavaScript', 'PostgreSQL', 'Express']
+// =========================================================
+// изменяет имя на новое
+const updateCourse = (oldName, newName) => {
+  const index = courses.indexOf(oldName);
+  courses.splice(index, 1, newName);
+};
+// ---------------
+updateCourse('Express', 'NestJS');
+console.log(courses); // ['HTML', 'CSS', 'JavaScript', 'PostgreSQL', 'NestJS']
+// ----------------------------
+|============================
+*/
+// ----------------------------
+/** Решение: Георг
 |============================
 
 const courses = ['HTML', 'CSS', 'JavaScript', 'React', 'PostgreSQL'];
@@ -893,4 +956,6 @@ updateCourse('Express', 'NestJS');
 console.log(courses); // ['HTML', 'CSS', 'JavaScript', 'PostgreSQL', 'NestJS']
 |============================
 */
+// ----------------------------
+
 // ________________________________________________________________________________________
