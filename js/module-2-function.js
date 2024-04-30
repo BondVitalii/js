@@ -1250,11 +1250,11 @@ console.log(calAverage(27, 43, 2, 8, 36)); // 23.2
 // которая переведёт значение minutes(количество минут)
 // в строку в формате часов и минут HH: MM.
 // ----------------------------
-function formatTime(minutes) {}
+// function formatTime(minutes) {}
 // ----------------------------
-console.log(formatTime(70)); // "01:10"
-console.log(formatTime(450)); // "07:30"
-console.log(formatTime(1441)); // "24:01"
+// console.log(formatTime(70)); // "01:10"
+// console.log(formatTime(450)); // "07:30"
+// console.log(formatTime(1441)); // "24:01"
 // ----------------------------
 /** Изночальное решение
 |============================
@@ -1280,6 +1280,12 @@ console.log(formatTime(1441)); // "24:01"
 |============================
 // _______ Вариант Артем _______
 
+function formatTime(minutes) {
+  const hours = Math.floor(minutes / 60);
+  minutes = minutes % 60;
+
+  return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+}
 
 // _______ Вариант Георг _______
 
@@ -1296,21 +1302,26 @@ function formatTime(minutesInput) {
 }
 
 // _______ Мой вариант _______
-
+1) Вариант
 function formatTime(minutesAll) {
   const hours = Math.floor(minutesAll / 60);
   const minutes = minutesAll % 60;
 
-  // console.log(hours);
-  // console.log(minutes);
-
   const formattedHours = String(hours).padStart(2, 0);
   const formattedMinutes = String(minutes).padStart(2, 0);
 
-  // console.log(formattedHours);
-  // console.log(formattedMinutes);
-
   return `${formattedHours}:${formattedMinutes}`;
+}
+2) Вариант
+function formatTime(totalMinutes) {
+  const hours = Math.floor(totalMinutes / 60);
+  const minutes = totalMinutes % 60;
+
+  const timeHours = String(hours).padStart(2, 0);
+  const timeMinutes = String(minutes).padStart(2, 0);
+
+  const time = `${timeHours}:${timeMinutes}`;
+  return time;
 }
 
 // ------------------------------
@@ -1332,11 +1343,11 @@ console.log(formatTime(1441)); // "24:01"
 // addCourse('Express');
 // console.log(courses); // ['HTML', 'CSS', 'JavaScript', 'React', 'PostgreSQL', 'Express']
 // addCourse('CSS'); // 'У вас уже есть такой курс'
-
+// -------
 // removeCourse('React');
 // console.log(courses); // ['HTML', 'CSS', 'JavaScript', 'PostgreSQL', 'Express']
 // removeCourse('Vue'); // 'Курс с таким имененем не найден'
-
+// -------
 // updateCourse('Express', 'NestJS');
 // console.log(courses); // ['HTML', 'CSS', 'JavaScript', 'PostgreSQL', 'NestJS']
 // ----------------------------
@@ -1375,6 +1386,35 @@ console.log(courses); // ['HTML', 'CSS', 'JavaScript', 'PostgreSQL', 'NestJS']
 // ----------------------------
 /** Решение: Артем
 |============================
+const courses = ['HTML', 'CSS', 'JavaScript', 'React', 'PostgreSQL'];
+// ----------------------------
+// * addCourse(name) - добавляет курс в конец коллекции
+
+function addCourse(course) {
+  if (courses.includes(course)) {
+    return `Вы уже имеете ${course} курс`;
+  }
+  courses.push(course);
+}
+// ------------
+addCourse('Express');
+console.log(courses); // ['HTML', 'CSS', 'JavaScript', 'React', 'PostgreSQL', 'Express']
+addCourse('CSS'); // 'У вас уже есть такой курс'
+
+// ----------------------------
+// * removeCourse(name) - удаляет курс из коллекции
+
+// ------------
+removeCourse('React');
+console.log(courses); // ['HTML', 'CSS', 'JavaScript', 'PostgreSQL', 'Express']
+removeCourse('Vue'); // 'Курс с таким имененем не найден'
+
+// ----------------------------
+// * updateCourse(oldName, newName) - изменяет имя на новое
+
+// ------------
+updateCourse('Express', 'NestJS');
+console.log(courses); // ['HTML', 'CSS', 'JavaScript', 'PostgreSQL', 'NestJS']
 
 |============================
 */
