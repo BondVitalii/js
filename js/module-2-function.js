@@ -1338,57 +1338,41 @@ console.log(formatTime(1441)); // "24:01"
 // * removeCourse(name) - удаляет курс из коллекции
 // * updateCourse(oldName, newName) - изменяет имя на новое
 // ----------------------------
-// const courses = ['HTML', 'CSS', 'JavaScript', 'React', 'PostgreSQL'];
+const courses = ['HTML', 'CSS', 'JavaScript', 'React', 'PostgreSQL'];
 // ----------------------------
-// addCourse('Express');
+function addCourse(course) {
+  if (courses.includes(course)) {
+    return `Вы уже имеете ${course} курс`;
+  }
+  courses.push(course);
+}
+
+addCourse('Express');
 // console.log(courses); // ['HTML', 'CSS', 'JavaScript', 'React', 'PostgreSQL', 'Express']
 // addCourse('CSS'); // 'У вас уже есть такой курс'
 // -------
-// removeCourse('React');
+function removeCourse(courses) {
+  // const index = courses.indexOf('React');
+  console.log(courses.indexOf('React'));
+}
+
+removeCourse('React');
 // console.log(courses); // ['HTML', 'CSS', 'JavaScript', 'PostgreSQL', 'Express']
 // removeCourse('Vue'); // 'Курс с таким имененем не найден'
 // -------
 // updateCourse('Express', 'NestJS');
 // console.log(courses); // ['HTML', 'CSS', 'JavaScript', 'PostgreSQL', 'NestJS']
-// ----------------------------
-/** Решение мой вариант
+
+// ----------------------------------------------------------------------------------------
+/** Решение: Артем + Георг
 |============================
+
 const courses = ['HTML', 'CSS', 'JavaScript', 'React', 'PostgreSQL'];
-// =========================================================
-// добавляет курс в конец коллекции
-const addCourse = name => {
-  return courses.push(name);
-};
-// ---------------
-addCourse('Express');
-console.log(courses); // ['HTML', 'CSS', 'JavaScript', 'React', 'PostgreSQL', 'Express']
-// =========================================================
-// удаляет курс из коллекции
-const removeCourse = name => {
-  const index = courses.indexOf('React');
-  courses.splice(3, 1);
-};
-// ---------------
-removeCourse('React');
-console.log(courses); // ['HTML', 'CSS', 'JavaScript', 'PostgreSQL', 'Express']
-// =========================================================
-// изменяет имя на новое
-const updateCourse = (oldName, newName) => {
-  const index = courses.indexOf(oldName);
-  courses.splice(index, 1, newName);
-};
-// ---------------
-updateCourse('Express', 'NestJS');
-console.log(courses); // ['HTML', 'CSS', 'JavaScript', 'PostgreSQL', 'NestJS']
-// ----------------------------
-|============================
-*/
-// ----------------------------
-/** Решение: Артем
-|============================
-const courses = ['HTML', 'CSS', 'JavaScript', 'React', 'PostgreSQL'];
-// ----------------------------
+// --------------------------------------------------------------------
+
 // * addCourse(name) - добавляет курс в конец коллекции
+
+// _______ Вариант Артем _______
 
 function addCourse(course) {
   if (courses.includes(course)) {
@@ -1396,34 +1380,9 @@ function addCourse(course) {
   }
   courses.push(course);
 }
-// ------------
-addCourse('Express');
-console.log(courses); // ['HTML', 'CSS', 'JavaScript', 'React', 'PostgreSQL', 'Express']
-addCourse('CSS'); // 'У вас уже есть такой курс'
 
-// ----------------------------
-// * removeCourse(name) - удаляет курс из коллекции
+// _______ Вариант Георг _______
 
-// ------------
-removeCourse('React');
-console.log(courses); // ['HTML', 'CSS', 'JavaScript', 'PostgreSQL', 'Express']
-removeCourse('Vue'); // 'Курс с таким имененем не найден'
-
-// ----------------------------
-// * updateCourse(oldName, newName) - изменяет имя на новое
-
-// ------------
-updateCourse('Express', 'NestJS');
-console.log(courses); // ['HTML', 'CSS', 'JavaScript', 'PostgreSQL', 'NestJS']
-
-|============================
-*/
-// ----------------------------
-/** Решение: Георг
-|============================
-
-const courses = ['HTML', 'CSS', 'JavaScript', 'React', 'PostgreSQL'];
-// -----------------------------------------------
 const addCourse = name => {
   if (courses.includes(name)) {
     console.log(`У вас уже есть курс ${name}`);
@@ -1431,7 +1390,25 @@ const addCourse = name => {
   }
   courses.push(name);
 };
-// -----------------------------------------------
+
+// _______ Решение мой вариант _______
+
+// --------------------------------------------------------------------
+addCourse('Express');
+console.log(courses); // ['HTML', 'CSS', 'JavaScript', 'React', 'PostgreSQL', 'Express']
+addCourse('CSS'); // 'У вас уже есть такой курс'
+// ====================================================================
+
+// * removeCourse(name) - удаляет курс из коллекции
+
+// _______ Вариант Артем _______
+
+
+
+
+
+// _______ Вариант Георг _______
+
 const removeCourse = name => {
   if (!courses.includes(name)) {
     console.log(`Курс с именем ${name} не найден`);
@@ -1440,7 +1417,22 @@ const removeCourse = name => {
   const index = courses.indexOf(name);
   courses.splice(index, 1);
 };
-// -----------------------------------------------
+
+// _______ Решение мой вариант _______
+
+// --------------------------------------------------------------------
+removeCourse('React');
+console.log(courses); // ['HTML', 'CSS', 'JavaScript', 'PostgreSQL', 'Express']
+removeCourse('Vue'); // 'Курс с таким имененем не найден'
+// ====================================================================
+
+// * updateCourse(oldName, newName) - изменяет имя на новое
+
+// _______ Вариант Артем _______
+
+
+// _______ Вариант Георг _______
+
 const updateCourse = (oldName, newName) => {
   if (!courses.includes(oldName)) {
     console.log(`Курс с именем ${oldName} не найден`);
@@ -1449,17 +1441,12 @@ const updateCourse = (oldName, newName) => {
   const index = courses.indexOf(oldName);
   courses.splice(index, 1, newName);
 };
-// -----------------------------------------------
-addCourse('Express');
-console.log(courses); // ['HTML', 'CSS', 'JavaScript', 'React', 'PostgreSQL', 'Express']
-addCourse('CSS'); // 'У вас уже есть такой курс'
 
-removeCourse('React');
-console.log(courses); // ['HTML', 'CSS', 'JavaScript', 'PostgreSQL', 'Express']
-removeCourse('Vue'); // 'Курс с таким имененем не найден'
+// _______ Решение мой вариант _______
 
+// --------------------------------------------------------------------
 updateCourse('Express', 'NestJS');
 console.log(courses); // ['HTML', 'CSS', 'JavaScript', 'PostgreSQL', 'NestJS']
 |============================
 */
-// ----------------------------
+// ________________________________________________________________________________________
