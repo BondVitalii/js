@@ -525,7 +525,6 @@ console.log(filterNumbers([100, 200, 300, 400, 500], 7, 12, 200, 64)); // [200]
 
 |============================
 */
-//
 // _________________________________________________________________________________________
 // |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 // =========================================================================================
@@ -747,7 +746,6 @@ console.log(filterNumbers([100, 200, 300, 400, 500], 7, 12, 200, 64)); // [200]
 |============================
 */
 // -------------------------
-//
 // _________________________________________________________________________________________
 // |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 // =========================================================================================
@@ -1338,58 +1336,21 @@ console.log(formatTime(1441)); // "24:01"
 // * removeCourse(name) - удаляет курс из коллекции
 // * updateCourse(oldName, newName) - изменяет имя на новое
 // ----------------------------
-const courses = ['HTML', 'CSS', 'JavaScript', 'React', 'PostgreSQL'];
+// const courses = ['HTML', 'CSS', 'JavaScript', 'React', 'PostgreSQL'];
 // ----------------------------
-function addCourse(course) {
-  if (courses.includes(course)) {
-    return `Вы уже имеете ${course} курс`;
-  }
-  courses.push(course);
-}
-
-addCourse('Express');
-console.log(courses); // ['HTML', 'CSS', 'JavaScript', 'React', 'PostgreSQL', 'Express']
-addCourse('CSS'); // 'У вас уже есть такой курс'
 // -------
-// function removeCourse(course) {
-//   if (courses.includes(course)) {
-//     const idx = courses.indexOf(course);
-//     courses.splice(idx, 1);
-
-//     return;
-//   }
-//   return `Курс с имененем ${course} не найден`;
-// }
-
-function removeCourse(course) {
-  const idx = courses.indexOf(course);
-  if (!!~idx) {
-    courses.splice(idx, 1);
-    return;
-  }
-  return `Курс с имененем ${course} не найден`;
-}
-
-removeCourse('React');
-console.log(courses); // ['HTML', 'CSS', 'JavaScript', 'PostgreSQL', 'Express']
-removeCourse('Vue'); // 'Курс с таким имененем не найден'
-console.log(removeCourse('Vue'));
+// addCourse('Express');
+// console.log(courses); // ['HTML', 'CSS', 'JavaScript', 'React', 'PostgreSQL', 'Express']
+// addCourse('CSS'); // 'У вас уже есть такой курс'
 // -------
-
-function updateCourse(oldCourse, newCourse) {
-  const idx = courses.indexOf(oldCourse);
-
-  if (!!~idx) {
-    courses.splice(idx, 1, newCourse);
-    return;
-  }
-  return `Курс с имененем ${oldCourse} не найден`;
-}
-
+// removeCourse('React');
+// console.log(courses); // ['HTML', 'CSS', 'JavaScript', 'PostgreSQL', 'Express']
+// removeCourse('Vue'); // 'Курс с таким имененем не найден'
+// console.log(removeCourse('Vue'));
 // -------
-updateCourse('Express', 'NestJS');
-console.log(courses); // ['HTML', 'CSS', 'JavaScript', 'PostgreSQL', 'NestJS']
-console.log(updateCourse('Vue', 'NestJS'));
+// updateCourse('Express', 'NestJS');
+// console.log(courses); // ['HTML', 'CSS', 'JavaScript', 'PostgreSQL', 'NestJS']
+// console.log(updateCourse('Vue', 'NestJS'));
 
 // ----------------------------------------------------------------------------------------
 /** Решение: Артем + Георг
