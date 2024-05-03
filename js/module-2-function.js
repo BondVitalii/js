@@ -506,6 +506,7 @@ console.log(add(1, 2, 4, 5, 6));
 const filterNumbers = function (array, ...args) {
   console.log('array: ', array);
   console.log('args: ', args);
+
   const uniqueElements = [];
 
   for (const element of array) {
