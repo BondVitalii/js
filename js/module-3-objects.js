@@ -392,18 +392,20 @@ const cart = {
 |============================
 */
 // _______________________________________________________
-/** Решаем задачи Репета
-|============================
-
+// =======================================================
+// Решаем задачи Репета
 const friends = [
   { name: 'Mango', online: false },
   { name: 'Kiwi', online: true },
   { name: 'Poly', online: false },
   { name: 'Ajax', online: false },
 ];
-// ___________________________________________
-//  Задача-1  * Ищем друга по имени
 
+console.log(findFriendByName(friends, 'Poly'));
+console.log(findFriendByName(friends, 'Chelsy'));
+// ___________________________________________
+/** Задача-1  * Ищем друга по имени
+|============================
 const findFriendByName = function (allFriends, friendName) {
   for (const friend of allFriends) {
     // console.log(friend);
@@ -416,12 +418,14 @@ const findFriendByName = function (allFriends, friendName) {
 
   return 'НЕ НАШЛИ :(';
 };
-
+// --------------------------
 console.log(findFriendByName(friends, 'Poly'));
 console.log(findFriendByName(friends, 'Chelsy'));
+|============================
+*/
 // ___________________________________________
-//  Задача-2  * Получаем имена всех друзей
-
+/** Задача-2  * Получаем имена всех друзей
+|============================
 const getAllNames = function (allFriends) {
   const names = [];
 
@@ -432,9 +436,11 @@ const getAllNames = function (allFriends) {
   return names;
 };
 console.log(getAllNames(friends));
+|============================
+*/
 // ___________________________________________
-//  Задача-3  * Получаем имена только друзей которые онлайн
-
+/** Задача-3  * Получаем имена только друзей которые онлайн
+|============================
 const getOnlineFriends = function (allFriends) {
   const onlineFriends = [];
 
@@ -451,9 +457,11 @@ const getOnlineFriends = function (allFriends) {
 };
 
 console.log(getOnlineFriends(friends));
+|============================
+*/
 // ___________________________________________
-//  Задача-4  * Получаем имена только друзей которые офлайн
-
+/** Задача-4  * Получаем имена только друзей которые офлайн
+|============================
 const getOfflineFriends = function (allFriends) {
   const offlineFriends = [];
 
@@ -469,11 +477,14 @@ const getOfflineFriends = function (allFriends) {
 };
 
 console.log(getOfflineFriends(friends));
+|============================
+*/
 // ___________________________________________
-//  Задача-5  
+/** Задача-5 * создать 2 массива онлайн и офлайн?
+|============================
 // * создать 2 массива онлайн и офлайн?
 // * если тру - в первый, если нет - во второй
-
+// -------------------------------------------
 const getFriendsByStatus = function (allFriends) {
   const friendsByStatus = {
     online: [],
@@ -496,9 +507,11 @@ const getFriendsByStatus = function (allFriends) {
 };
 
 console.log(getFriendsByStatus(friends));
+|============================
+*/
 // ___________________________________________
-//  Задача-6 Как узнать сколько свойств в єтом обьекте?
-
+/** Задача-6 Как узнать сколько свойств в єтом обьекте?
+|============================
 const x = {
   a: 1,
   b: 2,
@@ -506,9 +519,10 @@ const x = {
   d: 100,
 };
 console.log(Object.keys(x).length);
-
 |============================
 */
+// ___________________________________________
+
 // _________________________________________________________________________________________
 // |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 // =========================================================================================
