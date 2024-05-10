@@ -531,7 +531,333 @@ console.log(Object.keys(x).length);
 // =========================================================================================
 // Олег модуль-3 занятие 1 Обьекты
 // ==================================
+/** Теория Объекты Олег
+|============================
+// Доступ до свойства (ключа) объекта.
+const user = {
+  email: 'some.email@gmail.com',
+  password: '***',
+  name: 'Sergiy',
+  book: {
+    name: 'H P',
+  },
+};
 
-// _______________________________________________________
+console.log(user.book.name); // H P
+console.log(user.book); // {name: 'H P'}
+console.log(user); //{email: 'some.email@gmail.com', password: '***', name: 'Sergiy', book: {…}}
 // ___________________________________________
-// ------------
+// Эти записи одинакоый результат дают (user.password;) (user['password'];)
+
+user.password;
+user['password'];
+
+// В эту запись (user['password'];) можно вставить переменную. Пример ниже.
+let field = 'password';
+
+user[field];
+// ___________________________________________
+// Методы обьекта Object.keys(), Object.values(), Object.entries()
+
+// * Object.keys() - Перебор свойств(ключей) объекта.
+// * Object.values() - Перебор значений объекта.
+// * Object.entries() - Масив в масиве.
+
+const user1 = {
+  email: 'some.email@gmail.com',
+  password: '*****',
+  name: 'Sergiy',
+};
+
+console.log(Object.keys(user1)); // ['email', 'password', 'name']
+console.log(Object.values(user1)); // ['some.email@gmail.com', '*****', 'Sergiy']
+console.log(Object.entries(user1)); // [Array(2), Array(2), Array(2)]
+// ___________________________________________
+// Функции в объекте и вызов их.
+const user = {
+  email: 'some.email@gmail.com',
+  password: '*****',
+  name: 'Sergiy',
+  book: {
+    name: 'H P',
+  },
+
+  getName() {
+    return 'SOME NAME';
+  },
+};
+user.getName();                    // Вызов функции
+console.log(user.getName());       // SOME NAME
+// ___________________________________________
+// Масив объектов
+const users = [
+  {
+    email: 'some.email@gmail.com',
+    password: '*****',
+  },
+  {
+    email: 'some2.email@gmail.com',
+    password: '***awdwd**',
+  },
+  {
+    email: 'some3.email@gmail.com',
+    password: '**awdwd***',
+  },
+];
+|============================
+*/
+// _______________________________________________________
+// =======================================================
+// Решаем задачи Олег
+// _______________________________________________________
+// Example 1 - Основи об'єктів
+// Напиши скрипт, який для об'єкта user, послідовно:
+// додає поле mood зі значенням 'happy'
+// замінює значення hobby на 'skydiving'
+// замінює значення premium на false
+// виводить вміст об'єкта user у форматі ключ:значення використовуючи Object.keys() та for...of
+// const user = {
+//   name: 'Mango',
+//   age: 20,
+//   hobby: 'html',
+//   premium: true,
+// };
+// -------------
+/** Решение:
+|============================
+const user = {
+  name: "Mango",
+  age: 20,
+  hobby: "html",
+  premium: true,
+};
+
+user.mood = "happy";
+user.hobby = "skydiving";
+user.premium = false;
+
+for (const key of Object.keys(user)) {
+  console.log(`${key}: ${user[key]}`);
+}
+|============================
+*/
+// _______________________________________________________
+// Example 2 - метод Object.values()
+// У нас є об'єкт, де зберігаються зарплати нашої команди.
+// Напишіть код для підсумовування всіх зарплат і збережіть результат у змінній sum.
+// Повинно вийти 390.
+// Якщо об'єкт salaries порожній, то результат має бути 0.
+// --------------
+// const salaries = {
+//   John: 100,
+//   Ann: 160,
+//   Pete: 130,
+// };
+// -------------
+/** Решение:
+|============================
+const salaries = {
+    John: 100,
+    Ann: 160,
+    Pete: 130,
+};
+
+let sum = 0;
+
+for (const value of Object.values(salaries)) {
+  sum += value;
+}
+
+console.log(sum);
+|============================
+*/
+// _______________________________________________________
+// Example 3 - Масив об'єктів
+// Напишіть функцію calcTotalPrice(stones, stoneName),
+// яка приймає масив об'єктів та рядок з назвою каменю.
+// Функція рахує і повертає загальну вартість каміння з таким ім'ям, ціною та кількістю з об'єкта
+// -------------
+// const stones = [
+//   { name: 'Смарагд', price: 1300, quantity: 4 },
+//   // { name: 'Смарагд', price: 1000, quantity: 2 },
+//   { name: 'Діамант', price: 2700, quantity: 3 },
+//   { name: 'Сапфір', price: 400, quantity: 7 },
+//   // { name: 'Сапфір', price: 100, quantity: 15 },
+//   { name: 'Щебінь', price: 200, quantity: 2 },
+// ];
+// -------------
+/** Решение:
+|============================
+// 1) Вариант-1 Когда у каждого камня одна цена.
+
+const stones = [
+  { name: 'Смарагд', price: 1300, quantity: 4 },
+  { name: 'Діамант', price: 2700, quantity: 3 },
+  { name: 'Сапфір', price: 400, quantity: 7 },
+  { name: 'Щебінь', price: 200, quantity: 2 },
+];
+
+function calcTotalPrice(stones, stoneName) {
+  for (const stone of stones) {
+    if (stone.name === stoneName) {
+      return stone.price * stone.quantity;
+    }
+  }
+  return 0;
+}
+const res = calcTotalPrice(stones, 'Діамант');
+console.log(res);                                    // 8100
+const res2 = calcTotalPrice(stones, 'qweqwe');
+console.log(res2);                                   // 0
+console.log(calcTotalPrice(stones, 'Смарагд'));      // 5200
+
+// ---------------------------------------------------------
+
+//  Вариант-2 Когда у одного камня две разных цены.
+
+const stones = [
+  { name: 'Смарагд', price: 1300, quantity: 4 },
+  { name: 'Смарагд', price: 1000, quantity: 2 },
+  { name: 'Діамант', price: 2700, quantity: 3 },
+  { name: 'Сапфір', price: 400, quantity: 7 },
+  { name: 'Сапфір', price: 100, quantity: 15 },
+  { name: 'Щебінь', price: 200, quantity: 2 },
+];
+
+function calcTotalPrice(stones, stoneName) {
+  const foundStones = [];
+
+  for (const stone of stones) {
+    if (stone.name === stoneName) {
+      foundStones.push(stone);
+    }
+  }
+
+  let sum = 0;
+
+  for (const stone of foundStones) {
+    sum += stone.price * stone.quantity;
+  }
+  return sum;
+}
+
+const res = calcTotalPrice(stones, 'Смарагд');
+console.log(res);                                  // 7200
+const res1 = calcTotalPrice(stones, 'Сапфір');
+console.log(res1);                                 // 4300
+console.log(calcTotalPrice(stones, 'Діамант'));    // 8100
+
+|============================
+*/
+// _______________________________________________________
+// Example 4 - Комплексні завдання
+// Напиши скрипт управління особистим кабінетом інтернет банку.
+// Є об'єкт account в якому необхідно реалізувати методи для роботи з балансом та історією транзакцій.
+// -------------
+
+// -------------
+/** Решение:
+|============================
+
+|============================
+*/
+// _______________________________________________________
+const OPERATION_TYPES = {
+  DEPOSIT: 'DEPOSIT',
+  WITHDRAW: 'WITHDRAW',
+};
+
+const account = {
+  limit: 10000,
+  balance: 0,
+  hideMoney: false,
+  transactions: [],
+
+  createTransaction(amount, type) {
+    const transactions = {
+      id: Math.random().toString(16).substring(2),
+      type,
+      amount,
+    };
+
+    return transactions;
+  },
+
+  deposit(amount) {
+    const newTransaction = this.createTransaction(
+      amount,
+      OPERATION_TYPES.DEPOSIT
+    );
+
+    if (amount > this.limit) {
+      console.error('LIMIT ERROR');
+    } else {
+      this.balance += amount;
+      this.transactions.push(newTransaction);
+    }
+  },
+
+  withdraw(amount) {
+    const newTransaction = this.createTransaction(
+      amount,
+      OPERATION_TYPES.WITHDRAW
+    );
+
+    if (this.balance < amount) {
+      console.error('NOT ENOUGHT MONEY');
+    } else if (amount > this.limit) {
+      console.error('LIMIT ERROR');
+    } else {
+      this.balance -= amount;
+      this.transactions.push(newTransaction);
+    }
+  },
+
+  getBalance() {
+    return this.hideMoney ? ':)' : this.balance;
+  },
+
+  toggleBalanceVisabillity() {
+    this.hideMoney = !this.hideMoney;
+  },
+
+  getTransactionDetails(id) {
+    for (const transaction of this.transactions) {
+      if (id === transaction.id) {
+        return transaction;
+      }
+    }
+  },
+
+  getTransactionTotal(type) {
+    let sum = 0;
+
+    for (const transaction of this.transactions) {
+      if (transaction.type === type) {
+        sum += transaction.amount;
+      }
+    }
+
+    return sum;
+  },
+};
+
+account.deposit(5000);
+console.log(account.getBalance());
+console.log(account.transactions);
+
+account.withdraw(3500);
+account.withdraw(500);
+account.withdraw(250);
+console.log(account.getBalance());
+console.log(account.transactions);
+
+console.log(account.getTransactionDetails(account.transactions[0].id));
+
+console.log(account.getTransactionTotal(OPERATION_TYPES.DEPOSIT));
+
+console.log(account.getBalance());
+account.toggleBalanceVisabillity();
+console.log(account.getBalance());
+account.toggleBalanceVisabillity();
+console.log(account.getBalance());
