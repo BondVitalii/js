@@ -394,6 +394,7 @@ const cart = {
 // _______________________________________________________
 // =======================================================
 // Решаем задачи Репета
+// --------------------
 // const friends = [
 //   { name: 'Mango', online: false },
 //   { name: 'Kiwi', online: true },
@@ -421,9 +422,6 @@ console.log(findFriendByName(friends, 'Chelsy'));
 |============================
 */
 // ------------
-//
-// console.log(findFriendByName(friends, 'Poly'));
-// console.log(findFriendByName(friends, 'Chelsy'));
 // ___________________________________________
 /** Задача-2  * Получаем имена всех друзей
 |============================
@@ -523,9 +521,10 @@ const x = {
   c: 50,
   d: 100,
 };
-console.log(Object.keys(x).length);
+console.log(Object.keys(x).length); // 4
 |============================
 */
+//
 // _________________________________________________________________________________________
 // |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 // =========================================================================================
@@ -612,16 +611,10 @@ const users = [
 // _______________________________________________________
 // Example 1 - Основи об'єктів
 // Напиши скрипт, який для об'єкта user, послідовно:
-// додає поле mood зі значенням 'happy'
-// замінює значення hobby на 'skydiving'
-// замінює значення premium на false
-// виводить вміст об'єкта user у форматі ключ:значення використовуючи Object.keys() та for...of
-// const user = {
-//   name: 'Mango',
-//   age: 20,
-//   hobby: 'html',
-//   premium: true,
-// };
+// * додає поле mood зі значенням 'happy'
+// * замінює значення hobby на 'skydiving'
+// * замінює значення premium на false
+// * виводить вміст об'єкта user у форматі ключ:значення використовуючи Object.keys() та for...of
 // -------------
 /** Решение:
 |============================
@@ -679,10 +672,10 @@ console.log(sum);
 // -------------
 // const stones = [
 //   { name: 'Смарагд', price: 1300, quantity: 4 },
-//   // { name: 'Смарагд', price: 1000, quantity: 2 },
+//   { name: 'Смарагд', price: 1000, quantity: 2 },
 //   { name: 'Діамант', price: 2700, quantity: 3 },
 //   { name: 'Сапфір', price: 400, quantity: 7 },
-//   // { name: 'Сапфір', price: 100, quantity: 15 },
+//   { name: 'Сапфір', price: 100, quantity: 15 },
 //   { name: 'Щебінь', price: 200, quantity: 2 },
 // ];
 // -------------
@@ -755,6 +748,50 @@ console.log(calcTotalPrice(stones, 'Діамант'));    // 8100
 // Є об'єкт account в якому необхідно реалізувати методи для роботи з балансом та історією транзакцій.
 // -------------
 
+// const Transaction = {
+//   DEPOSIT: 'deposit',
+//   WITHDRAW: 'withdraw',
+// };
+const OPERATION_TYPES = {
+  DEPOSIT: 'DEPOSIT',
+  WITHDRAW: 'WITHDRAW',
+};
+
+const account = {
+  balance: 0,
+  transaction: [],
+  /*
+   * Метод створює та повертає об'єкт транзакції.
+   * Приймає суму та тип транзакції.
+   */
+  createTransaction(amount, type) {
+    const transaction = {
+      id: Math.random().toString(16).substring(2),
+      type,
+      amount,
+    };
+    return transaction;
+  },
+
+  /*
+   * Метод, що відповідає за додавання суми до балансу.
+   * Приймає суму транзакції.
+   * Викликає createTransaction для створення об'єкта транзакції
+   * після чого додає його до історії транзакцій
+   */
+  deposit(amount) {
+    const newTransaction = this.createTransaction(
+      amount,
+      OPERATION_TYPES.DEPOSIT
+    );
+    this.balance += amount;
+    this.transaction.push(newTransaction);
+  },
+};
+
+account.deposit(1000);
+console.log(account.balance);
+console.log(account.transaction);
 // -------------
 /** Решение:
 |============================
@@ -762,102 +799,102 @@ console.log(calcTotalPrice(stones, 'Діамант'));    // 8100
 |============================
 */
 // _______________________________________________________
-const OPERATION_TYPES = {
-  DEPOSIT: 'DEPOSIT',
-  WITHDRAW: 'WITHDRAW',
-};
+// const OPERATION_TYPES = {
+//   DEPOSIT: 'DEPOSIT',
+//   WITHDRAW: 'WITHDRAW',
+// };
 
-const account = {
-  limit: 10000,
-  balance: 0,
-  hideMoney: false,
-  transactions: [],
+// const account = {
+//   limit: 10000,
+//   balance: 0,
+//   hideMoney: false,
+//   transactions: [],
 
-  createTransaction(amount, type) {
-    const transactions = {
-      id: Math.random().toString(16).substring(2),
-      type,
-      amount,
-    };
+//   createTransaction(amount, type) {
+//     const transactions = {
+//       id: Math.random().toString(16).substring(2),
+//       type,
+//       amount,
+//     };
 
-    return transactions;
-  },
+//     return transactions;
+//   },
 
-  deposit(amount) {
-    const newTransaction = this.createTransaction(
-      amount,
-      OPERATION_TYPES.DEPOSIT
-    );
+//   deposit(amount) {
+//     const newTransaction = this.createTransaction(
+//       amount,
+//       OPERATION_TYPES.DEPOSIT
+//     );
 
-    if (amount > this.limit) {
-      console.error('LIMIT ERROR');
-    } else {
-      this.balance += amount;
-      this.transactions.push(newTransaction);
-    }
-  },
+//     if (amount > this.limit) {
+//       console.error('LIMIT ERROR');
+//     } else {
+//       this.balance += amount;
+//       this.transactions.push(newTransaction);
+//     }
+//   },
 
-  withdraw(amount) {
-    const newTransaction = this.createTransaction(
-      amount,
-      OPERATION_TYPES.WITHDRAW
-    );
+//   withdraw(amount) {
+//     const newTransaction = this.createTransaction(
+//       amount,
+//       OPERATION_TYPES.WITHDRAW
+//     );
 
-    if (this.balance < amount) {
-      console.error('NOT ENOUGHT MONEY');
-    } else if (amount > this.limit) {
-      console.error('LIMIT ERROR');
-    } else {
-      this.balance -= amount;
-      this.transactions.push(newTransaction);
-    }
-  },
+//     if (this.balance < amount) {
+//       console.error('NOT ENOUGHT MONEY');
+//     } else if (amount > this.limit) {
+//       console.error('LIMIT ERROR');
+//     } else {
+//       this.balance -= amount;
+//       this.transactions.push(newTransaction);
+//     }
+//   },
 
-  getBalance() {
-    return this.hideMoney ? ':)' : this.balance;
-  },
+//   getBalance() {
+//     return this.hideMoney ? ':)' : this.balance;
+//   },
 
-  toggleBalanceVisabillity() {
-    this.hideMoney = !this.hideMoney;
-  },
+//   toggleBalanceVisabillity() {
+//     this.hideMoney = !this.hideMoney;
+//   },
 
-  getTransactionDetails(id) {
-    for (const transaction of this.transactions) {
-      if (id === transaction.id) {
-        return transaction;
-      }
-    }
-  },
+//   getTransactionDetails(id) {
+//     for (const transaction of this.transactions) {
+//       if (id === transaction.id) {
+//         return transaction;
+//       }
+//     }
+//   },
 
-  getTransactionTotal(type) {
-    let sum = 0;
+//   getTransactionTotal(type) {
+//     let sum = 0;
 
-    for (const transaction of this.transactions) {
-      if (transaction.type === type) {
-        sum += transaction.amount;
-      }
-    }
+//     for (const transaction of this.transactions) {
+//       if (transaction.type === type) {
+//         sum += transaction.amount;
+//       }
+//     }
 
-    return sum;
-  },
-};
+//     return sum;
+//   },
+// };
 
-account.deposit(5000);
-console.log(account.getBalance());
-console.log(account.transactions);
+// account.deposit(5000);
+// console.log(account.getBalance());
+// console.log(account.transactions);
 
-account.withdraw(3500);
-account.withdraw(500);
-account.withdraw(250);
-console.log(account.getBalance());
-console.log(account.transactions);
+// account.withdraw(3500);
+// account.withdraw(500);
+// account.withdraw(250);
+// console.log(account.getBalance());
+// console.log(account.transactions);
 
-console.log(account.getTransactionDetails(account.transactions[0].id));
+// console.log(account.getTransactionDetails(account.transactions[0].id));
 
-console.log(account.getTransactionTotal(OPERATION_TYPES.DEPOSIT));
+// console.log(account.getTransactionTotal(OPERATION_TYPES.DEPOSIT));
 
-console.log(account.getBalance());
-account.toggleBalanceVisabillity();
-console.log(account.getBalance());
-account.toggleBalanceVisabillity();
-console.log(account.getBalance());
+// console.log(account.getBalance());
+// account.toggleBalanceVisabillity();
+// console.log(account.getBalance());
+// account.toggleBalanceVisabillity();
+// console.log(account.getBalance());
