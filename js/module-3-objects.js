@@ -743,12 +743,12 @@ console.log(calcTotalPrice(stones, 'Діамант'));    // 8100
 |============================
 */
 // _______________________________________________________
-// // Example 4 - Комплексні завдання
-// // Напиши скрипт управління особистим кабінетом інтернет банку.
-// // Є об'єкт account в якому необхідно реалізувати методи для роботи з балансом та історією транзакцій.
+// Example 4 - Комплексні завдання
+// Напиши скрипт управління особистим кабінетом інтернет банку.
+// Є об'єкт account в якому необхідно реалізувати методи для роботи з балансом та історією транзакцій.
 
-// //  * Типів транзакцій всього два.
-// //  * Можна покласти чи зняти гроші з рахунку.
+//  * Типів транзакцій всього два.
+//  * Можна покласти чи зняти гроші з рахунку.
 
 // const Transaction = {
 //   DEPOSIT: 'deposit',
@@ -800,6 +800,99 @@ console.log(calcTotalPrice(stones, 'Діамант'));    // 8100
 //   getTransactionTotal(type) {},
 // };
 
+// -------------------------------------------------------
+/** Решение Олег решение 1-вое
+|============================
+const OPERATION_TYPES = {
+  DEPOSIT: 'DEPOSIT',
+  WITHDRAW: 'WITHDRAW',
+};
+
+const account = {
+  limit: 10000,
+  balance: 0,
+  transactions: [],
+
+  createTransaction(amount, type) {
+    const transactions = {
+      id: Math.random().toString(16).substring(2),
+      type,
+      amount,
+    };
+    return transactions;
+  },
+
+  deposit(amount) {
+    const newTransaction = this.createTransaction(
+      amount,
+      OPERATION_TYPES.DEPOSIT
+    );
+
+    if (amount > this.limit) {
+      console.error('LIMIT ERROR');
+    } else {
+      this.balance += amount;
+      this.transactions.push(newTransaction);
+    }
+  },
+
+  withdraw(amount) {
+    const newTransaction = this.createTransaction(
+      amount,
+      OPERATION_TYPES.WITHDRAW
+    );
+
+    if (this.balance < amount) {
+      console.error('NOT ENOUGHT MONEY');
+    } else if (amount > this.limit) {
+      console.error('LIMIT ERROR');
+    } else {
+      this.balance -= amount;
+      this.transactions.push(newTransaction);
+    }
+  },
+
+  getBalance() {
+    return this.balance;
+  },
+
+  getTransactionDetails(id) {
+    for (const transaction of this.transactions) {
+      if (id === transaction.id) {
+        return transaction;
+      }
+    }
+  },
+
+  getTransactionTotal(type) {
+    let sum = 0;
+
+    for (const transaction of this.transactions) {
+      if (transaction.type === type) {
+        sum += transaction.amount;
+      }
+    }
+
+    return sum;
+  },
+};
+
+account.deposit(5000);
+console.log(account.getBalance());
+console.log(account.transactions);
+
+account.withdraw(3500);
+account.withdraw(500);
+account.withdraw(250);
+console.log(account.getBalance());
+console.log(account.transactions);
+
+console.log(account.getTransactionDetails(account.transactions[0].id));
+
+console.log(account.getTransactionTotal(OPERATION_TYPES.WITHDRAW));
+console.log(account.getTransactionTotal(OPERATION_TYPES.DEPOSIT));
+|============================
+*/
 // -------------------------------------------------------
 /** Решение: Олег решение 2 полное с дополнением
 |============================
@@ -905,199 +998,7 @@ console.log(calcTotalPrice(stones, 'Діамант'));    // 8100
 
 |============================
 */
-// -------------------------------------------------------
-/** Решение Олег решение 1-вое
-|============================
-const OPERATION_TYPES = {
-  DEPOSIT: 'DEPOSIT',
-  WITHDRAW: 'WITHDRAW',
-};
-
-const account = {
-  limit: 10000,
-  balance: 0,
-  transactions: [],
-
-  createTransaction(amount, type) {
-    const transactions = {
-      id: Math.random().toString(16).substring(2),
-      type,
-      amount,
-    };
-    return transactions;
-  },
-
-  deposit(amount) {
-    const newTransaction = this.createTransaction(
-      amount,
-      OPERATION_TYPES.DEPOSIT
-    );
-
-    if (amount > this.limit) {
-      console.error('LIMIT ERROR');
-    } else {
-      this.balance += amount;
-      this.transactions.push(newTransaction);
-    }
-  },
-
-  withdraw(amount) {
-    const newTransaction = this.createTransaction(
-      amount,
-      OPERATION_TYPES.WITHDRAW
-    );
-
-    if (this.balance < amount) {
-      console.error('NOT ENOUGHT MONEY');
-    } else if (amount > this.limit) {
-      console.error('LIMIT ERROR');
-    } else {
-      this.balance -= amount;
-      this.transactions.push(newTransaction);
-    }
-  },
-
-  getBalance() {
-    return this.balance;
-  },
-
-  getTransactionDetails(id) {
-    for (const transaction of this.transactions) {
-      if (id === transaction.id) {
-        return transaction;
-      }
-    }
-  },
-
-  getTransactionTotal(type) {
-    let sum = 0;
-
-    for (const transaction of this.transactions) {
-      if (transaction.type === type) {
-        sum += transaction.amount;
-      }
-    }
-
-    return sum;
-  },
-};
-
-account.deposit(5000);
-console.log(account.getBalance());
-console.log(account.transactions);
-
-account.withdraw(3500);
-account.withdraw(500);
-account.withdraw(250);
-console.log(account.getBalance());
-console.log(account.transactions);
-
-console.log(account.getTransactionDetails(account.transactions[0].id));
-
-console.log(account.getTransactionTotal(OPERATION_TYPES.WITHDRAW));
-console.log(account.getTransactionTotal(OPERATION_TYPES.DEPOSIT));
-|============================
-*/
 // _______________________________________________________
 
 // _______________________________________________________
 // -------------
-const OPERATION_TYPES = {
-  DEPOSIT: 'DEPOSIT',
-  WITHDRAW: 'WITHDRAW',
-};
-
-const account = {
-  limit: 10000,
-  balance: 0,
-  hideMoney: false,
-  transactions: [],
-
-  createTransaction(amount, type) {
-    const transactions = {
-      id: Math.random().toString(16).substring(2),
-      type,
-      amount,
-    };
-    return transactions;
-  },
-
-  deposit(amount) {
-    const newTransaction = this.createTransaction(
-      amount,
-      OPERATION_TYPES.DEPOSIT
-    );
-
-    if (amount > this.limit) {
-      console.error('LIMIT ERROR');
-    } else {
-      this.balance += amount;
-      this.transactions.push(newTransaction);
-    }
-  },
-
-  withdraw(amount) {
-    const newTransaction = this.createTransaction(
-      amount,
-      OPERATION_TYPES.WITHDRAW
-    );
-
-    if (this.balance < amount) {
-      console.error('NOT ENOUGHT MONEY');
-    } else if (amount > this.limit) {
-      console.error('LIMIT ERROR');
-    } else {
-      this.balance -= amount;
-      this.transactions.push(newTransaction);
-    }
-  },
-
-  getBalance() {
-    return this.hideMoney ? ':)' : this.balance;
-  },
-
-  toggleBalanceVisability() {
-    this.hideMoney = !this.hideMoney;
-  },
-
-  getTransactionDetails(id) {
-    for (const transaction of this.transactions) {
-      if (id === transaction.id) {
-        return transaction;
-      }
-    }
-  },
-
-  getTransactionTotal(type) {
-    let sum = 0;
-
-    for (const transaction of this.transactions) {
-      if (transaction.type === type) {
-        sum += transaction.amount;
-      }
-    }
-
-    return sum;
-  },
-};
-
-account.deposit(5000);
-console.log(account.getBalance());
-console.log(account.transactions);
-
-account.withdraw(3500);
-account.withdraw(500);
-account.withdraw(250);
-console.log(account.getBalance());
-console.log(account.transactions);
-
-console.log(account.getTransactionDetails(account.transactions[0].id));
-
-console.log(account.getTransactionTotal(OPERATION_TYPES.WITHDRAW));
-console.log(account.getTransactionTotal(OPERATION_TYPES.DEPOSIT));
-
-console.log(account.getBalance());
-account.toggleBalanceVisability();
-console.log(account.getBalance());
-account.toggleBalanceVisability();
-console.log(account.getBalance());
