@@ -743,62 +743,66 @@ console.log(calcTotalPrice(stones, 'Діамант'));    // 8100
 |============================
 */
 // _______________________________________________________
-// Example 4 - Комплексні завдання
-// Напиши скрипт управління особистим кабінетом інтернет банку.
-// Є об'єкт account в якому необхідно реалізувати методи для роботи з балансом та історією транзакцій.
-// -------------
+// // Example 4 - Комплексні завдання
+// // Напиши скрипт управління особистим кабінетом інтернет банку.
+// // Є об'єкт account в якому необхідно реалізувати методи для роботи з балансом та історією транзакцій.
+
+// //  * Типів транзакцій всього два.
+// //  * Можна покласти чи зняти гроші з рахунку.
 
 // const Transaction = {
 //   DEPOSIT: 'deposit',
 //   WITHDRAW: 'withdraw',
 // };
-const OPERATION_TYPES = {
-  DEPOSIT: 'DEPOSIT',
-  WITHDRAW: 'WITHDRAW',
-};
 
-const account = {
-  balance: 0,
-  transaction: [],
-  /*
-   * Метод створює та повертає об'єкт транзакції.
-   * Приймає суму та тип транзакції.
-   */
-  createTransaction(amount, type) {
-    const transaction = {
-      id: Math.random().toString(16).substring(2),
-      type,
-      amount,
-    };
-    return transaction;
-  },
+// //  * Кожна транзакція це об'єкт із властивостями: id, type та amount
 
-  /*
-   * Метод, що відповідає за додавання суми до балансу.
-   * Приймає суму транзакції.
-   * Викликає createTransaction для створення об'єкта транзакції
-   * після чого додає його до історії транзакцій
-   */
-  deposit(amount) {
-    const newTransaction = this.createTransaction(
-      amount,
-      OPERATION_TYPES.DEPOSIT
-    );
-    this.balance += amount;
-    this.transaction.push(newTransaction);
-  },
-};
+// const account = {
+//   // Поточний баланс рахунку
+//   balance: 0,
 
-account.deposit(1000);
-console.log(account.balance);
-console.log(account.transaction);
-// -------------
-/** Решение:
+//   // Історія транзакцій
+//   transactions: [],
+
+//   //  * Метод створює та повертає об'єкт транзакції.
+//   //  * Приймає суму та тип транзакції.
+
+//   createTransaction(amount, type) {},
+
+//   //  * Метод, що відповідає за додавання суми до балансу.
+//   //  * Приймає суму транзакції.
+//   //  * Викликає createTransaction для створення об'єкта транзакції
+//   //  * після чого додає його до історії транзакцій
+
+//   deposit(amount) {},
+
+//   //  * Метод, що відповідає за зняття суми з балансу.
+//   //  * Приймає суму транзакції.
+//   //  * Викликає createTransaction для створення об'єкта транзакції
+//   //  * після чого додає його до історії транзакцій.
+//   //  *
+//   //  * Якщо amount більше ніж поточний баланс, виводь повідомлення
+//   //  * про те, що зняття такої суми не можливе, недостатньо коштів.
+
+//   withdraw(amount) {},
+
+//   //  * Метод повертає поточний баланс
+
+//   getBalance() {},
+
+//   //  * Метод шукає та повертає об'єкт транзакції по id
+
+//   getTransactionDetails(id) {},
+
+//   //  * Метод повертає кількість коштів
+//   //  * певного типу транзакції з усієї історії транзакцій
+
+//   getTransactionTotal(type) {},
+// };
+
+// -------------------------------------------------------
+/** Решение: Олег решение 2 полное с дополнением
 |============================
-
-|============================
-*/
-// _______________________________________________________
 // const OPERATION_TYPES = {
 //   DEPOSIT: 'DEPOSIT',
 //   WITHDRAW: 'WITHDRAW',
@@ -898,3 +902,202 @@ console.log(account.transaction);
 // console.log(account.getBalance());
 // account.toggleBalanceVisabillity();
 // console.log(account.getBalance());
+
+|============================
+*/
+// -------------------------------------------------------
+/** Решение Олег решение 1-вое
+|============================
+const OPERATION_TYPES = {
+  DEPOSIT: 'DEPOSIT',
+  WITHDRAW: 'WITHDRAW',
+};
+
+const account = {
+  limit: 10000,
+  balance: 0,
+  transactions: [],
+
+  createTransaction(amount, type) {
+    const transactions = {
+      id: Math.random().toString(16).substring(2),
+      type,
+      amount,
+    };
+    return transactions;
+  },
+
+  deposit(amount) {
+    const newTransaction = this.createTransaction(
+      amount,
+      OPERATION_TYPES.DEPOSIT
+    );
+
+    if (amount > this.limit) {
+      console.error('LIMIT ERROR');
+    } else {
+      this.balance += amount;
+      this.transactions.push(newTransaction);
+    }
+  },
+
+  withdraw(amount) {
+    const newTransaction = this.createTransaction(
+      amount,
+      OPERATION_TYPES.WITHDRAW
+    );
+
+    if (this.balance < amount) {
+      console.error('NOT ENOUGHT MONEY');
+    } else if (amount > this.limit) {
+      console.error('LIMIT ERROR');
+    } else {
+      this.balance -= amount;
+      this.transactions.push(newTransaction);
+    }
+  },
+
+  getBalance() {
+    return this.balance;
+  },
+
+  getTransactionDetails(id) {
+    for (const transaction of this.transactions) {
+      if (id === transaction.id) {
+        return transaction;
+      }
+    }
+  },
+
+  getTransactionTotal(type) {
+    let sum = 0;
+
+    for (const transaction of this.transactions) {
+      if (transaction.type === type) {
+        sum += transaction.amount;
+      }
+    }
+
+    return sum;
+  },
+};
+
+account.deposit(5000);
+console.log(account.getBalance());
+console.log(account.transactions);
+
+account.withdraw(3500);
+account.withdraw(500);
+account.withdraw(250);
+console.log(account.getBalance());
+console.log(account.transactions);
+
+console.log(account.getTransactionDetails(account.transactions[0].id));
+
+console.log(account.getTransactionTotal(OPERATION_TYPES.WITHDRAW));
+console.log(account.getTransactionTotal(OPERATION_TYPES.DEPOSIT));
+|============================
+*/
+// _______________________________________________________
+
+// _______________________________________________________
+// -------------
+const OPERATION_TYPES = {
+  DEPOSIT: 'DEPOSIT',
+  WITHDRAW: 'WITHDRAW',
+};
+
+const account = {
+  limit: 10000,
+  balance: 0,
+  hideMoney: false,
+  transactions: [],
+
+  createTransaction(amount, type) {
+    const transactions = {
+      id: Math.random().toString(16).substring(2),
+      type,
+      amount,
+    };
+    return transactions;
+  },
+
+  deposit(amount) {
+    const newTransaction = this.createTransaction(
+      amount,
+      OPERATION_TYPES.DEPOSIT
+    );
+
+    if (amount > this.limit) {
+      console.error('LIMIT ERROR');
+    } else {
+      this.balance += amount;
+      this.transactions.push(newTransaction);
+    }
+  },
+
+  withdraw(amount) {
+    const newTransaction = this.createTransaction(
+      amount,
+      OPERATION_TYPES.WITHDRAW
+    );
+
+    if (this.balance < amount) {
+      console.error('NOT ENOUGHT MONEY');
+    } else if (amount > this.limit) {
+      console.error('LIMIT ERROR');
+    } else {
+      this.balance -= amount;
+      this.transactions.push(newTransaction);
+    }
+  },
+
+  getBalance() {
+    return this.hideMoney ? ':)' : this.balance;
+  },
+
+  toggleBalanceVisability() {
+    this.hideMoney = !this.hideMoney;
+  },
+
+  getTransactionDetails(id) {
+    for (const transaction of this.transactions) {
+      if (id === transaction.id) {
+        return transaction;
+      }
+    }
+  },
+
+  getTransactionTotal(type) {
+    let sum = 0;
+
+    for (const transaction of this.transactions) {
+      if (transaction.type === type) {
+        sum += transaction.amount;
+      }
+    }
+
+    return sum;
+  },
+};
+
+account.deposit(5000);
+console.log(account.getBalance());
+console.log(account.transactions);
+
+account.withdraw(3500);
+account.withdraw(500);
+account.withdraw(250);
+console.log(account.getBalance());
+console.log(account.transactions);
+
+console.log(account.getTransactionDetails(account.transactions[0].id));
+
+console.log(account.getTransactionTotal(OPERATION_TYPES.WITHDRAW));
+console.log(account.getTransactionTotal(OPERATION_TYPES.DEPOSIT));
+
+console.log(account.getBalance());
+account.toggleBalanceVisability();
+console.log(account.getBalance());
+account.toggleBalanceVisability();
+console.log(account.getBalance());
