@@ -1108,12 +1108,9 @@ Object.freeze(user); // Заморозка объекта, чтоб его не 
 user.asdfwesgfasdfasz = 'dasdgvsdfdafsed';
 user.age = 100;
 console.log(user);
-|============================
-*/
 // _______________________________________________________
-// -------------
 // Переборы объектов.
-
+// -------------------------------------------------------
 // Что такое собственное и унаследованное свойство. И что такое собственный объект.
 
 // * Собственный объект - Это когда объект мы прописали сами или откуда-то его получили.
@@ -1136,13 +1133,85 @@ console.log(user2); // {} Пустой обьект но с прототипом
 user2.age = 33;
 console.log(user2);
 
+// Делаем проверку собственный ключ в объекте или унаследованный.
+
 for (const key in user2) {
+  // для проверки собственный ключ или унаследованный используем метод .hasOwnProperty(key)
   if (user2.hasOwnProperty(key)) {
-    // для проверки собственное свойство или унаследованное используем метод .hasOwnProperty(key)
     console.log('Own', user2[key]);
   } else {
     console.log('All', user2[key]);
   }
 }
-
 console.log('All', user2[key]);
+
+// -------------------------------------------------------
+// Просто узнаем есть ли вообще ключ в объекте или нет.
+
+const user = {
+  score: false,
+};
+
+// Вариант-1 (только собственный ключ покажет)
+if (user.hasOwnProperty('score')) {
+  console.log('yes');
+} else {
+  console.log('no');
+}
+
+// Вариант-2 (любой собственный или унаследованный ключ покажет)
+if ('score' in user) {
+  console.log('yes');
+} else {
+  console.log('no');
+}
+// _______________________________________________________
+|============================
+*/
+
+const user = {
+  name: 'Artem',
+  age: 28,
+  languages: {
+    html: false,
+    css: false,
+    js: true,
+    ReactNative: false,
+  },
+  sayHello() {
+    console.log(`My name ${this.name}`);
+  },
+  iKnow() {
+    // const keys = Object.keys(this.languages);
+    // const values = Object.values(this.languages);
+    // const entries = Object.entries(this.languages);
+    const keys = Object.keys(this);
+    for (const key of keys) {
+      if (typeof this[key] === 'function') {
+        continue;
+      } else {
+        console.log(key);
+      }
+    }
+    console.log(keys);
+    // console.log(values);
+    // console.log(entries);
+    // for (const key of keys) {
+    //     console.log(key);
+    //     if (this.languages[key]) {
+    //         // console.log(key);
+    //     }
+    // }
+    // console.log(keys);
+    // for(const key in this.languages){
+    //     if(this.languages[key])
+    //     console.log(key);
+    // }
+  },
+};
+user.iKnow();
+// const user2 = Object.create(user);
+// user2.name = 'Den';
+// console.log(user2);
+// user2.sayHello()
+// user.sayHello()
