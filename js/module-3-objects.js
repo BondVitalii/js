@@ -615,6 +615,12 @@ const users = [
 // * замінює значення hobby на 'skydiving'
 // * замінює значення premium на false
 // * виводить вміст об'єкта user у форматі ключ:значення використовуючи Object.keys() та for...of
+// const user = {
+//   name: 'Mango',
+//   age: 20,
+//   hobby: 'html',
+//   premium: true,
+// };
 // -------------
 /** Решение:
 |============================
@@ -670,14 +676,16 @@ console.log(sum);
 // яка приймає масив об'єктів та рядок з назвою каменю.
 // Функція рахує і повертає загальну вартість каміння з таким ім'ям, ціною та кількістю з об'єкта
 // -------------
-// const stones = [
-//   { name: 'Смарагд', price: 1300, quantity: 4 },
-//   { name: 'Смарагд', price: 1000, quantity: 2 },
-//   { name: 'Діамант', price: 2700, quantity: 3 },
-//   { name: 'Сапфір', price: 400, quantity: 7 },
-//   { name: 'Сапфір', price: 100, quantity: 15 },
-//   { name: 'Щебінь', price: 200, quantity: 2 },
-// ];
+const stones = [
+  { name: 'Смарагд', price: 1300, quantity: 4 },
+  { name: 'Смарагд', price: 1000, quantity: 2 },
+  { name: 'Діамант', price: 2700, quantity: 3 },
+  { name: 'Сапфір', price: 400, quantity: 7 },
+  { name: 'Сапфір', price: 100, quantity: 15 },
+  { name: 'Щебінь', price: 200, quantity: 2 },
+];
+
+function calcTotalPrice(stones, stoneName) {}
 // -------------
 /** Решение:
 |============================
@@ -1166,8 +1174,41 @@ if ('score' in user) {
   console.log('no');
 }
 // _______________________________________________________
-|============================
-*/
+// this
+// ------------
+
+const user = {
+  name: 'Artem',
+  age: 28,
+  languages: {
+    html: false,
+    css: false,
+    js: true,
+    ReactNative: false,
+  },
+  sayHello() {
+    console.log(`My name ${this.name}`);
+    // Если вызовет user то вернется My name Artem
+    // Если вызовет user2 то вернется  My name Den
+  },
+
+};
+
+const user2 = Object.create(user);           // Создаем унаследованный объект.
+user2.name = 'Den';            // Создаем ключ name с значением 'Den' в унаследованном объекте.
+
+console.log(user2);                          // {name: 'Den'}
+console.log(user);          // {name: 'Artem', age: 28, languages: {…}, sayHello: ƒ, iKnow: ƒ}
+
+user2.sayHello();
+user.sayHello();
+
+// _______________________________________________________
+// Перебор обїектов.
+// =================
+// Методы объекта.
+// -------------------------------------------------------
+// Вариан 1 Перебор методом Object.keys() Всегда возвращает 100% собственные свойства(ключи).
 
 const user = {
   name: 'Artem',
@@ -1182,36 +1223,91 @@ const user = {
     console.log(`My name ${this.name}`);
   },
   iKnow() {
-    // const keys = Object.keys(this.languages);
-    // const values = Object.values(this.languages);
-    // const entries = Object.entries(this.languages);
-    const keys = Object.keys(this);
-    for (const key of keys) {
-      if (typeof this[key] === 'function') {
-        continue;
-      } else {
-        console.log(key);
+    // const keys = Object.keys(this);
+    // console.log(keys);                // ['name', 'age', 'languages', 'sayHello', 'iKnow'];
+
+    const keys = Object.keys(this.languages);          // Получаем весь масив ключей
+    // console.log(keys);                // ['html', 'css', 'js', 'ReactNative'] Масив ключей.
+    
+    for (const key of keys) {                          // Перебираем масив ключей
+      // console.log(this.languages[key]);   // Получаем все значение ключей объекта languages
+      if (this.languages[key]) {
+        // Ставим условие, если ключ true, то выполни тело if
+        console.log(key);                   // js (Получили ключ который true)
       }
     }
-    console.log(keys);
-    // console.log(values);
-    // console.log(entries);
-    // for (const key of keys) {
-    //     console.log(key);
-    //     if (this.languages[key]) {
-    //         // console.log(key);
-    //     }
-    // }
-    // console.log(keys);
-    // for(const key in this.languages){
-    //     if(this.languages[key])
-    //     console.log(key);
-    // }
+};
+user.iKnow(); 
+// -------------------------------------------------------
+// Вариан 2 Перебор через for in
+
+const user = {
+  name: 'Artem',
+  age: 28,
+  languages: {
+    html: false,
+    css: false,
+    js: true,
+    ReactNative: false,
+  },
+  sayHello() {
+    console.log(`My name ${this.name}`);
+  },
+  iKnow() {
+    for (const key in this.languages) {
+      if (this.languages[key]) {
+        console.log(key);                        // js
+      }
+    }
+  },
+};
+user.iKnow(); 
+// _______________________________________________________
+// Метод Object.values() возвращает значения ключей.
+
+const user = {
+  name: 'Artem',
+  age: 28,
+  languages: {
+    html: false,
+    css: false,
+    js: true,
+    ReactNative: false,
+  },
+  sayHello() {
+    console.log(`My name ${this.name}`);
+  },
+  iKnow() {
+    const values = Object.values(this.languages);
+    console.log(values);                                     // [false, false, true, false]
   },
 };
 user.iKnow();
-// const user2 = Object.create(user);
-// user2.name = 'Den';
-// console.log(user2);
-// user2.sayHello()
-// user.sayHello()
+// _______________________________________________________
+// Метод Object.entries() возвращает [[свойство, значения] [свойство, значения]] масив масивов.
+
+const user = {
+  name: 'Artem',
+  age: 28,
+  languages: {
+    html: false,
+    css: false,
+    js: true,
+    ReactNative: false,
+  },
+  sayHello() {
+    console.log(`My name ${this.name}`);
+  },
+  iKnow() {
+    const entries = Object.entries(this.languages);
+    console.log(entries); // [Array(2), Array(2), Array(2), Array(2)]
+  },
+};
+user.iKnow();
+
+|============================
+*/
+// _______________________________________________________
+// =======================================================
+// Решаем задачи Артем
+// _______________________________________________________
