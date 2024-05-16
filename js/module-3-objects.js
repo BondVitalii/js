@@ -528,499 +528,9 @@ console.log(Object.keys(x).length); // 4
 // _________________________________________________________________________________________
 // |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 // =========================================================================================
-// Олег модуль-3 занятие 1 Обьекты
-// ==================================
-/** Теория Объекты Олег
-|============================
-// Доступ до свойства (ключа) объекта.
-const user = {
-  email: 'some.email@gmail.com',
-  password: '***',
-  name: 'Sergiy',
-  book: {
-    name: 'H P',
-  },
-};
-
-console.log(user.book.name); // H P
-console.log(user.book); // {name: 'H P'}
-console.log(user); //{email: 'some.email@gmail.com', password: '***', name: 'Sergiy', book: {…}}
-// ___________________________________________
-// Эти записи одинакоый результат дают (user.password;) (user['password'];)
-
-user.password;
-user['password'];
-
-// В эту запись (user['password'];) можно вставить переменную. Пример ниже.
-let field = 'password';
-
-user[field];
-// ___________________________________________
-// Методы обьекта Object.keys(), Object.values(), Object.entries()
-
-// * Object.keys() - Перебор свойств(ключей) объекта.
-// * Object.values() - Перебор значений объекта.
-// * Object.entries() - Масив в масиве.
-
-const user1 = {
-  email: 'some.email@gmail.com',
-  password: '*****',
-  name: 'Sergiy',
-};
-
-console.log(Object.keys(user1)); // ['email', 'password', 'name']
-console.log(Object.values(user1)); // ['some.email@gmail.com', '*****', 'Sergiy']
-console.log(Object.entries(user1)); // [Array(2), Array(2), Array(2)]
-// ___________________________________________
-// Функции в объекте и вызов их.
-const user = {
-  email: 'some.email@gmail.com',
-  password: '*****',
-  name: 'Sergiy',
-  book: {
-    name: 'H P',
-  },
-
-  getName() {
-    return 'SOME NAME';
-  },
-};
-user.getName();                    // Вызов функции
-console.log(user.getName());       // SOME NAME
-// ___________________________________________
-// Масив объектов
-const users = [
-  {
-    email: 'some.email@gmail.com',
-    password: '*****',
-  },
-  {
-    email: 'some2.email@gmail.com',
-    password: '***awdwd**',
-  },
-  {
-    email: 'some3.email@gmail.com',
-    password: '**awdwd***',
-  },
-];
-|============================
-*/
-// _______________________________________________________
-// =======================================================
-// Решаем задачи Олег
-// _______________________________________________________
-// Example 1 - Основи об'єктів
-// Напиши скрипт, який для об'єкта user, послідовно:
-// * додає поле mood зі значенням 'happy'
-// * замінює значення hobby на 'skydiving'
-// * замінює значення premium на false
-// * виводить вміст об'єкта user у форматі ключ:значення використовуючи Object.keys() та for...of
-// const user = {
-//   name: 'Mango',
-//   age: 20,
-//   hobby: 'html',
-//   premium: true,
-// };
-// -------------
-/** Решение:
-|============================
-const user = {
-  name: "Mango",
-  age: 20,
-  hobby: "html",
-  premium: true,
-};
-
-user.mood = "happy";
-user.hobby = "skydiving";
-user.premium = false;
-
-for (const key of Object.keys(user)) {
-  console.log(`${key}: ${user[key]}`);
-}
-|============================
-*/
-// _______________________________________________________
-// Example 2 - метод Object.values()
-// У нас є об'єкт, де зберігаються зарплати нашої команди.
-// Напишіть код для підсумовування всіх зарплат і збережіть результат у змінній sum.
-// Повинно вийти 390.
-// Якщо об'єкт salaries порожній, то результат має бути 0.
-// --------------
-// const salaries = {
-//   John: 100,
-//   Ann: 160,
-//   Pete: 130,
-// };
-// -------------
-/** Решение:
-|============================
-const salaries = {
-    John: 100,
-    Ann: 160,
-    Pete: 130,
-};
-
-let sum = 0;
-
-for (const value of Object.values(salaries)) {
-  sum += value;
-}
-
-console.log(sum);
-|============================
-*/
-// _______________________________________________________
-// Example 3 - Масив об'єктів
-// Напишіть функцію calcTotalPrice(stones, stoneName),
-// яка приймає масив об'єктів та рядок з назвою каменю.
-// Функція рахує і повертає загальну вартість каміння з таким ім'ям, ціною та кількістю з об'єкта
-// -------------
-const stones = [
-  { name: 'Смарагд', price: 1300, quantity: 4 },
-  { name: 'Смарагд', price: 1000, quantity: 2 },
-  { name: 'Діамант', price: 2700, quantity: 3 },
-  { name: 'Сапфір', price: 400, quantity: 7 },
-  { name: 'Сапфір', price: 100, quantity: 15 },
-  { name: 'Щебінь', price: 200, quantity: 2 },
-];
-
-function calcTotalPrice(stones, stoneName) {}
-// -------------
-/** Решение:
-|============================
-// 1) Вариант-1 Когда у каждого камня одна цена.
-
-const stones = [
-  { name: 'Смарагд', price: 1300, quantity: 4 },
-  { name: 'Діамант', price: 2700, quantity: 3 },
-  { name: 'Сапфір', price: 400, quantity: 7 },
-  { name: 'Щебінь', price: 200, quantity: 2 },
-];
-
-function calcTotalPrice(stones, stoneName) {
-  for (const stone of stones) {
-    if (stone.name === stoneName) {
-      return stone.price * stone.quantity;
-    }
-  }
-  return 0;
-}
-const res = calcTotalPrice(stones, 'Діамант');
-console.log(res);                                    // 8100
-const res2 = calcTotalPrice(stones, 'qweqwe');
-console.log(res2);                                   // 0
-console.log(calcTotalPrice(stones, 'Смарагд'));      // 5200
-
-// ---------------------------------------------------------
-
-//  Вариант-2 Когда у одного камня две разных цены.
-
-const stones = [
-  { name: 'Смарагд', price: 1300, quantity: 4 },
-  { name: 'Смарагд', price: 1000, quantity: 2 },
-  { name: 'Діамант', price: 2700, quantity: 3 },
-  { name: 'Сапфір', price: 400, quantity: 7 },
-  { name: 'Сапфір', price: 100, quantity: 15 },
-  { name: 'Щебінь', price: 200, quantity: 2 },
-];
-
-function calcTotalPrice(stones, stoneName) {
-  const foundStones = [];
-
-  for (const stone of stones) {
-    if (stone.name === stoneName) {
-      foundStones.push(stone);
-    }
-  }
-
-  let sum = 0;
-
-  for (const stone of foundStones) {
-    sum += stone.price * stone.quantity;
-  }
-  return sum;
-}
-
-const res = calcTotalPrice(stones, 'Смарагд');
-console.log(res);                                  // 7200
-const res1 = calcTotalPrice(stones, 'Сапфір');
-console.log(res1);                                 // 4300
-console.log(calcTotalPrice(stones, 'Діамант'));    // 8100
-
-|============================
-*/
-// _______________________________________________________
-// Example 4 - Комплексні завдання
-// Напиши скрипт управління особистим кабінетом інтернет банку.
-// Є об'єкт account в якому необхідно реалізувати методи для роботи з балансом та історією транзакцій.
-// -------------
-/** Задание задачи
-|============================
-// Напиши скрипт управління особистим кабінетом інтернет банку.
-// Є об'єкт account в якому необхідно реалізувати методи для роботи з балансом та історією транзакцій.
-
-//  * Типів транзакцій всього два.
-//  * Можна покласти чи зняти гроші з рахунку.
-
-const Transaction = {
-  DEPOSIT: 'deposit',
-  WITHDRAW: 'withdraw',
-};
-
-//  * Кожна транзакція це об'єкт із властивостями: id, type та amount
-
-const account = {
-  // Поточний баланс рахунку
-  balance: 0,
-
-  // Історія транзакцій
-  transactions: [],
-
-  //  * Метод створює та повертає об'єкт транзакції.
-  //  * Приймає суму та тип транзакції.
-
-  createTransaction(amount, type) {},
-
-  //  * Метод, що відповідає за додавання суми до балансу.
-  //  * Приймає суму транзакції.
-  //  * Викликає createTransaction для створення об'єкта транзакції
-  //  * після чого додає його до історії транзакцій
-
-  deposit(amount) {},
-
-  //  * Метод, що відповідає за зняття суми з балансу.
-  //  * Приймає суму транзакції.
-  //  * Викликає createTransaction для створення об'єкта транзакції
-  //  * після чого додає його до історії транзакцій.
-  //  *
-  //  * Якщо amount більше ніж поточний баланс, виводь повідомлення
-  //  * про те, що зняття такої суми не можливе, недостатньо коштів.
-
-  withdraw(amount) {},
-
-  //  * Метод повертає поточний баланс
-
-  getBalance() {},
-
-  //  * Метод шукає та повертає об'єкт транзакції по id
-
-  getTransactionDetails(id) {},
-
-  //  * Метод повертає кількість коштів
-  //  * певного типу транзакції з усієї історії транзакцій
-
-  getTransactionTotal(type) {},
-};
-
-|============================
-*/
-// -------------------------------------------------------
-/** Решение Олег решение 1-вое
-|============================
-const OPERATION_TYPES = {
-  DEPOSIT: 'DEPOSIT',
-  WITHDRAW: 'WITHDRAW',
-};
-
-const account = {
-  limit: 10000,
-  balance: 0,
-  transactions: [],
-
-  createTransaction(amount, type) {
-    const transactions = {
-      id: Math.random().toString(16).substring(2),
-      type,
-      amount,
-    };
-    return transactions;
-  },
-
-  deposit(amount) {
-    const newTransaction = this.createTransaction(
-      amount,
-      OPERATION_TYPES.DEPOSIT
-    );
-
-    if (amount > this.limit) {
-      console.error('LIMIT ERROR');
-    } else {
-      this.balance += amount;
-      this.transactions.push(newTransaction);
-    }
-  },
-
-  withdraw(amount) {
-    const newTransaction = this.createTransaction(
-      amount,
-      OPERATION_TYPES.WITHDRAW
-    );
-
-    if (this.balance < amount) {
-      console.error('NOT ENOUGHT MONEY');
-    } else if (amount > this.limit) {
-      console.error('LIMIT ERROR');
-    } else {
-      this.balance -= amount;
-      this.transactions.push(newTransaction);
-    }
-  },
-
-  getBalance() {
-    return this.balance;
-  },
-
-  getTransactionDetails(id) {
-    for (const transaction of this.transactions) {
-      if (id === transaction.id) {
-        return transaction;
-      }
-    }
-  },
-
-  getTransactionTotal(type) {
-    let sum = 0;
-
-    for (const transaction of this.transactions) {
-      if (transaction.type === type) {
-        sum += transaction.amount;
-      }
-    }
-
-    return sum;
-  },
-};
-
-account.deposit(5000);
-console.log(account.getBalance());
-console.log(account.transactions);
-
-account.withdraw(3500);
-account.withdraw(500);
-account.withdraw(250);
-console.log(account.getBalance());
-console.log(account.transactions);
-
-console.log(account.getTransactionDetails(account.transactions[0].id));
-
-console.log(account.getTransactionTotal(OPERATION_TYPES.WITHDRAW));
-console.log(account.getTransactionTotal(OPERATION_TYPES.DEPOSIT));
-|============================
-*/
-// -------------------------------------------------------
-/** Решение: Олег решение 2 полное с дополнением
-|============================
-// const OPERATION_TYPES = {
-//   DEPOSIT: 'DEPOSIT',
-//   WITHDRAW: 'WITHDRAW',
-// };
-
-// const account = {
-//   limit: 10000,
-//   balance: 0,
-//   hideMoney: false,
-//   transactions: [],
-
-//   createTransaction(amount, type) {
-//     const transactions = {
-//       id: Math.random().toString(16).substring(2),
-//       type,
-//       amount,
-//     };
-
-//     return transactions;
-//   },
-
-//   deposit(amount) {
-//     const newTransaction = this.createTransaction(
-//       amount,
-//       OPERATION_TYPES.DEPOSIT
-//     );
-
-//     if (amount > this.limit) {
-//       console.error('LIMIT ERROR');
-//     } else {
-//       this.balance += amount;
-//       this.transactions.push(newTransaction);
-//     }
-//   },
-
-//   withdraw(amount) {
-//     const newTransaction = this.createTransaction(
-//       amount,
-//       OPERATION_TYPES.WITHDRAW
-//     );
-
-//     if (this.balance < amount) {
-//       console.error('NOT ENOUGHT MONEY');
-//     } else if (amount > this.limit) {
-//       console.error('LIMIT ERROR');
-//     } else {
-//       this.balance -= amount;
-//       this.transactions.push(newTransaction);
-//     }
-//   },
-
-//   getBalance() {
-//     return this.hideMoney ? ':)' : this.balance;
-//   },
-
-//   toggleBalanceVisabillity() {
-//     this.hideMoney = !this.hideMoney;
-//   },
-
-//   getTransactionDetails(id) {
-//     for (const transaction of this.transactions) {
-//       if (id === transaction.id) {
-//         return transaction;
-//       }
-//     }
-//   },
-
-//   getTransactionTotal(type) {
-//     let sum = 0;
-
-//     for (const transaction of this.transactions) {
-//       if (transaction.type === type) {
-//         sum += transaction.amount;
-//       }
-//     }
-
-//     return sum;
-//   },
-// };
-
-// account.deposit(5000);
-// console.log(account.getBalance());
-// console.log(account.transactions);
-
-// account.withdraw(3500);
-// account.withdraw(500);
-// account.withdraw(250);
-// console.log(account.getBalance());
-// console.log(account.transactions);
-
-// console.log(account.getTransactionDetails(account.transactions[0].id));
-
-// console.log(account.getTransactionTotal(OPERATION_TYPES.DEPOSIT));
-
-// console.log(account.getBalance());
-// account.toggleBalanceVisabillity();
-// console.log(account.getBalance());
-// account.toggleBalanceVisabillity();
-// console.log(account.getBalance());
-
-|============================
-*/
-// _______________________________________________________
-//
-// _________________________________________________________________________________________
-// |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-// =========================================================================================
 // Артем модуль-3 занятие 1 Обьекты
 // ==================================
-/** Теория Объекты Артем
+/** Теория Объекты Артем 
 |============================
 // Объект и доступ к свойствам(ключам) и значениям свойств объекта.
 // _______________________________________________________
@@ -1307,7 +817,710 @@ user.iKnow();
 
 |============================
 */
+// _________________________________________________________________________________________
+// |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+// =========================================================================================
+// Олег модуль-3 занятие 1 Обьекты
+// ==================================
+/** Теория Объекты Олег
+|============================
+// Доступ до свойства (ключа) объекта.
+const user = {
+  email: 'some.email@gmail.com',
+  password: '***',
+  name: 'Sergiy',
+  book: {
+    name: 'H P',
+  },
+};
+
+console.log(user.book.name); // H P
+console.log(user.book); // {name: 'H P'}
+console.log(user); //{email: 'some.email@gmail.com', password: '***', name: 'Sergiy', book: {…}}
+// ___________________________________________
+// Эти записи одинакоый результат дают (user.password;) (user['password'];)
+
+user.password;
+user['password'];
+
+// В эту запись (user['password'];) можно вставить переменную. Пример ниже.
+let field = 'password';
+
+user[field];
+// ___________________________________________
+// Методы обьекта Object.keys(), Object.values(), Object.entries()
+
+// * Object.keys() - Перебор свойств(ключей) объекта.
+// * Object.values() - Перебор значений объекта.
+// * Object.entries() - Масив в масиве.
+
+const user1 = {
+  email: 'some.email@gmail.com',
+  password: '*****',
+  name: 'Sergiy',
+};
+
+console.log(Object.keys(user1)); // ['email', 'password', 'name']
+console.log(Object.values(user1)); // ['some.email@gmail.com', '*****', 'Sergiy']
+console.log(Object.entries(user1)); // [Array(2), Array(2), Array(2)]
+// ___________________________________________
+// Функции в объекте и вызов их.
+const user = {
+  email: 'some.email@gmail.com',
+  password: '*****',
+  name: 'Sergiy',
+  book: {
+    name: 'H P',
+  },
+
+  getName() {
+    return 'SOME NAME';
+  },
+};
+user.getName();                    // Вызов функции
+console.log(user.getName());       // SOME NAME
+// ___________________________________________
+// Масив объектов
+const users = [
+  {
+    email: 'some.email@gmail.com',
+    password: '*****',
+  },
+  {
+    email: 'some2.email@gmail.com',
+    password: '***awdwd**',
+  },
+  {
+    email: 'some3.email@gmail.com',
+    password: '**awdwd***',
+  },
+];
+|============================
+*/
+// _________________________________________________________________________________________
+// |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+// =========================================================================================
+// РЕШАЕМ ЗАДАЧИ Олег и Артем
 // _______________________________________________________
-// =======================================================
-// Решаем задачи Артем
+// Example 1 - Основи об'єктів
+// Напиши скрипт, який для об'єкта user, послідовно:
+// * додає поле mood зі значенням 'happy'
+// * замінює значення hobby на 'skydiving'
+// * замінює значення premium на false
+// * виводить вміст об'єкта user у форматі ключ:значення використовуючи Object.keys() та for...of
+// const user = {
+//   name: 'Mango',
+//   age: 20,
+//   hobby: 'html',
+//   premium: true,
+// };
+// -------------
+/** Решение: Артем
+|============================
+const user = {
+  name: 'Mango',
+  age: 20,
+  hobby: 'html',
+  premium: true,
+};
+// ----------------------
+// * додає поле mood зі значенням 'happy'
+user.mood = 'happy';
+// ----------------------
+// * замінює значення hobby на 'skydiving'
+user.hobby = 'skydiving';
+// ----------------------
+// * замінює значення premium на false
+
+// Вариант-1  замінює значення premium на false
+user['premium'] = false;
+
+// Вариант-2  замінює значення premium на false
+const key = 'premium';
+user[key] = false;
+
+console.log(user);
+// ----------------------
+// * виводить вміст об'єкта user у форматі ключ:значення використовуючи
+
+// Вариант-1 for of
+
+const keys = Object.keys(user);
+for (const key of keys) {
+  console.log(user[key]);
+}
+
+// Вариант-2 for in
+
+for (const key in user) {
+  console.log(user[key]);
+}
+// ----------------------
+// * Добавляем новый объект в объект user.
+
+user.skils = {
+  run: true,
+};
+
+console.log(user);
+
+|============================
+*/
+// -------------
+/** Решение: Олег
+|============================
+const user = {
+  name: "Mango",
+  age: 20,
+  hobby: "html",
+  premium: true,
+};
+
+user.mood = "happy";
+user.hobby = "skydiving";
+user.premium = false;
+
+for (const key of Object.keys(user)) {
+  console.log(`${key}: ${user[key]}`);
+}
+|============================
+*/
+// _______________________________________________________
+// Example 2 - метод Object.values()
+// У нас є об'єкт, де зберігаються зарплати нашої команди.
+// Напишіть код для підсумовування всіх зарплат і збережіть результат у змінній sum.
+// Повинно вийти 390.
+// Якщо об'єкт salaries порожній, то результат має бути 0.
+// --------------
+// const salaries = {
+//   John: 100,
+//   Ann: 160,
+//   Pete: 130,
+// };
+// -------------
+/** Решение: Артем, Олег, Репета
+|============================
+// Вариант-1 for in (Артем)
+
+let sum = 0;
+for (const key in salaries) {
+  sum += salaries[key];
+}
+console.log(sum);
+
+// Вариант-2 for of (Репета) (Олег)
+
+let total = 0;
+for (const salar of Object.values(salaries)) {
+  total += salar;
+}
+console.log(total);
+
+// Вариант-3 for of (Артем)
+
+let result = 0;
+const values = Object.values(salaries);
+for (const value of values) {
+  result += value;
+}
+console.log(result);
+
+|============================
+*/
+// _______________________________________________________
+// Example 3 - Масив об'єктів
+// Напишіть функцію calcTotalPrice(stones, stoneName),
+// яка приймає масив об'єктів та рядок з назвою каменю.
+// Функція рахує і повертає загальну вартість каміння з таким ім'ям, ціною та кількістю з об'єкта
+// -------------
+// const stones = [
+//   { name: 'Смарагд', price: 1300, quantity: 4 },
+//   { name: 'Смарагд', price: 1000, quantity: 2 },
+//   { name: 'Діамант', price: 2700, quantity: 3 },
+//   { name: 'Сапфір', price: 400, quantity: 7 },
+//   { name: 'Сапфір', price: 100, quantity: 15 },
+//   { name: 'Щебінь', price: 200, quantity: 2 },
+// ];
+// -------------
+/** Решение: Артем 
+|============================
+const stones = [
+  { name: 'Смарагд', price: 1300, quantity: 4 },
+  { name: 'Смарагд', price: 1000, quantity: 2 },
+  { name: 'Діамант', price: 2700, quantity: 3 },
+  { name: 'Сапфір', price: 400, quantity: 7 },
+  { name: 'Сапфір', price: 100, quantity: 15 },
+  { name: 'Щебінь', price: 200, quantity: 2 },
+];
+
+// Вариант-1 Ранний возврат.
+
+function calcTotalPrice(stones, stoneName) {
+  let result = 0;
+  Вариант - 1;
+  for (const stone of stones) {
+    if (stone.name === stoneName) {
+      result += stone.price * stone.quantity;
+      break;
+    }
+  }
+  return result;
+}
+
+// Вариант-2 Ранний возврат.
+
+function calcTotalPrice(stones, stoneName) {
+  let result = 0;
+  for (const stone of stones) {
+    if (stone.name === stoneName) {
+      result += stone.price * stone.quantity;
+      return result;
+    }
+  }
+}
+
+// Вариант-3 Ранний возврат.
+
+function calcTotalPrice(stones, stoneName) {
+  for (const stone of stones) {
+    if (stone.name === stoneName) {
+      return stone.price * stone.quantity;
+    }
+  }
+  return 'Empty';
+}
+
+console.log(calcTotalPrice(stones, 'Діамант'));
+
+|============================
+*/
+// -------------
+/** Решение: Олег 
+|============================
+// 1) Вариант-1 Когда у каждого камня одна цена.
+
+const stones = [
+  { name: 'Смарагд', price: 1300, quantity: 4 },
+  { name: 'Діамант', price: 2700, quantity: 3 },
+  { name: 'Сапфір', price: 400, quantity: 7 },
+  { name: 'Щебінь', price: 200, quantity: 2 },
+];
+
+function calcTotalPrice(stones, stoneName) {
+  for (const stone of stones) {
+    if (stone.name === stoneName) {
+      return stone.price * stone.quantity;
+    }
+  }
+  return 0;
+}
+const res = calcTotalPrice(stones, 'Діамант');
+console.log(res);                                    // 8100
+const res2 = calcTotalPrice(stones, 'qweqwe');
+console.log(res2);                                   // 0
+console.log(calcTotalPrice(stones, 'Смарагд'));      // 5200
+
+// ---------------------------------------------------------
+
+//  Вариант-2 Когда у одного камня две разных цены.
+
+const stones = [
+  { name: 'Смарагд', price: 1300, quantity: 4 },
+  { name: 'Смарагд', price: 1000, quantity: 2 },
+  { name: 'Діамант', price: 2700, quantity: 3 },
+  { name: 'Сапфір', price: 400, quantity: 7 },
+  { name: 'Сапфір', price: 100, quantity: 15 },
+  { name: 'Щебінь', price: 200, quantity: 2 },
+];
+
+function calcTotalPrice(stones, stoneName) {
+  const foundStones = [];
+
+  for (const stone of stones) {
+    if (stone.name === stoneName) {
+      foundStones.push(stone);
+    }
+  }
+
+  let sum = 0;
+
+  for (const stone of foundStones) {
+    sum += stone.price * stone.quantity;
+  }
+  return sum;
+}
+
+const res = calcTotalPrice(stones, 'Смарагд');
+console.log(res);                                  // 7200
+const res1 = calcTotalPrice(stones, 'Сапфір');
+console.log(res1);                                 // 4300
+console.log(calcTotalPrice(stones, 'Діамант'));    // 8100
+
+|============================
+*/
+// _______________________________________________________
+// Example 4 - Комплексні завдання
+// Напиши скрипт управління особистим кабінетом інтернет банку.
+// Є об'єкт account в якому необхідно реалізувати методи для роботи з балансом та історією транзакцій.
+// -------------
+// -------------
+/** Задание задачи 
+|============================
+// Напиши скрипт управління особистим кабінетом інтернет банку.
+// Є об'єкт account в якому необхідно реалізувати методи для роботи з балансом та історією транзакцій.
+
+//  * Типів транзакцій всього два.
+//  * Можна покласти чи зняти гроші з рахунку.
+
+const Transaction = {
+  DEPOSIT: 'deposit',
+  WITHDRAW: 'withdraw',
+};
+
+//  * Кожна транзакція це об'єкт із властивостями: id, type та amount
+
+const account = {
+  // Поточний баланс рахунку
+  balance: 0,
+
+  // Історія транзакцій
+  transactions: [],
+
+  //  * Метод створює та повертає об'єкт транзакції.
+  //  * Приймає суму та тип транзакції.
+
+  createTransaction(amount, type) {},
+
+  //  * Метод, що відповідає за додавання суми до балансу.
+  //  * Приймає суму транзакції.
+  //  * Викликає createTransaction для створення об'єкта транзакції
+  //  * після чого додає його до історії транзакцій
+
+  deposit(amount) {},
+
+  //  * Метод, що відповідає за зняття суми з балансу.
+  //  * Приймає суму транзакції.
+  //  * Викликає createTransaction для створення об'єкта транзакції
+  //  * після чого додає його до історії транзакцій.
+  //  *
+  //  * Якщо amount більше ніж поточний баланс, виводь повідомлення
+  //  * про те, що зняття такої суми не можливе, недостатньо коштів.
+
+  withdraw(amount) {},
+
+  //  * Метод повертає поточний баланс
+
+  getBalance() {},
+
+  //  * Метод шукає та повертає об'єкт транзакції по id
+
+  getTransactionDetails(id) {},
+
+  //  * Метод повертає кількість коштів
+  //  * певного типу транзакції з усієї історії транзакцій
+
+  getTransactionTotal(type) {},
+};
+
+|============================
+*/
+// -------------------------------------------------------
+/** Решение Артем 
+|============================
+//  * Типів транзакцій всього два.
+//  * Можна покласти чи зняти гроші з рахунку.
+const Transaction = {
+  DEPOSIT: 'deposit',
+  WITHDRAW: 'withdraw',
+};
+Object.freeze(Transaction); // Замораживаем константы чтоб никто не мог их изменить.
+//  * Кожна транзакція це об'єкт із властивостями: id, type та amount
+const account = {
+  // Поточний баланс рахунку
+  balance: 0,
+  // Історія транзакцій
+  transactions: [],
+  transactions: [{ id: 17, amount: 145, type: 'deposit' }], // Для теста. * Метод шукає та повертає об'єкт транзакції по id
+
+  //  * Метод створює та повертає об'єкт транзакції.
+  //  * Приймає суму та тип транзакції.
+  createTransaction(amount, type) {
+    return {
+      id: Date.now(), // Настоящее время в милисикундах
+      amount,
+      type,
+    };
+  },
+  //  * Метод, що відповідає за додавання суми до балансу.
+  //  * Приймає суму транзакції.
+  //  * Викликає createTransaction для створення об'єкта транзакції
+  //  * після чого додає його до історії транзакцій
+  deposit(amount) {
+    if (amount <= 0) {
+      return 'Error';
+    }
+    const item = this.createTransaction(amount, Transaction.DEPOSIT);
+    // console.log(item);
+    this.balance += amount;
+    this.transactions.push(item);
+  },
+  //  * Метод, що відповідає за зняття суми з балансу.
+  //  * Приймає суму транзакції.
+  //  * Викликає createTransaction для створення об'єкта транзакції
+  //  * після чого додає його до історії транзакцій.
+  //  *
+  //  * Якщо amount більше ніж поточний баланс, виводь повідомлення
+  //  * про те, що зняття такої суми не можливе, недостатньо коштів.
+  withdraw(amount) {
+    if (amount > this.balance || amount <= 0) {
+      return 'недостатньо коштів';
+    }
+    const item = this.createTransaction(amount, Transaction.WITHDRAW);
+    // console.log(item);
+    this.transactions.push(item);
+    this.balance -= amount;
+  },
+  //  * Метод повертає поточний баланс
+  getBalance() {
+    return this.balance;
+  },
+  //  * Метод шукає та повертає об'єкт транзакції по id
+  getTransactionDetails(id) {
+    for (const transaction of this.transactions) {
+      if (transaction.id === id) {
+        return transaction;
+      }
+    }
+    return 'Empty';
+  },
+  //  * Метод повертає кількість коштів
+  //  * певного типу транзакції з усієї історії транзакцій
+  getTransactionTotal(type) {
+    let sum = 0;
+    for (const transaction of this.transactions) {
+      if (transaction.type === type) {
+        sum += transaction.amount;
+      }
+    }
+    return sum;
+  },
+};
+// ---------------------------------------------------------
+// console.log(account.createTransaction(1000, 'deposit'));
+
+// console.log(account.deposit(1000));
+account.deposit(1000); // Делаем вклад.
+account.deposit(2000); // Делаем вклад.
+account.deposit(2000); // Делаем вклад.
+
+// console.log(account.withdraw(500));
+account.withdraw(500); // Снимаем деньги.
+
+// console.log(account.getBalance()); // Проверка баланса.
+
+// console.log(account.getTransactionDetails(17)); // * Метод шукає та повертає об'єкт транзакції по id
+
+console.log(account.getTransactionTotal(Transaction.WITHDRAW));
+
+console.log(account);
+|============================
+*/
+// -------------------------------------------------------
+/** Решение Олег решение 1-вое 
+|============================
+const OPERATION_TYPES = {
+  DEPOSIT: 'DEPOSIT',
+  WITHDRAW: 'WITHDRAW',
+};
+
+const account = {
+  limit: 10000,
+  balance: 0,
+  transactions: [],
+
+  createTransaction(amount, type) {
+    const transactions = {
+      id: Math.random().toString(16).substring(2),
+      type,
+      amount,
+    };
+    return transactions;
+  },
+
+  deposit(amount) {
+    const newTransaction = this.createTransaction(
+      amount,
+      OPERATION_TYPES.DEPOSIT
+    );
+
+    if (amount > this.limit) {
+      console.error('LIMIT ERROR');
+    } else {
+      this.balance += amount;
+      this.transactions.push(newTransaction);
+    }
+  },
+
+  withdraw(amount) {
+    const newTransaction = this.createTransaction(
+      amount,
+      OPERATION_TYPES.WITHDRAW
+    );
+
+    if (this.balance < amount) {
+      console.error('NOT ENOUGHT MONEY');
+    } else if (amount > this.limit) {
+      console.error('LIMIT ERROR');
+    } else {
+      this.balance -= amount;
+      this.transactions.push(newTransaction);
+    }
+  },
+
+  getBalance() {
+    return this.balance;
+  },
+
+  getTransactionDetails(id) {
+    for (const transaction of this.transactions) {
+      if (id === transaction.id) {
+        return transaction;
+      }
+    }
+  },
+
+  getTransactionTotal(type) {
+    let sum = 0;
+
+    for (const transaction of this.transactions) {
+      if (transaction.type === type) {
+        sum += transaction.amount;
+      }
+    }
+
+    return sum;
+  },
+};
+
+account.deposit(5000);
+console.log(account.getBalance());
+console.log(account.transactions);
+
+account.withdraw(3500);
+account.withdraw(500);
+account.withdraw(250);
+console.log(account.getBalance());
+console.log(account.transactions);
+
+console.log(account.getTransactionDetails(account.transactions[0].id));
+
+console.log(account.getTransactionTotal(OPERATION_TYPES.WITHDRAW));
+console.log(account.getTransactionTotal(OPERATION_TYPES.DEPOSIT));
+|============================
+*/
+// -------------------------------------------------------
+/** Решение: Олег решение 2 полное с дополнением 
+|============================
+// const OPERATION_TYPES = {
+//   DEPOSIT: 'DEPOSIT',
+//   WITHDRAW: 'WITHDRAW',
+// };
+
+// const account = {
+//   limit: 10000,
+//   balance: 0,
+//   hideMoney: false,
+//   transactions: [],
+
+//   createTransaction(amount, type) {
+//     const transactions = {
+//       id: Math.random().toString(16).substring(2),
+//       type,
+//       amount,
+//     };
+
+//     return transactions;
+//   },
+
+//   deposit(amount) {
+//     const newTransaction = this.createTransaction(
+//       amount,
+//       OPERATION_TYPES.DEPOSIT
+//     );
+
+//     if (amount > this.limit) {
+//       console.error('LIMIT ERROR');
+//     } else {
+//       this.balance += amount;
+//       this.transactions.push(newTransaction);
+//     }
+//   },
+
+//   withdraw(amount) {
+//     const newTransaction = this.createTransaction(
+//       amount,
+//       OPERATION_TYPES.WITHDRAW
+//     );
+
+//     if (this.balance < amount) {
+//       console.error('NOT ENOUGHT MONEY');
+//     } else if (amount > this.limit) {
+//       console.error('LIMIT ERROR');
+//     } else {
+//       this.balance -= amount;
+//       this.transactions.push(newTransaction);
+//     }
+//   },
+
+//   getBalance() {
+//     return this.hideMoney ? ':)' : this.balance;
+//   },
+
+//   toggleBalanceVisabillity() {
+//     this.hideMoney = !this.hideMoney;
+//   },
+
+//   getTransactionDetails(id) {
+//     for (const transaction of this.transactions) {
+//       if (id === transaction.id) {
+//         return transaction;
+//       }
+//     }
+//   },
+
+//   getTransactionTotal(type) {
+//     let sum = 0;
+
+//     for (const transaction of this.transactions) {
+//       if (transaction.type === type) {
+//         sum += transaction.amount;
+//       }
+//     }
+
+//     return sum;
+//   },
+// };
+
+// account.deposit(5000);
+// console.log(account.getBalance());
+// console.log(account.transactions);
+
+// account.withdraw(3500);
+// account.withdraw(500);
+// account.withdraw(250);
+// console.log(account.getBalance());
+// console.log(account.transactions);
+
+// console.log(account.getTransactionDetails(account.transactions[0].id));
+
+// console.log(account.getTransactionTotal(OPERATION_TYPES.DEPOSIT));
+
+// console.log(account.getBalance());
+// account.toggleBalanceVisabillity();
+// console.log(account.getBalance());
+// account.toggleBalanceVisabillity();
+// console.log(account.getBalance());
+
+|============================
+*/
 // _______________________________________________________
