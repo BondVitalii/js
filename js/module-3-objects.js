@@ -1204,6 +1204,106 @@ const account = {
 |============================
 */
 // -------------------------------------------------------
+/** Моё решение
+|============================
+// Example 4 - Комплексные задачи
+// Напиши скрипт управления личным кабинетом интернет банка. Есть объект account в котором необходимо реализовать методы для работы с балансом и историей транзакций.
+//  * Типов транзацкий всего два.
+//  * Можно положить либо снять деньги со счета.
+const Transaction = {
+  DEPOSIT: 'deposit',
+  WITHDRAW: 'withdraw',
+};
+//  * Каждая транзакция это объект со свойствами: id, type и amount
+const account = {
+  // Текущий баланс счета
+  balance: 0,
+  // История транзакций
+  transactions: [],
+  transactions: [{ id: 17, amount: 145, type: 'deposit' }], // Тест. getTransactionDetails(id)
+  //  * Метод создает и возвращает объект транзакции.
+  //  * Принимает сумму и тип транзакции.
+  createTransaction(amount, type) {
+    return {
+      id: Math.random().toString(16).substring(2), // Вариант Олег
+      // id: Date.now(), // Вариант Артем
+      amount,
+      type,
+    };
+  },
+  // * Метод отвечающий за добавление суммы к балансу.
+  // * Принимает сумму танзакции.
+  // * Вызывает createTransaction для создания объекта транзакции
+  // * после чего добавляет его в историю транзакций
+  deposit(amount) {
+    if (amount <= 0) {
+      return 'ERROR';
+    }
+    const newTransaction = this.createTransaction(amount, Transaction.DEPOSIT);
+    this.balance += amount;
+    this.transactions.push(newTransaction);
+  },
+  //  * Метод отвечающий за снятие суммы с баланса.
+  //  * Принимает сумму танзакции.
+  //  * Вызывает createTransaction для создания объекта транзакции
+  //  * после чего добавляет его в историю транзакций.
+  //  * Если amount больше чем текущий баланс, выводи сообщение о том,
+  //  * что снятие такой суммы не возможно, недостаточно средств.
+  withdraw(amount) {
+    if (amount > this.balance) {
+      return 'недостаточно средств';
+    }
+    const newTransaction = this.createTransaction(amount, Transaction.WITHDRAW);
+    this.balance -= amount;
+    this.transactions.push(newTransaction);
+  },
+  //  * Метод возвращает текущий баланс
+  getBalance() {
+    return this.balance;
+  },
+  //  * Метод ищет и возвращает объект транзации по id
+  getTransactionDetails(id) {
+    for (const transaction of this.transactions) {
+      if (transaction.id === id) {
+        return transaction;
+      }
+    }
+    return 'Emply';
+  },
+  // * Метод возвращает количество средств определенного типа транзакции из всей истории транзакций
+  getTransactionTotal(type) {
+    let sum = 0;
+    for (const transaction of this.transactions) {
+      if (transaction.type === type) {
+        sum += transaction.amount;
+      }
+    }
+    return sum;
+  },
+};
+
+// console.log(account.createTransaction(1000, Transaction.DEPOSIT));
+
+account.deposit(1000);
+account.deposit(2000);
+account.deposit(2000);
+// console.log(account.deposit(-1000)); // ERROR
+
+account.withdraw(3500);
+account.withdraw(500);
+// console.log(account.withdraw(5000)); // Недостаточно средств
+
+console.log(account.balance);
+
+console.log(account.getTransactionDetails(17));
+
+console.log(account.getTransactionTotal(Transaction.WITHDRAW));
+console.log(account.getTransactionTotal(Transaction.DEPOSIT));
+
+console.log(account);
+|============================
+*/
+// -------------------------------------------------------
 /** Решение Артем 
 |============================
 //  * Типів транзакцій всього два.
@@ -1503,58 +1603,3 @@ console.log(account.getTransactionTotal(OPERATION_TYPES.DEPOSIT));
 |============================
 */
 // _______________________________________________________
-// Example 4 - Комплексные задачи
-// Напиши скрипт управления личным кабинетом интернет банка. Есть объект account в котором необходимо реализовать методы для работы с балансом и историей транзакций.
-//  * Типов транзацкий всего два.
-//  * Можно положить либо снять деньги со счета.
-const Transaction = {
-  DEPOSIT: 'deposit',
-  WITHDRAW: 'withdraw',
-};
-//  * Каждая транзакция это объект со свойствами: id, type и amount
-const account = {
-  // Текущий баланс счета
-  balance: 0,
-  // История транзакций
-  transactions: [],
-  // transactions: [{ id: 17, amount: 145, type: 'deposit' }], // Тест. getTransactionDetails(id)
-  //  * Метод создает и возвращает объект транзакции.
-  //  * Принимает сумму и тип транзакции.
-  createTransaction(amount, type) {},
-  //  * Метод отвечающий за добавление суммы к балансу.
-  //  * Принимает сумму танзакции.
-  //  * Вызывает createTransaction для создания объекта транзакции
-  //  * после чего добавляет его в историю транзакций
-  deposit(amount) {},
-  //  * Метод отвечающий за снятие суммы с баланса.
-  //  * Принимает сумму танзакции.
-  //  * Вызывает createTransaction для создания объекта транзакции
-  //  * после чего добавляет его в историю транзакций.
-  //  * Если amount больше чем текущий баланс, выводи сообщение о том,
-  //  * что снятие такой суммы не возможно, недостаточно средств.
-  withdraw(amount) {},
-  //  * Метод возвращает текущий баланс
-  getBalance() {},
-  //  * Метод ищет и возвращает объект транзации по id
-  getTransactionDetails(id) {},
-  // * Метод возвращает количество средств определенного типа транзакции из всей истории транзакций
-  getTransactionTotal(type) {},
-};
-
-// console.log(account.createTransaction(1000, Transaction.DEPOSIT));
-
-// account.deposit(1000);
-// account.deposit(2000);
-// account.deposit(2000);
-// // console.log(account.deposit(-1000)); // ERROR
-
-// account.withdraw(3500);
-// // console.log(account.withdraw(5000)); // Недостаточно средств
-
-// console.log(account.balance);
-
-// console.log(account.getTransactionDetails(17));
-
-// console.log(account.getTransactionTotal(Transaction.WITHDRAW));
-
-// console.log(account);
