@@ -1846,44 +1846,89 @@ console.log(name, tag, location, avatar, followers, views, likes);
 // _______________________________________________________
 /** Деструктуризация массивов.
 |============================
+// * Деструктуризация массивов
+
+const rgb = [255, 100, 80];
+
+const [red, green, blue] = rgb;
+
+console.log(red, green, blue);                                    // 255 100 80
+
+// ------------------
+// Рейтинг авторов. Нужно найти самый большой рейтинг автора.
+const authors = {
+  kiwi: 4,
+  poly: 7,
+  ajax: 9,
+  mango: 6,
+};
+
+// --------------------------
+// Самый простой способ.
+
+const rating = Object.values(authors);
+console.log(Math.max(...rating));                                 // 9
+
+// --------------------------
+// Другой вариант.
+
+const entries = Object.entries(authors);
+console.log(entries);                 // [['kiwi', 4], ['poly', 7], ['ajax', 9], ['mango', 6]]
+
+// ---------------------------
+
+// Уровень-1 вариант решения
+
+for (const entry of entries) {
+  const name = entry[0];
+  const rating = entry[1];
+  console.log(name, rating);
+}
+// ------------
+
+// Уровень-2 вариант решения. Еще улудшаем (усовершенствуем) тоже самое
+
+for (const entry of entries) {
+  const [name, rating] = entry;
+  console.log(name, rating);
+}
+
+// ------------
+
+// Уровень-3 вариант решения. Еще улудшаем (усовершенствуем) тоже самое
+
+for (const [name, rating] of entries) {
+  console.log(name, rating);
+}
+// -----------------------------------------------
+
+// Как бы это делали мы сейчас учась.
+
+const keys = Object.keys(authors);
+const arr = [];
+for (const key of keys) {
+  arr.push(authors[key]);
+}
+let max = arr[0];
+for (const i of arr) {
+  if (i > max) {
+    max = i;
+  }
+}
+console.log(max);                                      // 9
+
+|============================
+*/
+// _______________________________________________________
+/** Операция rest (сбор)
+|============================
 
 |============================
 */
 // _______________________________________________________
 
-//  * Деструктуризация массивов
+//  * Операция rest (сбор)
 
-// const rgb = [255, 100, 80];
-
-// const [red, green, blue] = rgb;
-
-// console.log(red, green, blue);
-
-// const authors = {
-//   kiwi: 4,
-//   poly: 7,
-//   ajax: 9,
-//   mango: 6,
-// };
-
-// const entries = Object.entries(authors);
-
-// console.log(entries);
-
-// for (const [name, rating] of entries) {
-//   // ур2
-//   // const [name, rating] = entry;
-
-//   // ур1
-//   // const name = entry[0];
-//   // const rating = entry[1];
-
-//   console.log(name, rating);
-// }
-
-/*
- * Операция rest (сбор)
- */
 // const profile = {
 //   name: 'Jacques Gluke',
 //   tag: 'jgluke',
