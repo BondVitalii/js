@@ -1608,7 +1608,7 @@ console.log(account.getTransactionTotal(OPERATION_TYPES.DEPOSIT));
 // =========================================================================================
 // Репета модуль-3 занятие-6 Деструктуризація об'єктів
 // =========================================================================================
-/** /* Операция spread (распыление) /* Array.prototype.concat() и аналог через spread 
+/** /* Операция spread (распыление). 
 |============================
 //  * Операция spread (распыление)
 //  * - Array.prototype.concat() и аналог через spread
@@ -1760,14 +1760,8 @@ console.log(finalSettings); // {theme: 'light', showNotifications: false, hideSi
 |============================
 */
 // _______________________________________________________
-/** /* Деструктуризация объекта /* Значения по умолчанию /* Имя переменной отличное от имени свойства 
+/** Деструктуризация объекта.
 |============================
-
-|============================
-*/
-
-// _______________________________________________________
-
 //  * Деструктуризация объекта
 //  * - Значения по умолчанию
 //  * - Имя переменной отличное от имени свойства
@@ -1779,37 +1773,37 @@ const playlist = {
   trackCount: 3,
 };
 
-// const { rating, tracks } = playlist; // Деструктуризация объекта playlist базовая форма.
+const { rating, tracks } = playlist;       // Деструктуризация объекта playlist базовая форма.
 
-// console.log(rating); // 5
-// console.log(tracks); // ['трек-1', 'трек-2', 'трек-3']
-// console.log(rating, tracks); // 5 // ['трек-1', 'трек-2', 'трек-3']
+console.log(rating);                       // 5
+console.log(tracks);                       // ['трек-1', 'трек-2', 'трек-3']
+console.log(rating, tracks);               // 5      // ['трек-1', 'трек-2', 'трек-3']
 
-// const { name, rating, tracks, trackCount } = playlist; // Деструктуризация объекта playlist базовая форма.
-// console.log(name, rating, tracks, trackCount);
+const { name, rating, tracks, trackCount } = playlist;   // Деструктуризация объекта playlist базовая форма.
+console.log(name, rating, tracks, trackCount);
 
 // ------------------------
 // Если нужно присвоить какое-то значение по умолчанию которого нет в объекте.
 // ------------------------
-// const { name, rating, tracks, trackCount, autor = 'user' } = playlist;
-// console.log(autor); // 'user'
+const { name, rating, tracks, trackCount, autor = 'user' } = playlist;
+console.log(autor);                                      // 'user'
 
 // ------------------------
 // Меняем названия свойства на свое.
 // ------------------------
-// const {
-//   rating,
-//   tracks,
-//   name,
-//   trackCount: numberOfTracks = 0,
-//   author = 'user',
-// } = playlist;
+const {
+  rating,
+  tracks,
+  name,
+  trackCount: numberOfTracks = 0,
+  author = 'user',
+} = playlist;
 
-// console.log(numberOfTracks); // 3
+console.log(numberOfTracks);                             // 3
 
-// ============================
+// ----------------------------
 //  * Глубокая деструктуризация
-// ============================
+// ----------------------------
 const profile = {
   name: 'Jacques Gluke',
   tag: 'jgluke',
@@ -1829,19 +1823,35 @@ const { followers, views, likes } = stats;
 console.log(name, tag, location, avatar, followers, views, likes);
 
 // -------------------
-// const {
-//   avatar,
-//   name,
-//   tag,
-//   location,
-//   stats: { followers, views, likes },
-// } = profile;
+// Вариант-1 Глубокая деструктуризация (свойства stats)
 
-// console.log(name, tag, location, avatar, followers, views, likes);
+const { avatar, name, tag, location, stats } = profile;
+const { followers, views, likes } = stats;
 
-/*
- * Деструктуризация массивов
- */
+console.log(name, tag, location, avatar, followers, views, likes);
+// -------------------
+// Вариант-2 Глубокая деструктуризация (свойства stats)
+
+const {
+  avatar,
+  name,
+  tag,
+  location,
+  stats: { followers, views, likes },
+} = profile;
+
+console.log(name, tag, location, avatar, followers, views, likes);
+|============================
+*/
+// _______________________________________________________
+/** Деструктуризация массивов.
+|============================
+
+|============================
+*/
+// _______________________________________________________
+
+//  * Деструктуризация массивов
 
 // const rgb = [255, 100, 80];
 
