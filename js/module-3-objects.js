@@ -1922,11 +1922,6 @@ console.log(max);                                      // 9
 // _______________________________________________________
 /** Операция rest (сбор)
 |============================
-
-|============================
-*/
-// _______________________________________________________
-
 //  * Операция rest (сбор)
 
 // const profile = {
@@ -1941,35 +1936,118 @@ console.log(max);                                      // 9
 //   },
 // };
 
+// Это операция rest, когда ты с начала забираешь кокую-то часть свойств в локальные переменные пример(name, tag, location), а все остальное что не деструктуризировал забираешь в в переменную restProps.
+
 // const { name, tag, location, ...restProps } = profile;
 
 // console.log(name, tag, location);
-// console.log(restProps);
+// console.log(restProps); //В эту переменную войдет все что мы не деструктуризировали из profile
 // console.log(profile);
+|============================
+*/
+// _______________________________________________________
+/** Паттерн «Обьект настроек»
+|============================
+//  * Паттерн «Обьект настроек»
+//  * - деструктуризация параметра-обьекта в подписи функции
+//  * - rest при деструктуризации в подписи
 
-/*
- * Паттерн «Обьект настроек»
- * - деструктуризация параметра-обьекта в подписи функции
- * - rest при деструктуризации в подписи
- */
+// Вариант-1 Деструктуризация объекта может быть в теле функции (пример ниже).
+// ---------------------------------------------
+const showProfileInfo = function (userProfile) {
+  const {
+    name,
+    tag,
+    location,
+    avatar,
+    stats: { followers, views, likes },
+  } = userProfile;
 
-// const showProfileInfo = function (userProfile) {
-//   const { name, tag, location, ...restProps } = userProfile;
+  console.log(name, tag, location, avatar, followers, views, likes);
+};
 
-//   // console.log(name, tag, location, avatar, followers, views, likes);
-//   console.log(restProps);
-// };
+const profile = {
+  name: 'Jacques Gluke',
+  tag: 'jgluke',
+  location: 'Ocho Rios, Jamaica',
+  avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/r_oy/128.jpg',
+  stats: {
+    followers: 5603,
+    views: 4827,
+    likes: 1308,
+  },
+};
 
-// const profile = {
-//   name: 'Jacques Gluke',
-//   tag: 'jgluke',
-//   location: 'Ocho Rios, Jamaica',
-//   avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/r_oy/128.jpg',
-//   stats: {
-//     followers: 5603,
-//     views: 4827,
-//     likes: 1308,
-//   },
-// };
+showProfileInfo(profile);
 
-// showProfileInfo(profile);
+// Вариант-2 Деструктуризация объекта может быть проведена в подписи функции (пример ниже).
+// ---------------------------------------------
+const showProfileInfo = function ({
+  name,
+  tag,
+  location,
+  avatar,
+  stats: { followers, views, likes },
+}) {
+  console.log(name, tag, location, avatar, followers, views, likes);
+};
+
+const profile = {
+  name: 'Jacques Gluke',
+  tag: 'jgluke',
+  location: 'Ocho Rios, Jamaica',
+  avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/r_oy/128.jpg',
+  stats: {
+    followers: 5603,
+    views: 4827,
+    likes: 1308,
+  },
+};
+
+showProfileInfo(profile);
+
+// Вариант-3 Деструктуризация объекта может быть проведена в подписи функции (пример ниже).
+// ---------------------------------------------
+const showProfileInfo = function ({ name, tag, location, avatar, stats }) {
+  console.log(name, tag, location, avatar, stats);
+};
+
+const profile = {
+  name: 'Jacques Gluke',
+  tag: 'jgluke',
+  location: 'Ocho Rios, Jamaica',
+  avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/r_oy/128.jpg',
+  stats: {
+    followers: 5603,
+    views: 4827,
+    likes: 1308,
+  },
+};
+
+showProfileInfo(profile);
+
+// Вариант-4 Деструктуризация объекта в теле функции с применением ...rest (пример ниже).
+// ---------------------------------------------
+const showProfileInfo = function (userProfile) {
+  const { name, tag, location, ...restProps } = userProfile;
+  // console.log(name, tag, location, avatar, followers, views, likes);
+  console.log(restProps);
+};
+
+const profile = {
+  name: 'Jacques Gluke',
+  tag: 'jgluke',
+  location: 'Ocho Rios, Jamaica',
+  avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/r_oy/128.jpg',
+  stats: {
+    followers: 5603,
+    views: 4827,
+    likes: 1308,
+  },
+};
+
+showProfileInfo(profile);
+
+|============================
+*/
+// _______________________________________________________
