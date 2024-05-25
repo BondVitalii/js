@@ -356,39 +356,47 @@ console.table(friends);
 //  * { name: '🍓', price: 110 }
 
 const cart = {
+  // * items[] Масив объектов, в нем лежат товары (объекты) в виде { name: '🍎', price: 50 }.
   items: [],
+  // * Метод getItems() возвращает свойства items
   getItems() {},
+  // * Метод add() добавляет объект(карточку{ name: '🍎', price: 50 }) в масив объектов items.
   add(product) {},
+  // * Метод remove() удаляет объект из масива items.
   remove(productName) {},
+  // * Метод clear() полностью очищает корзину товаров.
   clear() {},
+  // * Метод countTotalPrice() возвращает общую цену товаров в корзине.
   countTotalPrice() {},
+  // * Метод increaseQuantity() увеличить кол-во определенного товара в корзине.
   increaseQuantity(productName) {},
+  // * Метод decreaseQuantity() уменьшить кол-во определенного товара в корзине.
   decreaseQuantity(productName) {},
 };
 
-// // console.table(cart.getItems());
+// console.table(cart.getItems());
 
-// cart.add({ name: '🍎', price: 50 });
-// cart.add({ name: '🍋', price: 60 });
-// cart.add({ name: '🍋', price: 60 });
-// cart.add({ name: '🍓', price: 110 });
+cart.add({ name: '🍎', price: 50 });
+cart.add({ name: '🍋', price: 60 });
+cart.add({ name: '🍋', price: 60 });
+cart.add({ name: '🍓', price: 110 });
 
-// // console.table(cart.getItems());
+// console.table(cart.getItems());
 
-// cart.remove('🍎');
-// // console.table(cart.getItems());
+cart.remove('🍎');
+// console.table(cart.getItems());
 
-// // cart.clear();
-// // console.table(cart.getItems());
+// cart.clear();
+// console.table(cart.getItems());
 
-// // cart.increaseQuantity('🍎');
-// // console.table(cart.getItems());
+// cart.increaseQuantity('🍎');
+// console.table(cart.getItems());
 
-// // cart.decreaseQuantity('🍋');
-// // cart.decreaseQuantity('🍋');
-// // console.table(cart.getItems());
+// cart.decreaseQuantity('🍋');
+// cart.decreaseQuantity('🍋');
+// console.table(cart.getItems());
 
-// // console.log('Total: ', cart.countTotalPrice());
+// console.log('Total: ', cart.countTotalPrice());
 |============================
 */
 // _______________________________________________________
@@ -2051,3 +2059,213 @@ showProfileInfo(profile);
 |============================
 */
 // _______________________________________________________
+/** Пример деструктуризации на карточке
+|============================
+const profile = {
+  name: 'Jacques Gluke',
+  tag: 'jgluke',
+  location: 'Ocho Rios, Jamaica',
+  avatar: 'https://i.pravatar.cc/100?img=1',
+  stats: {
+    followers: 5603,
+    views: 4827,
+    likes: 1308,
+  },
+};
+
+const makeProfileMarkup = function (userProfile) {
+  const {
+    avatar = 'https://i.pravatar.cc/400?img=6',
+    name,
+    tag,
+    location = 'Planet Earth',
+    stats: { followers, views, likes },
+  } = userProfile;
+
+  return `<div>
+    <img src="${avatar}" alt="user avatar">
+    <p>${name}<span>@${tag}</span></p>
+    <p>Location: ${location}</p>
+    <ul>
+      <li>Followers: ${followers}</li>
+      <li>Views: ${views}</li>
+      <li>Likes: ${likes}</li>
+    </ul>
+  </div>`;
+};
+
+const markup = makeProfileMarkup(profile);
+
+console.log(markup);
+
+document.body.insertAdjacentHTML('afterbegin', markup);
+|============================
+*/
+// _______________________________________________________
+/** Работем с коллекцией товаров в корзине:
+|============================
+
+|============================
+*/
+// -------------------------------------------------
+/** Решение готовое Репета 
+|============================
+//  * Работем с коллекцией товаров в корзине:
+//  * - getItems()
+//  * - add(product)
+//  * - remove(productName)
+//  * - clear()
+//  * - countTotalPrice()
+//  * - increaseQuantity(productName)
+//  * - decreaseQuantity(productName)
+
+//  * { name: '🍎', price: 50 }
+//  * { name: '🍇', price: 70 }
+//  * { name: '🍋', price: 60 }
+//  * { name: '🍓', price: 110 }
+
+const cart = {
+  items: [],
+  getItems() {
+    return this.items;
+  },
+  add(product) {
+    for (const item of this.items) {
+      if (item.name === product.name) {
+        item.quantity += 1;
+        return;
+      }
+    }
+
+    const newProduct = {
+      ...product,
+      quantity: 1,
+    };
+
+    this.items.push(newProduct);
+  },
+  remove(productName) {
+    const { items } = this;
+
+    for (let i = 0; i < items.length; i += 1) {
+      const item = items[i];
+
+      if (productName === item.name) {
+        console.log('нашли такой продукт ', productName);
+        console.log('индекс: ', i);
+
+        items.splice(i, 1);
+      }
+    }
+  },
+  clear() {
+    this.items = [];
+  },
+  countTotalPrice() {
+    const { items } = this;
+    let total = 0;
+
+    for (const { price, quantity } of items) {
+      total += price * quantity;
+    }
+
+    return total;
+  },
+  increaseQuantity(productName) {},
+  decreaseQuantity(productName) {},
+};
+
+console.log(cart.getItems());
+
+cart.add({ name: '🍎', price: 50 });
+cart.add({ name: '🍇', price: 60 });
+cart.add({ name: '🍋', price: 60 });
+cart.add({ name: '🍋', price: 60 });
+cart.add({ name: '🍓', price: 110 });
+cart.add({ name: '🍓', price: 110 });
+cart.add({ name: '🍓', price: 110 });
+
+console.table(cart.getItems());
+
+console.log('Total: ', cart.countTotalPrice());
+
+cart.remove('🍇');
+console.table(cart.getItems());
+
+// cart.clear();
+// console.log(cart.getItems());
+
+console.log('Total: ', cart.countTotalPrice());
+
+// cart.increaseQuantity('🍎');
+// console.table(cart.getItems());
+
+// cart.decreaseQuantity('🍋');
+// cart.decreaseQuantity('🍋');
+// console.table(cart.getItems());
+
+|============================
+*/
+// _______________________________________________________
+// * Работем с коллекцией товаров в корзине:
+//  * - getItems()
+//  * - add(product)
+//  * - remove(productName)
+//  * - clear()
+//  * - countTotalPrice()
+//  * - increaseQuantity(productName)
+//  * - decreaseQuantity(productName)
+//  *
+//  * { name: '🍎', price: 50 }
+//  * { name: '🍇', price: 70 }
+//  * { name: '🍋', price: 60 }
+//  * { name: '🍓', price: 110 }
+
+const cart = {
+  // * items[] Масив объектов, в нем лежат товары (объекты) в виде { name: '🍎', price: 50 }.
+  items: [],
+  // * Метод getItems() возвращает свойства items
+  getItems() {},
+  // * Метод add() добавляет объект(карточку{ name: '🍎', price: 50 }) в масив объектов items.
+  add(product) {
+    this.items.push(product);
+  },
+  // * Метод remove() удаляет объект из масива items.
+  remove(productName) {},
+  // * Метод clear() полностью очищает корзину товаров.
+  clear() {},
+  // * Метод countTotalPrice() возвращает общую цену товаров в корзине.
+  countTotalPrice() {},
+  // * Метод increaseQuantity() увеличить кол-во определенного товара в корзине.
+  increaseQuantity(productName) {},
+  // * Метод decreaseQuantity() уменьшить кол-во определенного товара в корзине.
+  decreaseQuantity(productName) {},
+};
+
+// console.table(cart.getItems());
+
+cart.add({ name: '🍎', price: 50 });
+cart.add({ name: '🍋', price: 60 });
+cart.add({ name: '🍋', price: 60 });
+cart.add({ name: '🍓', price: 110 });
+
+// console.table(cart.getItems());
+
+cart.remove('🍎');
+// console.table(cart.getItems());
+
+// cart.clear();
+// console.table(cart.getItems());
+
+// cart.increaseQuantity('🍎');
+// console.table(cart.getItems());
+
+// cart.decreaseQuantity('🍋');
+// cart.decreaseQuantity('🍋');
+// console.table(cart.getItems());
+
+// console.log('Total: ', cart.countTotalPrice());
+
+// ------------------------------------------------
+
+console.table(cart.items);
