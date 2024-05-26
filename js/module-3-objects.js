@@ -362,7 +362,7 @@ const cart = {
   getItems() {},
   // * Метод add() добавляет объект(карточку{ name: '🍎', price: 50 }) в масив объектов items.
   add(product) {},
-  // * Метод remove() удаляет объект из масива items.
+  // * Метод remove() удаляет объект по свойству name из масива items.
   remove(productName) {},
   // * Метод clear() полностью очищает корзину товаров.
   clear() {},
@@ -2102,13 +2102,143 @@ document.body.insertAdjacentHTML('afterbegin', markup);
 |============================
 */
 // _______________________________________________________
-/** Работем с коллекцией товаров в корзине:
+/** Работем с коллекцией товаров в корзине: (Решение по видео) 
 |============================
+// * Работем с коллекцией товаров в корзине:
+//  * - getItems()
+//  * - add(product)
+//  * - remove(productName)
+//  * - clear()
+//  * - countTotalPrice()
+//  * - increaseQuantity(productName)
+//  * - decreaseQuantity(productName)
+//  *
+//  * { name: '🍎', price: 50 }
+//  * { name: '🍇', price: 70 }
+//  * { name: '🍋', price: 60 }
+//  * { name: '🍓', price: 110 }
 
+const cart = {
+  // * items[] Масив объектов, в нем лежат товары (объекты) в виде { name: '🍎', price: 50 }.
+  items: [],
+
+  // * Метод getItems() возвращает свойства items
+  getItems() {
+    return this.items;
+  },
+
+  // * Метод add() добавляет объект(карточку{ name: '🍎', price: 50 }) в масив объектов items.
+  add(product) {
+    // console.table(this.items);
+    for (const item of this.items) {
+      if (item.name === product.name) {
+        // console.log('Такой продукт уже есть', product.name);
+        item.quantity += 1;
+        return;
+      }
+    }
+
+    const newProduct = {
+      ...product,
+      quantity: 1,
+    };
+
+    this.items.push(newProduct);
+  },
+
+  // * Метод remove() удаляет объект по свойству name из масива items.
+  remove(productName) {
+    // ------------------------------------
+    // Вар.-1 без локальной переменной item.
+    // ------------------------------------
+    for (let i = 0; i < this.items.length; i += 1) {
+      if (productName === this.items[i].name) {
+        // console.log('Нашли такой продукт', productName);
+        this.items.splice(i, 1);
+      }
+    }
+    // ------------------------------------
+    // Вар.-2 с создаением локальной переменной item.
+    // ------------------------------------
+    for (let i = 0; i < this.items.length; i += 1) {
+      const item = this.items[i];
+      if (productName === item.name) {
+        // console.log('Нашли такой продукт', productName);
+        this.items.splice(i, 1);
+      }
+    }
+    // ------------------------------------
+    // Вар.-3 с деструктуризацией переменной.
+    // ------------------------------------
+    const { items } = this;
+    for (let i = 0; i < items.length; i += 1) {
+      const { name } = this.items[i];
+      if (productName === name) {
+        // console.log('Нашли такой продукт', productName);
+        items.splice(i, 1);
+      }
+    }
+  },
+
+  // * Метод clear() полностью очищает корзину товаров.
+  clear() {
+    this.items = [];
+  },
+  // * Метод countTotalPrice() возвращает общую цену товаров в корзине.
+  countTotalPrice() {
+    // ------------------------------------
+    // Вар.-1 без деструктуризации.
+    // ------------------------------------
+    let sum = 0;
+    for (const item of this.items) {
+      sum += item.price * item.quantity;
+    }
+    return sum;
+    // ------------------------------------
+    // Вар.-2 с деструктуризацией.
+    // ------------------------------------
+    const { items } = this;
+    let total = 0;
+    for (const { price, quantity } of items) {
+      total += price * quantity;
+    }
+    return total;
+  },
+  // * Метод increaseQuantity() увеличить кол-во(quantity) на 1 если продукт уже есть в корзине.
+  increaseQuantity(productName) {},
+  // * Метод decreaseQuantity() уменьшить кол-во(quantity) на 1 если продукта есть в корзине.
+  decreaseQuantity(productName) {},
+};
+
+// console.table(cart.getItems());
+
+cart.add({ name: '🍎', price: 50 });
+cart.add({ name: '🍇', price: 60 });
+cart.add({ name: '🍋', price: 60 });
+cart.add({ name: '🍋', price: 60 });
+cart.add({ name: '🍓', price: 110 });
+cart.add({ name: '🍓', price: 110 });
+
+console.table(cart.getItems());
+
+// cart.remove('🍋');
+// console.table(cart.getItems());
+
+// cart.clear();
+// console.log(cart.getItems());
+
+// cart.increaseQuantity('🍎');
+// console.table(cart.getItems());
+
+// cart.decreaseQuantity('🍋');
+// cart.decreaseQuantity('🍋');
+// console.table(cart.getItems());
+
+console.log('Total: ', cart.countTotalPrice());
 |============================
 */
 // -------------------------------------------------
-/** Решение готовое Репета 
+/** Работем с коллекцией товаров в корзине: (Решение готовое Репета) 
 |============================
 //  * Работем с коллекцией товаров в корзине:
 //  * - getItems()
@@ -2207,65 +2337,3 @@ console.log('Total: ', cart.countTotalPrice());
 |============================
 */
 // _______________________________________________________
-// * Работем с коллекцией товаров в корзине:
-//  * - getItems()
-//  * - add(product)
-//  * - remove(productName)
-//  * - clear()
-//  * - countTotalPrice()
-//  * - increaseQuantity(productName)
-//  * - decreaseQuantity(productName)
-//  *
-//  * { name: '🍎', price: 50 }
-//  * { name: '🍇', price: 70 }
-//  * { name: '🍋', price: 60 }
-//  * { name: '🍓', price: 110 }
-
-const cart = {
-  // * items[] Масив объектов, в нем лежат товары (объекты) в виде { name: '🍎', price: 50 }.
-  items: [],
-  // * Метод getItems() возвращает свойства items
-  getItems() {},
-  // * Метод add() добавляет объект(карточку{ name: '🍎', price: 50 }) в масив объектов items.
-  add(product) {
-    this.items.push(product);
-  },
-  // * Метод remove() удаляет объект из масива items.
-  remove(productName) {},
-  // * Метод clear() полностью очищает корзину товаров.
-  clear() {},
-  // * Метод countTotalPrice() возвращает общую цену товаров в корзине.
-  countTotalPrice() {},
-  // * Метод increaseQuantity() увеличить кол-во определенного товара в корзине.
-  increaseQuantity(productName) {},
-  // * Метод decreaseQuantity() уменьшить кол-во определенного товара в корзине.
-  decreaseQuantity(productName) {},
-};
-
-// console.table(cart.getItems());
-
-cart.add({ name: '🍎', price: 50 });
-cart.add({ name: '🍋', price: 60 });
-cart.add({ name: '🍋', price: 60 });
-cart.add({ name: '🍓', price: 110 });
-
-// console.table(cart.getItems());
-
-cart.remove('🍎');
-// console.table(cart.getItems());
-
-// cart.clear();
-// console.table(cart.getItems());
-
-// cart.increaseQuantity('🍎');
-// console.table(cart.getItems());
-
-// cart.decreaseQuantity('🍋');
-// cart.decreaseQuantity('🍋');
-// console.table(cart.getItems());
-
-// console.log('Total: ', cart.countTotalPrice());
-
-// ------------------------------------------------
-
-console.table(cart.items);
