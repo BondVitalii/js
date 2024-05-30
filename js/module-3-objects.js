@@ -1,6 +1,146 @@
 // =========================================================================================
 // |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 // =========================================================================================
+// Конспект модуль-3 Об'єкти. Операції rest та spread
+// =========================================================================================
+/** spread: передача аргументів 
+|============================
+// spread: передача аргументів
+// ===========================
+// Операція ... (spread) дозволяє розподілити колекцію елементів (масив, рядок або об'єкт) в місце, в якому очікується набір окремих значень. Звичайно, існують деякі обмеження, наприклад, не можна розподілити масив в об'єкт і навпаки.
+
+// Можна навести аналогію з ящиком яблук. Поставивши ящик на підлогу, не виймаючи з нього яблука, отримаємо аналог масиву значень. Якщо висипати яблука з ящика на підлогу, відбудеться розподіл - набір окремих значень.
+
+// Відмінність лише одна - в JavaScript розподіл не змінює оригінальну колекцію, тобто створюється копія кожного елемента. Після розподілу залишиться і ящик повний яблук, і копія кожного яблука на підлозі.
+
+// Наприклад, метод Math.max(аргументи) шукає і повертає найбільший з аргументів (чисел), тобто очікує не масив значень, а довільну кількість аргументів.
+// --------------------------------
+const temps = [14, -4, 25, 8, 11];
+
+// В консолі буде масив
+console.log(temps);
+// ❌ Так не спрацює, тому що передаємо цілий масив
+console.log(Math.max(temps)); // NaN
+
+// В консолі буде набір окремих чисел
+console.log(...temps);
+// ✅ Розподілимо колекцію елементів у якості окремих аргументів
+console.log(Math.max(...temps)); // 25
+// --------------------------------
+// Тобто запис Math.max(...[14, -4, 25, 8, 11]), після інтерпретації перетворюється у Math.max(14, -4, 25, 8, 11) - синтаксис ... повертає розпакований масив, тобто розподіляє його елементи у якості окремих аргументів.
+//
+// ===========================
+// spread: створення нового масиву
+// ===========================
+// Операція ... (spread) дозволяє створити копію масиву або «склеїти» довільну кількість масивів в один новий. Раніше для цього використовували методи slice() і concat(), але операція розподілу дозволяє зробити те саме у коротшій формі.
+// --------------------------------
+const temps = [14, -4, 25, 8, 11];
+
+// Це точна, але незалежна копія масиву temps
+const copyOfTemps = [...temps];
+console.log(copyOfTemps); // [14, -4, 25, 8, 11]
+// --------------------------------
+// В наведеному вище прикладі у нас є ящик яблук temps і ми хочемо створити його точну копію. Беремо порожній ящик і пересипаємо в нього яблука з вихідного ящика temps - розподіляємо його в іншу колекцію. За такої умови, ящик temps не зміниться, в ньому все ще будуть яблука, а в новому ящику - їх точні копії.
+
+// У наступному прикладі ми зсипаємо яблука з двох ящиків в один новий. Оригінальні ящики (масиви) не зміняться, а в новому будуть копії усіх їх яблук (елементів). Порядок розподілу важливий - він впливає на порядок елементів у новій колекції.
+// --------------------------------
+const lastWeekTemps = [14, 25, 11];
+const currentWeekTemps = [23, 17, 18];
+const allTemps = [...lastWeekTemps, ...currentWeekTemps];
+console.log(allTemps); // [14, 25, 11, 23, 17, 18]
+//
+// ===========================
+// spread: створення нового об'єкта
+// ===========================
+// Операція ... (spread) дозволяє розподілити властивості довільної кількості об'єктів в один новий.
+// --------------------------------
+const first = { propA: 5, propB: 10 };
+const second = { propC: 15 };
+const third = { ...first, ...second };
+console.log(third); // { propA: 5, propB: 10, propC: 15 }
+// --------------------------------
+// Порядок розподілу має значення. Імена властивостей об'єкта - унікальні, тому властивості об'єкта, що розподіляється, можуть перезаписати значення вже існуючої властивості, якщо їх імена збігаються.
+// --------------------------------
+const first = { propA: 5, propB: 10, propC: 50 };
+const second = { propC: 15, propD: 20 };
+
+const third = { ...first, ...second };
+console.log(third); // { propA: 5, propB: 10, propC: 15, propD: 20 }
+
+const fourth = { ...second, ...first };
+console.log(fourth); // { propA: 5, propB: 10, propC: 50, propD: 20 }
+// --------------------------------
+// Якби яблука в ящику мали наліпки з позначками, то в одному ящику не може бути двох яблук з однаковими позначками. Тому, пересипаючи другий ящик, усі яблука, позначки яких будуть збігатися з тими, що вже знаходяться у новому ящику, замінять існуючі.
+
+// Під час розподілу можна додавати властивості у довільне місце. Головне пам'ятати про унікальність імені властивості і про те, що її значення може бути перезаписане.
+// --------------------------------
+const first = { propA: 5, propB: 10, propC: 50 };
+const second = { propC: 15 };
+
+const third = { propB: 20, ...first, ...second };
+console.log(third); // { propA: 5, propB: 10, propC: 15 }
+
+const fourth = { ...first, ...second, propB: 20 };
+console.log(fourth); // { propA: 5, propB: 20, propC: 15 }
+
+const fifth = { ...first, propB: 20, ...second };
+console.log(fifth); // { propA: 5, propB: 20, propC: 15 }
+//
+// ===========================
+// rest: збирання всіх аргументів функції
+// ===========================
+// Операція ... (rest) дозволяє зібрати групу незалежних елементів у нову колекцію. Синтаксично - це близнюк операції розподілу, але відрізнити їх просто - розподіл - коли ... знаходиться у правій частині операції присвоювання, а збирання - коли ... знаходиться в її лівій частині.
+
+// Повернемось до аналогії з яблуками. Якщо на підлозі лежать яблука і у нас є порожній ящик, то операція rest дозволить «зібрати» яблука в ящик. Водночас, оригінальні яблука залишаться на підлозі, а в ящику буде копія кожного яблука.
+
+// Одна зі сфер застосування операції rest - це створення функцій, які можуть приймати будь-яку кількість аргументів.
+
+// Як оголосити параметри функції таким чином,
+// щоб можна було передати будь-яку кількість аргументів?
+// --------------------------------
+function multiply() {
+  // ...
+}
+
+multiply(1, 2);
+multiply(1, 2, 3);
+multiply(1, 2, 3, 4);
+// --------------------------------
+// Якщо прибрати увесь «синтаксичний шум» і подивитися на аргументи і параметри функції, то аргументи знаходяться у правій частині операції присвоювання, а параметри - у лівій, тому що значення аргументів присвоюються оголошеним параметрам. Отже, можна «зібрати» всі аргументи функції в один параметр, використовуючи операцію rest.
+// --------------------------------
+function multiply(...args) {
+  console.log(args); // масив усіх аргументів
+}
+
+multiply(1, 2);
+multiply(1, 2, 3);
+multiply(1, 2, 3, 4);
+// --------------------------------
+// Ім'я параметра може бути довільним. Найчастіше його називають args, restArgs або otherArgs - скорочено від arguments.
+
+// ===========================
+// rest: збирання частини аргументів функції
+// ===========================
+// Операція ... (rest) також дозволяє зібрати в масив тільки ту частину аргументів, яка необхідна, оголосивши параметри до «збирання».
+// --------------------------------
+function multiply(firstNumber, secondNumber, ...otherArgs) {
+  console.log(firstNumber); // Значення першого аргументу
+  console.log(secondNumber); // Значення другого аргументу
+  console.log(otherArgs); // Масив інших аргументів
+}
+
+multiply(1, 2);
+multiply(1, 2, 3);
+multiply(1, 2, 3, 4);
+// --------------------------------
+// Всі аргументи, для яких будуть оголошені параметри, передадуть їм свої значення, інші аргументи будуть поміщені в масив. Операція rest збирає решту усіх аргументів, а тому повинна бути останньою у підписі функції, інакше виникне помилка.
+|============================
+*/
+// _______________________________________________________
+
+// =========================================================================================
+// |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+// =========================================================================================
 // Репета модуль-3 занятие 1 Обьекты
 // =========================================================================================
 /** Теория Обьекты Репета
@@ -2594,4 +2734,497 @@ console.log('Total: ', cart.countTotalPrice());
 // |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 // =========================================================================================
 // Олег модуль-3 занятие-6 Деструктуризація об'єктів
+// =========================================================================================
+/** Задача: Example 1 - Деструктуризация. Перепиши функцию так, чтобы она принимала один объект параметров, вместо набора независимых аргументов.
+|============================
+// Example 1 - Деструктуризация.
+// Перепиши функцию так, чтобы она принимала один объект параметров, вместо набора независимых аргументов.
+function calcBMI(weight, height) {
+  const numericWeight = Number(weight.replace(',', '.'));
+  const numericHeight = Number(height.replace(',', '.'));
+  return Number((numericWeight / numericHeight ** 2).toFixed(1));
+}
+
+// Было
+// console.log(calcBMI('88,3', '1.75'));
+// console.log(calcBMI('68,3', '1.65'));
+// console.log(calcBMI('118,3', '1.95'));
+
+// Ожидается
+console.log(
+  calcBMI({
+    weight: '88,3',
+    height: '1.75',
+  })
+);
+console.log(
+  calcBMI({
+    weight: '68,3',
+    height: '1.65',
+  })
+);
+console.log(
+  calcBMI({
+    weight: '118,3',
+    height: '1.95',
+  })
+);
+|============================
+*/
+// -----------------------------------
+/** -- Решение: Example 1 - Деструктуризація.
+|============================
+// ------------------
+// Решение: Вариант-1 
+// ------------------
+function calcBMI(params) {
+  const { weight, height } = params;
+  const numericWeight = Number(weight.replace(',', '.'));
+  const numericHeight = Number(height.replace(',', '.'));
+  return Number((numericWeight / numericHeight ** 2).toFixed(1));
+}
+
+console.log(
+  calcBMI({
+    weight: '88,3',
+    height: '1.75',
+  })
+);
+console.log(
+  calcBMI({
+    weight: '68,3',
+    height: '1.65',
+  })
+);
+console.log(
+  calcBMI({
+    weight: '118,3',
+    height: '1.95',
+  })
+);
+// ------------------
+// Решение: Вариант-2 
+// ------------------
+function calcBMI({ weight, height }) {
+  const numericWeight = Number(weight.replace(',', '.'));
+  const numericHeight = Number(height.replace(',', '.'));
+  return Number((numericWeight / numericHeight ** 2).toFixed(1));
+}
+
+// console.log(
+//   calcBMI({
+//     weight: "88,3",
+//     height: "1.75",
+//   })
+// );
+// console.log(
+//   calcBMI({
+//     weight: "68,3",
+//     height: "1.65",
+//   })
+// );
+// console.log(
+//   calcBMI({
+//     weight: "118,3",
+//     height: "1.95",
+//   })
+// );
+|============================
+*/
+// =======================================================
+/** Задача: Example 2 - Деструктуризация. Перепиши функцию так, чтобы она принимала один объект параметров, вместо набора независимых аргументов.
+|============================
+// Example 2 - Деструктуризация
+// Перепиши функцию так, чтобы она принимала один объект параметров, вместо набора независимых аргументов.
+
+function printContactsInfo(names, phones) {
+  const nameList = names.split(',');
+  const phoneList = phones.split(',');
+  for (let i = 0; i < nameList.length; i += 1) {
+    console.log(`${nameList[i]}: ${phoneList[i]}`);
+  }
+}
+
+// Было
+// printContactsInfo(
+//   'Jacob,William,Solomon,Artemis',
+//   '89001234567,89001112233,890055566377,890055566300',
+// );
+
+// Ожидается
+printContactsInfo({
+  names: 'Jacob,William,Solomon,Artemis',
+  phones: '89001234567,89001112233,890055566377,890055566300',
+});
+|============================
+*/
+// -----------------------------------
+/** -- Решение: Example 2 - Деструктуризація.
+|============================
+// ------------------
+// Решение: Вариант-1 
+// ------------------
+function printContactsInfo(parametrs) {
+  const { names, phones } = parametrs;
+
+  const nameList = names.split(',');
+  const phoneList = phones.split(',');
+  
+  for (let i = 0; i < nameList.length; i += 1) {
+    console.log(`${nameList[i]}: ${phoneList[i]}`);
+  }
+}
+
+printContactsInfo({
+  names: 'Jacob,William,Solomon,Artemis',
+  phones: '89001234567,89001112233,890055566377,890055566300',
+});
+// ------------------
+// Решение: Вариант-2 
+// ------------------
+function printContactsInfo({ names, phones }) {
+  const nameList = names.split(",");
+  const phoneList = phones.split(",");
+
+  for (let i = 0; i < nameList.length; i += 1) {
+    console.log(`${nameList[i]}: ${phoneList[i]}`);
+  }
+}
+
+printContactsInfo({
+  names: "Jacob,William,Solomon,Artemis",
+  phones: "89001234567,89001112233,890055566377,890055566300",
+// });
+|============================
+*/
+// =======================================================
+/** Задача: Example 3 - Глубокая деструктуризация. Перепиши функцию так, чтобы она принимала один объект параметров, вместо набора независимых аргументов.
+|============================
+// Example 3 - Глубокая деструктуризация
+// Перепиши функцию так, чтобы она принимала один объект параметров, вместо набора независимых аргументов.
+
+function getBotReport(companyName, repairBots, defenceBots) {
+  return `${companyName} has ${repairBots + defenceBots} bots in stock`;
+}
+
+// Было
+// console.log(getBotReport('Cyberdyne Systems', 150, 50));
+
+// Ожидается
+console.log(
+  getBotReport({
+    companyName: 'Cyberdyne Systems',
+    bots: {
+      repair: 150,
+      defence: 50,
+    },
+  }),
+); // "Cyberdyne Systems has 200 bots in stock"
+|============================
+*/
+// -----------------------------------
+/** -- Решение: Example 3 - Глибока деструктуризація 
+|============================
+// ------------------
+// Решение: Вариант-1 
+// ------------------
+function getBotReport(params) {
+  const {
+    companyName,
+    bots: { repair, defence },
+  } = params;
+  return `${companyName} has ${repair + defence} bots in stock`;
+}
+
+console.log(
+  getBotReport({
+    companyName: 'Cyberdyne Systems',
+    bots: {
+      repair: 150,
+      defence: 50,
+    },
+  })
+); // "Cyberdyne Systems has 200 bots in stock"
+// ------------------
+// Решение: Вариант-2
+// ------------------
+function getBotReport({ companyName, bots: { repair, defence } }) {
+  return `${companyName} has ${repair + defence} bots in stock`;
+}
+
+console.log(
+  getBotReport({
+    companyName: 'Cyberdyne Systems',
+    bots: {
+      repair: 150,
+      defence: 50,
+    },
+  })
+); // "Cyberdyne Systems has 200 bots in stock"
+|============================
+*/
+// =======================================================
+/** Задача: Example 4 - Деструктуризация. Перепиши функцию так, чтобы она принимала объект параметров со свойствами companyName и stock и выводила репорт о количестве товаров на складе любой компании.
+|============================
+// Example 4 - Деструктуризация
+// Перепиши функцию так, чтобы она принимала объект параметров со свойствами companyName и stock и выводила репорт о количестве товаров на складе любой компании.
+
+function getStockReport({ companyName, stock: { repairBots, defenceBots } }) {
+  return `${companyName} has ${repairBots + defenceBots} bots in stock`;
+}
+
+console.log(
+  getStockReport({
+    companyName: 'Cyberdyne Systems',
+    stock: {
+      repairBots: 150,
+      defenceBots: 50,
+    },
+  })
+); // "Cyberdyne Systems has 200 items in stock"
+
+console.log(
+  getStockReport({
+    companyName: 'Belacci',
+    stock: {
+      shoes: 20,
+      skirts: 10,
+      hats: 5,
+    },
+  })
+); // "Belacci has 35 item in stock"
+
+|============================
+*/
+// -----------------------------------
+/** -- Решение: Example 4 - Деструктуризация.
+|============================
+function getStockReport({ companyName, stock }) {
+  let total = 0;
+
+  // Вариант-1 -------
+  for (const value of Object.values(stock)) {
+    total += value;
+  }
+
+  // Вариант-2 -------
+  // for (const key in stock) {
+  //   if (stock.hasOwnProperty(key)) {
+  //     total += stock[key];
+  //   }
+  // }
+
+  return `${companyName} has ${total} items in stock`;
+}
+
+console.log(
+  getStockReport({
+    companyName: 'Cyberdyne Systems',
+    stock: {
+      repairBots: 150,
+      defenceBots: 50,
+    },
+  })
+); // "Cyberdyne Systems has 200 items in stock"
+
+console.log(
+  getStockReport({
+    companyName: 'Belacci',
+    stock: {
+      shoes: 20,
+      skirts: 10,
+      hats: 5,
+    },
+  })
+); // "Belacci has 35 item in stock"
+|============================
+*/
+// =======================================================
+/** Задача: Example 5 - Операция spread. Дополни функцию createContact(partialContact) так, чтобы она возвращала новый объект контакта с добавленными свойствами id и createdAt, а также list со значением "default" если в partialContact нет такого свойства.
+|============================
+// Дополни функцию createContact(partialContact) так, чтобы она возвращала новый объект контакта с добавленными свойствами id и createdAt, а также list со значением "default" если в partialContact нет такого свойства.
+
+function createContact(partialContact) {
+  const newContact = partialContact;
+  return newContact;
+}
+
+console.log(
+  createContact({
+    name: 'Mango',
+    email: 'mango@mail.com',
+    list: 'friends',
+  })
+);
+console.log(
+  createContact({
+    name: 'Poly',
+    email: 'poly@hotmail.com',
+  })
+);
+
+function generateId() {
+  return '_' + Math.random().toString(36).substr(2, 9);
+}
+|============================
+*/
+// -----------------------------------
+/** -- Решение: Example 5 - Операция spread 
+|============================
+function createContact(partialContact) {
+
+  // ----- Вариант-1 с деструктуризацией. ----------
+  return {
+    list: 'default',
+    ...partialContact,
+    id: generateId(),
+    createdAt: Date.now(), // Возвращает число секунд с 1970 года.
+  };
+
+  // ----- Вариант-2 с деструктуризацией. ----------
+  // const newContact = { list: 'default', ...partialContact, id: generateId(), createdAt: Date.now() };
+  // return newContact;
+
+  // ----- Вариант-3 без деструктуризации. ----------
+  // const newContact = { list: 'default', ...partialContact };
+  // newContact.id = generateId();
+  // newContact.createdAt = Date.now(); // Возвращает число секунд с 1970 года.
+  // return newContact;
+}
+
+console.log(
+  createContact({
+    name: 'Mango',
+    email: 'mango@mail.com',
+    list: 'friends',
+  })
+);
+console.log(
+  createContact({
+    name: 'Poly',
+    email: 'poly@hotmail.com',
+  })
+);
+
+function generateId() {
+  return '_' + Math.random().toString(36).substr(2, 9);
+}
+
+// 
+// Date.now(); - Возвращает число секунд с 1970 года.
+|============================
+*/
+// =======================================================
+/** Задача: Example 6 - Операция rest. Напиши функцию transformUsername(user) так, чтобы она возвращала новый обьект со свойством fullName, вместо firstName и lastName.
+|============================
+// Example 6 - Операция rest
+// Напиши функцию transformUsername(user) так, чтобы она возвращала новый обьект со свойством fullName, вместо firstName и lastName.
+
+function transformUsername(user) {}
+
+console.log(
+  transformUsername({
+    id: 1,
+    firstName: 'Jacob',
+    lastName: 'Mercer',
+    email: 'j.mercer@mail.com',
+    friendCount: 40,
+  })
+);
+
+console.log(
+  transformUsername({
+    id: 2,
+    firstName: 'Adrian',
+    lastName: 'Cross',
+    email: 'a.cross@hotmail.com',
+    friendCount: 20,
+  })
+);
+
+
+|============================
+*/
+// -----------------------------------
+/** -- Решение: Example 6 - Операция rest.
+|============================
+// ------------------
+// Решение: Вариант-1 
+// ------------------
+// Решение
+function transformUsername({ firstName, lastName, ...otherProps }) {
+  ----- Вариант-1 -----
+  return {
+    fullName: `${firstName} ${lastName}`,
+    ...otherProps,
+  };
+  ----- Вариант-2 -----
+  return {
+    fullName: firstName + ' ' + lastName,
+    ...otherProps,
+  };
+}
+
+console.log(
+  transformId({
+    id: 1,
+    firstName: 'Jacob',
+    lastName: 'Mercer',
+    email: 'j.mercer@mail.com',
+    friendCount: 40,
+  }),
+);
+
+console.log(
+  transformId({
+    id: 2,
+    firstName: 'Adrian',
+    lastName: 'Cross',
+    email: 'a.cross@hotmail.com',
+    friendCount: 20,
+  }),
+);
+// ------------------------
+// Решение: Вариант-2-Олег 
+// ------------------------
+// function transformUsername({
+//   firstName = "Default",
+//   lastName = "",
+//   ...newUser
+// }) {
+//   return {
+//     fullName: firstName + " " + lastName,
+//     createdAt: Date.now(),
+//     ...newUser,
+//     updatedAt: Date.now(),
+//   };
+// }
+
+// const user = transformUsername({
+//   id: 1,
+//   firstName: "Jacob",
+//   lastName: "Mercer",
+//   email: "j.mercer@mail.com",
+//   friendCount: 40,
+// });
+
+// console.log(user);
+
+// console.log(transformUsername(user));
+
+// console.log(
+//   transformUsername({
+//     id: 2,
+//     firstName: "Adrian",
+//     lastName: "Cross",
+//     email: "a.cross@hotmail.com",
+//     friendCount: 20,
+//   })
+// );
+|============================
+*/
+// =========================================================================================
+// |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+// =========================================================================================
+// Артем модуль-3 занятие-6 Деструктуризація об'єктів
 // =========================================================================================
