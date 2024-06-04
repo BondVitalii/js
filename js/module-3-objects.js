@@ -3034,498 +3034,28 @@ console.log('Total: ', cart.countTotalPrice());
 
 // :::::::::::::::||| Олег модуль-3 занятие-6 Деструктуризація об'єктів |||:::::::::::::::
 
-/** Задача: Example 1 - Деструктуризация. Перепиши функцию так, чтобы она принимала один объект параметров, вместо набора независимых аргументов.
+/** Что такое Date.now() ? и new Date() ?
 |============================
-// Example 1 - Деструктуризация.
-// Перепиши функцию так, чтобы она принимала один объект параметров, вместо набора независимых аргументов.
-function calcBMI(weight, height) {
-  const numericWeight = Number(weight.replace(',', '.'));
-  const numericHeight = Number(height.replace(',', '.'));
-  return Number((numericWeight / numericHeight ** 2).toFixed(1));
-}
-
-// Было
-// console.log(calcBMI('88,3', '1.75'));
-// console.log(calcBMI('68,3', '1.65'));
-// console.log(calcBMI('118,3', '1.95'));
-
-// Ожидается
-console.log(
-  calcBMI({
-    weight: '88,3',
-    height: '1.75',
-  })
-);
-console.log(
-  calcBMI({
-    weight: '68,3',
-    height: '1.65',
-  })
-);
-console.log(
-  calcBMI({
-    weight: '118,3',
-    height: '1.95',
-  })
-);
-
-|============================
-*/
-// -----------------------------------
-/** -- Решение: Example 1 - Деструктуризація.
-|============================
-// ------------------
-// Решение: Вариант-1 
-// ------------------
-function calcBMI(params) {
-  const { weight, height } = params;
-  const numericWeight = Number(weight.replace(',', '.'));
-  const numericHeight = Number(height.replace(',', '.'));
-  return Number((numericWeight / numericHeight ** 2).toFixed(1));
-}
-
-console.log(
-  calcBMI({
-    weight: '88,3',
-    height: '1.75',
-  })
-);
-console.log(
-  calcBMI({
-    weight: '68,3',
-    height: '1.65',
-  })
-);
-console.log(
-  calcBMI({
-    weight: '118,3',
-    height: '1.95',
-  })
-);
-// ------------------
-// Решение: Вариант-2 
-// ------------------
-function calcBMI({ weight, height }) {
-  const numericWeight = Number(weight.replace(',', '.'));
-  const numericHeight = Number(height.replace(',', '.'));
-  return Number((numericWeight / numericHeight ** 2).toFixed(1));
-}
-
-// console.log(
-//   calcBMI({
-//     weight: "88,3",
-//     height: "1.75",
-//   })
-// );
-// console.log(
-//   calcBMI({
-//     weight: "68,3",
-//     height: "1.65",
-//   })
-// );
-// console.log(
-//   calcBMI({
-//     weight: "118,3",
-//     height: "1.95",
-//   })
-// );
-|============================
-*/
-// _______________________________________________________
-/** Задача: Example 2 - Деструктуризация. Перепиши функцию так, чтобы она принимала один объект параметров, вместо набора независимых аргументов.
-|============================
-// Example 2 - Деструктуризация
-// Перепиши функцию так, чтобы она принимала один объект параметров, вместо набора независимых аргументов.
-
-function printContactsInfo(names, phones) {
-  const nameList = names.split(',');
-  const phoneList = phones.split(',');
-  for (let i = 0; i < nameList.length; i += 1) {
-    console.log(`${nameList[i]}: ${phoneList[i]}`);
-  }
-}
-
-// Было
-// printContactsInfo(
-//   'Jacob,William,Solomon,Artemis',
-//   '89001234567,89001112233,890055566377,890055566300',
-// );
-
-// Ожидается
-printContactsInfo({
-  names: 'Jacob,William,Solomon,Artemis',
-  phones: '89001234567,89001112233,890055566377,890055566300',
-});
-|============================
-*/
-// -----------------------------------
-/** -- Решение: Example 2 - Деструктуризація.
-|============================
-// ------------------
-// Решение: Вариант-1 
-// ------------------
-function printContactsInfo(parametrs) {
-  const { names, phones } = parametrs;
-
-  const nameList = names.split(',');
-  const phoneList = phones.split(',');
-  
-  for (let i = 0; i < nameList.length; i += 1) {
-    console.log(`${nameList[i]}: ${phoneList[i]}`);
-  }
-}
-
-printContactsInfo({
-  names: 'Jacob,William,Solomon,Artemis',
-  phones: '89001234567,89001112233,890055566377,890055566300',
-});
-// ------------------
-// Решение: Вариант-2 
-// ------------------
-function printContactsInfo({ names, phones }) {
-  const nameList = names.split(",");
-  const phoneList = phones.split(",");
-
-  for (let i = 0; i < nameList.length; i += 1) {
-    console.log(`${nameList[i]}: ${phoneList[i]}`);
-  }
-}
-
-printContactsInfo({
-  names: "Jacob,William,Solomon,Artemis",
-  phones: "89001234567,89001112233,890055566377,890055566300",
-// });
-|============================
-*/
-// _______________________________________________________
-/** Задача: Example 3 - Глубокая деструктуризация. Перепиши функцию так, чтобы она принимала один объект параметров, вместо набора независимых аргументов.
-|============================
-// Example 3 - Глубокая деструктуризация
-// Перепиши функцию так, чтобы она принимала один объект параметров, вместо набора независимых аргументов.
-
-function getBotReport(companyName, repairBots, defenceBots) {
-  return `${companyName} has ${repairBots + defenceBots} bots in stock`;
-}
-
-// Было
-// console.log(getBotReport('Cyberdyne Systems', 150, 50));
-
-// Ожидается
-console.log(
-  getBotReport({
-    companyName: 'Cyberdyne Systems',
-    bots: {
-      repair: 150,
-      defence: 50,
-    },
-  }),
-); // "Cyberdyne Systems has 200 bots in stock"
-|============================
-*/
-// -----------------------------------
-/** -- Решение: Example 3 - Глибока деструктуризація 
-|============================
-// ------------------
-// Решение: Вариант-1 
-// ------------------
-function getBotReport(params) {
-  const {
-    companyName,
-    bots: { repair, defence },
-  } = params;
-  return `${companyName} has ${repair + defence} bots in stock`;
-}
-
-console.log(
-  getBotReport({
-    companyName: 'Cyberdyne Systems',
-    bots: {
-      repair: 150,
-      defence: 50,
-    },
-  })
-); // "Cyberdyne Systems has 200 bots in stock"
-// ------------------
-// Решение: Вариант-2
-// ------------------
-function getBotReport({ companyName, bots: { repair, defence } }) {
-  return `${companyName} has ${repair + defence} bots in stock`;
-}
-
-console.log(
-  getBotReport({
-    companyName: 'Cyberdyne Systems',
-    bots: {
-      repair: 150,
-      defence: 50,
-    },
-  })
-); // "Cyberdyne Systems has 200 bots in stock"
-|============================
-*/
-// _______________________________________________________
-/** Задача: Example 4 - Деструктуризация. Перепиши функцию так, чтобы она принимала объект параметров со свойствами companyName и stock и выводила репорт о количестве товаров на складе любой компании.
-|============================
-// Example 4 - Деструктуризация
-// Перепиши функцию так, чтобы она принимала объект параметров со свойствами companyName и stock и выводила репорт о количестве товаров на складе любой компании.
-
-function getStockReport({ companyName, stock: { repairBots, defenceBots } }) {
-  return `${companyName} has ${repairBots + defenceBots} bots in stock`;
-}
-
-console.log(
-  getStockReport({
-    companyName: 'Cyberdyne Systems',
-    stock: {
-      repairBots: 150,
-      defenceBots: 50,
-    },
-  })
-); // "Cyberdyne Systems has 200 items in stock"
-
-console.log(
-  getStockReport({
-    companyName: 'Belacci',
-    stock: {
-      shoes: 20,
-      skirts: 10,
-      hats: 5,
-    },
-  })
-); // "Belacci has 35 item in stock"
-
-|============================
-*/
-// -----------------------------------
-/** -- Решение: Example 4 - Деструктуризация.
-|============================
-function getStockReport({ companyName, stock }) {
-  let total = 0;
-
-  // Вариант-1 -------
-  for (const value of Object.values(stock)) {
-    total += value;
-  }
-
-  // Вариант-2 -------
-  // for (const key in stock) {
-  //   if (stock.hasOwnProperty(key)) {
-  //     total += stock[key];
-  //   }
-  // }
-
-  return `${companyName} has ${total} items in stock`;
-}
-
-console.log(
-  getStockReport({
-    companyName: 'Cyberdyne Systems',
-    stock: {
-      repairBots: 150,
-      defenceBots: 50,
-    },
-  })
-); // "Cyberdyne Systems has 200 items in stock"
-
-console.log(
-  getStockReport({
-    companyName: 'Belacci',
-    stock: {
-      shoes: 20,
-      skirts: 10,
-      hats: 5,
-    },
-  })
-); // "Belacci has 35 item in stock"
-|============================
-*/
-// _______________________________________________________
-/** Задача: Example 5 - Операция spread. Дополни функцию createContact(partialContact) так, чтобы она возвращала новый объект контакта с добавленными свойствами id и createdAt, а также list со значением "default" если в partialContact нет такого свойства.
-|============================
-// Дополни функцию createContact(partialContact) так, чтобы она возвращала новый объект контакта с добавленными свойствами id и createdAt, а также list со значением "default" если в partialContact нет такого свойства.
-
-function createContact(partialContact) {
-  const newContact = partialContact;
-  return newContact;
-}
-
-console.log(
-  createContact({
-    name: 'Mango',
-    email: 'mango@mail.com',
-    list: 'friends',
-  })
-);
-console.log(
-  createContact({
-    name: 'Poly',
-    email: 'poly@hotmail.com',
-  })
-);
-
-function generateId() {
-  return '_' + Math.random().toString(36).substr(2, 9);
-}
-|============================
-*/
-// -----------------------------------
-/** -- Решение: Example 5 - Операция spread 
-|============================
-function createContact(partialContact) {
-
-  // ----- Вариант-1 с деструктуризацией. ----------
-  return {
-    list: 'default',
-    ...partialContact,
-    id: generateId(),
-    createdAt: Date.now(), // Возвращает число секунд с 1970 года.
-  };
-
-  // ----- Вариант-2 с деструктуризацией. ----------
-  // const newContact = { list: 'default', ...partialContact, id: generateId(), createdAt: Date.now() };
-  // return newContact;
-
-  // ----- Вариант-3 без деструктуризации. ----------
-  // const newContact = { list: 'default', ...partialContact };
-  // newContact.id = generateId();
-  // newContact.createdAt = Date.now(); // Возвращает число секунд с 1970 года.
-  // return newContact;
-}
-
-console.log(
-  createContact({
-    name: 'Mango',
-    email: 'mango@mail.com',
-    list: 'friends',
-  })
-);
-console.log(
-  createContact({
-    name: 'Poly',
-    email: 'poly@hotmail.com',
-  })
-);
-
-function generateId() {
-  return '_' + Math.random().toString(36).substr(2, 9);
-}
-
-// 
+// Что такое Date.now() ? 
 // Date.now(); - Возвращает число секунд с 1970 года.
-|============================
-*/
-// _______________________________________________________
-/** Задача: Example 6 - Операция rest. Напиши функцию transformUsername(user) так, чтобы она возвращала новый обьект со свойством fullName, вместо firstName и lastName.
-|============================
-// Example 6 - Операция rest
-// Напиши функцию transformUsername(user) так, чтобы она возвращала новый обьект со свойством fullName, вместо firstName и lastName.
 
-function transformUsername(user) {}
-
-console.log(
-  transformUsername({
-    id: 1,
-    firstName: 'Jacob',
-    lastName: 'Mercer',
-    email: 'j.mercer@mail.com',
-    friendCount: 40,
-  })
-);
-
-console.log(
-  transformUsername({
-    id: 2,
-    firstName: 'Adrian',
-    lastName: 'Cross',
-    email: 'a.cross@hotmail.com',
-    friendCount: 20,
-  })
-);
-
-
-|============================
-*/
-// -----------------------------------
-/** -- Решение: Example 6 - Операция rest.
-|============================
-// ------------------
-// Решение: Вариант-1 
-// ------------------
-// Решение
-function transformUsername({ firstName, lastName, ...otherProps }) {
-  ----- Вариант-1 -----
-  return {
-    fullName: `${firstName} ${lastName}`,
-    ...otherProps,
-  };
-  ----- Вариант-2 -----
-  return {
-    fullName: firstName + ' ' + lastName,
-    ...otherProps,
-  };
-}
-
-console.log(
-  transformId({
-    id: 1,
-    firstName: 'Jacob',
-    lastName: 'Mercer',
-    email: 'j.mercer@mail.com',
-    friendCount: 40,
-  }),
-);
-
-console.log(
-  transformId({
-    id: 2,
-    firstName: 'Adrian',
-    lastName: 'Cross',
-    email: 'a.cross@hotmail.com',
-    friendCount: 20,
-  }),
-);
-// ------------------------
-// Решение: Вариант-2-Олег 
-// ------------------------
-// function transformUsername({
-//   firstName = "Default",
-//   lastName = "",
-//   ...newUser
-// }) {
-//   return {
-//     fullName: firstName + " " + lastName,
-//     createdAt: Date.now(),
-//     ...newUser,
-//     updatedAt: Date.now(),
-//   };
-// }
-
-// const user = transformUsername({
-//   id: 1,
-//   firstName: "Jacob",
-//   lastName: "Mercer",
-//   email: "j.mercer@mail.com",
-//   friendCount: 40,
-// });
-
-// console.log(user);
-
-// console.log(transformUsername(user));
-
-// console.log(
-//   transformUsername({
-//     id: 2,
-//     firstName: "Adrian",
-//     lastName: "Cross",
-//     email: "a.cross@hotmail.com",
-//     friendCount: 20,
-//   })
-// );
+// Что такое new Date() ? 
+// new Date(); - Возвращает число, месяц, текущее время. // Tue Jun 04 2024 15:01:47 GMT+0300 (Восточная Европа, летнее время)
 |============================
 */
 
 // :::::::::::::::||| Артем модуль-3 занятие-6 Деструктуризація об'єктів |||:::::::::::::::
 
+/** Что такое Date.now() ? и new Date() ?
+|============================
+// Что такое Date.now() ? 
+// Date.now(); - Возвращает число секунд с 1970 года.
+
+// Что такое new Date() ? 
+// new Date(); - Возвращает число, месяц, текущее время. // Tue Jun 04 2024 15:01:47 GMT+0300 (Восточная Европа, летнее время)
+|============================
+*/
+// ___________________________________
 /** Деструктуризация обьектов.
 |============================
 // -----------------------------------------------
@@ -3662,7 +3192,7 @@ console.log(sass); // true
 console.log(audi); // A6
 |============================
 */
-// ------------------------------------------
+// -----------------------------------
 /** Деструктуризация масивов.
 |============================
 // -----------------------------------------------
@@ -3852,7 +3382,7 @@ for (const {
   console.log(car); // User1 A6 // User2 A8 // User3 A7
 |============================
 */
-// ------------------------------------------
+// -----------------------------------
 /** Дефолтное значение при деструктуризации.
 |============================
 // -----------------------------------
@@ -3897,7 +3427,7 @@ for (const {
 
 |============================
 */
-// ------------------------------------------
+// -----------------------------------
 /** Деструктуризация при вызове функции.
 |============================
 // -----------------------------------
@@ -3998,4 +3528,776 @@ function foo2(first, second, ...rest) {
 foo2(...arrY);
 |============================
 */
-// _______________________________________________________
+
+// :::::::::::::::||| ЗАВДАННЯ модуль-3 занятие-6 Деструктуризація об'єктів |||:::::::::::::::
+
+/** Задача: Example 1 - Деструктуризація. Перепиши функцію так, щоб вона приймала один об'єкт параметрів замість набору незалежних аргументів.
+|============================
+// Перепиши функцію так, щоб вона приймала один об'єкт параметрів замість набору незалежних аргументів.
+
+function calcBMI(weight, height) {
+  const numericWeight = Number(weight.replace(',', '.'));
+  const numericHeight = Number(height.replace(',', '.'));
+  return Number((numericWeight / numericHeight ** 2).toFixed(1));
+}
+
+// Було
+// console.log(calcBMI('88,3', '1.75'));
+// console.log(calcBMI('68,3', '1.65'));
+// console.log(calcBMI('118,3', '1.95'));
+
+// Очікується
+console.log(
+  calcBMI({
+    weight: '88,3',
+    height: '1.75',
+  }),
+);
+console.log(
+  calcBMI({
+    weight: '68,3',
+    height: '1.65',
+  }),
+);
+console.log(
+  calcBMI({
+    weight: '118,3',
+    height: '1.95',
+  }),
+);
+|============================
+*/
+
+// JS Doc /** */ -------------
+// /**
+//  * Розраховуємо індекс маси тіла людини.
+//  * @param {Object} obj
+//  * @returns {Number} BMI
+//  */
+
+/** -- Решение: Артем - Example 1 - Деструктуризація.
+|============================
+// Перепиши функцію так, щоб вона приймала один об'єкт параметрів замість набору незалежних аргументів.
+
+function calcBMI({ weight, height }) {
+  const numericWeight = Number(weight.replace(',', '.'));
+  const numericHeight = Number(height.replace(',', '.'));
+  return Number((numericWeight / numericHeight ** 2).toFixed(1));
+}
+
+// Було
+// console.log(calcBMI('88,3', '1.75'));
+// console.log(calcBMI('68,3', '1.65'));
+// console.log(calcBMI('118,3', '1.95'));
+
+// Очікується
+console.log(
+  calcBMI({
+    weight: '88,3',
+    height: '1.75',
+  })
+);
+console.log(
+  calcBMI({
+    weight: '68,3',
+    height: '1.65',
+  })
+);
+console.log(
+  calcBMI({
+    weight: '118,3',
+    height: '1.95',
+  })
+);
+|============================
+*/
+// -----------------------------------
+/** -- Решение: Олег - Example 1 - Деструктуризація.
+|============================ 
+// Перепиши функцію так, щоб вона приймала один об'єкт параметрів замість набору незалежних аргументів.
+// ------------------
+// Решение: Вариант-1 
+// ------------------
+function calcBMI(params) {
+  const { weight, height } = params;
+  const numericWeight = Number(weight.replace(',', '.'));
+  const numericHeight = Number(height.replace(',', '.'));
+  return Number((numericWeight / numericHeight ** 2).toFixed(1));
+}
+
+console.log(
+  calcBMI({
+    weight: '88,3',
+    height: '1.75',
+  })
+);
+console.log(
+  calcBMI({
+    weight: '68,3',
+    height: '1.65',
+  })
+);
+console.log(
+  calcBMI({
+    weight: '118,3',
+    height: '1.95',
+  })
+);
+// ------------------
+// Решение: Вариант-2 
+// ------------------
+function calcBMI({ weight, height }) {
+  const numericWeight = Number(weight.replace(',', '.'));
+  const numericHeight = Number(height.replace(',', '.'));
+  return Number((numericWeight / numericHeight ** 2).toFixed(1));
+}
+
+// console.log(
+//   calcBMI({
+//     weight: "88,3",
+//     height: "1.75",
+//   })
+// );
+// console.log(
+//   calcBMI({
+//     weight: "68,3",
+//     height: "1.65",
+//   })
+// );
+// console.log(
+//   calcBMI({
+//     weight: "118,3",
+//     height: "1.95",
+//   })
+// );
+|============================
+*/
+// ===========================================================================================
+/** Задача: Example 2 - Деструктуризация. Перепиши функцию так, чтобы она принимала один объект параметров, вместо набора независимых аргументов.
+|============================
+// Example 2 - Деструктуризация
+// Перепиши функцию так, чтобы она принимала один объект параметров, вместо набора независимых аргументов.
+
+function printContactsInfo(names, phones) {
+  const nameList = names.split(',');
+  const phoneList = phones.split(',');
+  for (let i = 0; i < nameList.length; i += 1) {
+    console.log(`${nameList[i]}: ${phoneList[i]}`);
+  }
+}
+
+// Было
+// printContactsInfo(
+//   'Jacob,William,Solomon,Artemis',
+//   '89001234567,89001112233,890055566377,890055566300',
+// );
+
+// Ожидается
+printContactsInfo({
+  names: 'Jacob,William,Solomon,Artemis',
+  phones: '89001234567,89001112233,890055566377,890055566300',
+});
+|============================
+*/
+
+// JS Doc /** */ -------------
+// /**
+//  *
+//  * @param {Object} obj
+//  */
+
+/** -- Решение: Артем - Example 2 - Деструктуризація.
+|============================
+// Перепиши функцію так, щоб вона приймала один об'єкт параметрів замість набору незалежних аргументів.
+
+function printContactsInfo({ names, phones }) {
+  const nameList = names.split(',');
+  const phoneList = phones.split(',');
+  for (let i = 0; i < nameList.length; i += 1) {
+    console.log(`${nameList[i]}: ${phoneList[i]}`);
+  }
+}
+
+printContactsInfo({
+  names: 'Jacob,William,Solomon,Artemis',
+  phones: '89001234567,89001112233,890055566377,890055566300',
+});
+|============================
+*/
+// -----------------------------------
+/** -- Решение: Олег - Example 2 - Деструктуризація.
+|============================
+// ------------------
+// Решение: Вариант-1 
+// ------------------
+function printContactsInfo(parametrs) {
+  const { names, phones } = parametrs;
+
+  const nameList = names.split(',');
+  const phoneList = phones.split(',');
+  
+  for (let i = 0; i < nameList.length; i += 1) {
+    console.log(`${nameList[i]}: ${phoneList[i]}`);
+  }
+}
+
+printContactsInfo({
+  names: 'Jacob,William,Solomon,Artemis',
+  phones: '89001234567,89001112233,890055566377,890055566300',
+});
+// ------------------
+// Решение: Вариант-2 
+// ------------------
+function printContactsInfo({ names, phones }) {
+  const nameList = names.split(",");
+  const phoneList = phones.split(",");
+
+  for (let i = 0; i < nameList.length; i += 1) {
+    console.log(`${nameList[i]}: ${phoneList[i]}`);
+  }
+}
+
+printContactsInfo({
+  names: "Jacob,William,Solomon,Artemis",
+  phones: "89001234567,89001112233,890055566377,890055566300",
+// });
+|============================
+*/
+// ===========================================================================================
+/** Задача: Example 3 - Глубокая деструктуризация. Перепиши функцию так, чтобы она принимала один объект параметров, вместо набора независимых аргументов.
+|============================
+// Перепиши функцию так, чтобы она принимала один объект параметров, вместо набора независимых аргументов.
+
+function getBotReport(companyName, repairBots, defenceBots) {
+  return `${companyName} has ${repairBots + defenceBots} bots in stock`;
+}
+
+// Было
+// console.log(getBotReport('Cyberdyne Systems', 150, 50));
+
+// Ожидается
+console.log(
+  getBotReport({
+    companyName: 'Cyberdyne Systems',
+    bots: {
+      repair: 150,
+      defence: 50,
+    },
+  }),
+); // "Cyberdyne Systems has 200 bots in stock"
+|============================
+*/
+// -----------------------------------
+/** -- Решение: Артем - Example 3 - Глибока деструктуризація.
+|============================
+// Глубокая деструктуризация. Перепиши функцию так, чтобы она принимала один объект параметров, вместо набора независимых аргументов.
+
+function getBotReport({ companyName, repairBots, defenceBots }) {
+  return `${companyName} has ${repairBots + defenceBots} bots in stock`;
+}
+
+// Було
+console.log(
+  getBotReport({
+    companyName: 'Cyberdyne Systems',
+    repairBots: 150,
+    defenceBots: 50,
+  })
+);
+|============================
+*/
+// -----------------------------------
+/** -- Решение: Олег - Example 3 - Глибока деструктуризація 
+|============================
+// ------------------
+// Решение: Вариант-1 
+// ------------------
+function getBotReport(params) {
+  const {
+    companyName,
+    bots: { repair, defence },
+  } = params;
+  return `${companyName} has ${repair + defence} bots in stock`;
+}
+
+console.log(
+  getBotReport({
+    companyName: 'Cyberdyne Systems',
+    bots: {
+      repair: 150,
+      defence: 50,
+    },
+  })
+); // "Cyberdyne Systems has 200 bots in stock"
+// ------------------
+// Решение: Вариант-2
+// ------------------
+function getBotReport({ companyName, bots: { repair, defence } }) {
+  return `${companyName} has ${repair + defence} bots in stock`;
+}
+
+console.log(
+  getBotReport({
+    companyName: 'Cyberdyne Systems',
+    bots: {
+      repair: 150,
+      defence: 50,
+    },
+  })
+); // "Cyberdyne Systems has 200 bots in stock"
+|============================
+*/
+// ===========================================================================================
+/** Артем- Example 4 - Деструктуризація. Перепиши функцію так, щоб вона приймала об'єкт параметрів із властивостями companyName та stock та виводила репорт про кількість товарів на складі будь-якої компанії.
+|============================
+// Перепиши функцію так, щоб вона приймала об'єкт параметрів із властивостями companyName та stock та виводила репорт про кількість товарів на складі будь-якої компанії.
+
+function getStockReport({ companyName, stock }) {
+  // let total = repairBots + defenceBots;
+  let total = 0;
+  for (const value of Object.values(stock)) {
+    total += value;
+  }
+  return `${companyName} has ${total} items in stock`;
+}
+
+console.log(
+  getStockReport({
+    companyName: 'Cyberdyne Systems',
+    stock: {
+      repairBots: 150,
+      defenceBots: 50,
+    },
+  })
+); // "Cyberdyne Systems has 200 items in stock"
+
+console.log(
+  getStockReport({
+    companyName: 'Belacci',
+    stock: {
+      shoes: 20,
+      skirts: 10,
+      hats: 5,
+    },
+  })
+); // "Belacci has 35 item in stock"
+|============================
+*/
+// -----------------------------------
+/** -- Решение: Артем - Example 4 - Деструктуризация.
+|============================
+// Перепиши функцію так, щоб вона приймала об'єкт параметрів із властивостями companyName та stock та виводила репорт про кількість товарів на складі будь-якої компанії.
+
+// Перепиши функцію так, щоб вона приймала об'єкт параметрів із властивостями companyName та stock та виводила репорт про кількість товарів на складі будь-якої компанії.
+
+// Вариант-1 Если ключи разные.
+function getStockReport({ companyName, stock }) {
+  // let total = repairBots + defenceBots;
+  let total = 0;
+  for (const value of Object.values(stock)) {
+    total += value;
+  }
+  return `${companyName} has ${total} items in stock`;
+}
+
+console.log(
+  getStockReport({
+    companyName: 'Cyberdyne Systems',
+    stock: {
+      repairBots: 150,
+      defenceBots: 50,
+    },
+  })
+); // "Cyberdyne Systems has 200 items in stock"
+
+console.log(
+  getStockReport({
+    companyName: 'Belacci',
+    stock: {
+      shoes: 20,
+      skirts: 10,
+      hats: 5,
+    },
+  })
+); // "Belacci has 35 item in stock"
+
+// Вариант-2 Если ключи одинаковые.
+function getStockReport({ companyName, stock: { repairBots, defenceBots } }) {
+  let total = repairBots + defenceBots;
+
+  return `${companyName} has ${total} items in stock`;
+}
+
+console.log(
+  getStockReport({
+    companyName: 'Cyberdyne Systems',
+    stock: {
+      repairBots: 150,
+      defenceBots: 50,
+    },
+  })
+); // "Cyberdyne Systems has 200 items in stock"
+|============================
+*/
+// -----------------------------------
+/** Олег - Задача: Example 4 - Деструктуризация. Перепиши функцию так, чтобы она принимала объект параметров со свойствами companyName и stock и выводила репорт о количестве товаров на складе любой компании.
+|============================
+// Перепиши функцию так, чтобы она принимала объект параметров со свойствами companyName и stock и выводила репорт о количестве товаров на складе любой компании.
+
+function getStockReport({ companyName, stock: { repairBots, defenceBots } }) {
+  return `${companyName} has ${repairBots + defenceBots} bots in stock`;
+}
+
+console.log(
+  getStockReport({
+    companyName: 'Cyberdyne Systems',
+    stock: {
+      repairBots: 150,
+      defenceBots: 50,
+    },
+  })
+); // "Cyberdyne Systems has 200 items in stock"
+
+console.log(
+  getStockReport({
+    companyName: 'Belacci',
+    stock: {
+      shoes: 20,
+      skirts: 10,
+      hats: 5,
+    },
+  })
+); // "Belacci has 35 item in stock"
+
+|============================
+*/
+// -----------------------------------
+/** -- Решение: Олег - Example 4 - Деструктуризация.
+|============================
+function getStockReport({ companyName, stock }) {
+  let total = 0;
+
+  // Вариант-1 -------
+  for (const value of Object.values(stock)) {
+    total += value;
+  }
+
+  // Вариант-2 -------
+  // for (const key in stock) {
+  //   if (stock.hasOwnProperty(key)) {
+  //     total += stock[key];
+  //   }
+  // }
+
+  return `${companyName} has ${total} items in stock`;
+}
+
+console.log(
+  getStockReport({
+    companyName: 'Cyberdyne Systems',
+    stock: {
+      repairBots: 150,
+      defenceBots: 50,
+    },
+  })
+); // "Cyberdyne Systems has 200 items in stock"
+
+console.log(
+  getStockReport({
+    companyName: 'Belacci',
+    stock: {
+      shoes: 20,
+      skirts: 10,
+      hats: 5,
+    },
+  })
+); // "Belacci has 35 item in stock"
+|============================
+*/
+// ===========================================================================================
+/** Артем - Example 5 - Операція spread. Доповни функцію createContact(partialContact) так, щоб вона повертала новий об'єкт контакту з доданими властивостями id та createdAt, а також list зі значенням "default" якщо в partialContact немає такої властивості.
+|============================
+// Доповни функцію createContact(partialContact) так, щоб вона повертала новий об'єкт контакту з доданими властивостями id та createdAt, а також list зі значенням "default" якщо в partialContact немає такої властивості.
+
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date
+
+function createContact(partialContact) {
+  return {};
+}
+
+console.log(
+  createContact({
+    name: 'Mango',
+    email: 'mango@mail.com',
+    list: 'friends',
+  })
+);
+console.log(
+  createContact({
+    name: 'Poly',
+    email: 'poly@hotmail.com',
+  })
+);
+
+// Функція генерування id.
+function generateId() {
+  return '_' + Math.random().toString(36).substr(2, 9);
+}
+|============================
+*/
+// -----------------------------------
+/** -- Решение: Артем - Example 5 - Операція spread
+|============================
+// Example 5 - Операція spread
+// Доповни функцію createContact(partialContact) так, щоб вона повертала новий об'єкт контакту з доданими властивостями id та createdAt, а також list зі значенням "default" якщо в partialContact немає такої властивості.
+
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date
+
+function createContact(partialContact) {
+    return {
+        id: generateId(),
+        createdAt: new Date(),
+        list :"default",
+        ...partialContact,
+    }
+}
+
+console.log(
+    createContact({
+        name: 'Mango',
+        email: 'mango@mail.com',
+        list: 'friends',
+    }),
+);
+console.log(
+    createContact({
+        name: 'Poly',
+        email: 'poly@hotmail.com',
+    }),
+);
+
+// Функція генерування id.
+function generateId() {
+  return '_' + Math.random().toString(36).substr(2, 9);
+}
+|============================
+*/
+// -----------------------------------
+/** Олег - Задача: Example 5 - Операция spread. Дополни функцию createContact(partialContact) так, чтобы она возвращала новый объект контакта с добавленными свойствами id и createdAt, а также list со значением "default" если в partialContact нет такого свойства.
+|============================
+// Дополни функцию createContact(partialContact) так, чтобы она возвращала новый объект контакта с добавленными свойствами id и createdAt, а также list со значением "default" если в partialContact нет такого свойства.
+
+function createContact(partialContact) {
+  const newContact = partialContact;
+  return newContact;
+}
+
+console.log(
+  createContact({
+    name: 'Mango',
+    email: 'mango@mail.com',
+    list: 'friends',
+  })
+);
+console.log(
+  createContact({
+    name: 'Poly',
+    email: 'poly@hotmail.com',
+  })
+);
+
+// Функція генерування id.
+function generateId() {
+  return '_' + Math.random().toString(36).substr(2, 9);
+}
+|============================
+*/
+// -----------------------------------
+/** -- Решение: Олег - Example 5 - Операция spread 
+|============================
+function createContact(partialContact) {
+
+  // ----- Вариант-1 с деструктуризацией. ----------
+  return {
+    list: 'default',
+    ...partialContact,
+    id: generateId(),
+    createdAt: Date.now(), // Возвращает число секунд с 1970 года.
+  };
+
+  // ----- Вариант-2 с деструктуризацией. ----------
+  // const newContact = { list: 'default', ...partialContact, id: generateId(), createdAt: Date.now() };
+  // return newContact;
+
+  // ----- Вариант-3 без деструктуризации. ----------
+  // const newContact = { list: 'default', ...partialContact };
+  // newContact.id = generateId();
+  // newContact.createdAt = Date.now(); // Возвращает число секунд с 1970 года.
+  // return newContact;
+}
+
+console.log(
+  createContact({
+    name: 'Mango',
+    email: 'mango@mail.com',
+    list: 'friends',
+  })
+);
+console.log(
+  createContact({
+    name: 'Poly',
+    email: 'poly@hotmail.com',
+  })
+);
+
+// Функція генерування id.
+function generateId() {
+  return '_' + Math.random().toString(36).substr(2, 9);
+}
+
+// Что такое Date.now() ? 
+//  // Date.now(); - Возвращает число секунд с 1970 года.
+// Что такое new Date() ? 
+// new Date(); - Возвращает число, месяц, текущее время. // Tue Jun 04 2024 15:01:47 GMT+0300 (Восточная Европа, летнее время)
+|============================
+*/
+// ===========================================================================================
+/** Задача: Example 6 - Операция rest. Напиши функцию transformUsername(user) так, чтобы она возвращала новый обьект со свойством fullName, вместо firstName и lastName.
+|============================
+// Example 6 - Операция rest
+// Напиши функцию transformUsername(user) так, чтобы она возвращала новый обьект со свойством fullName, вместо firstName и lastName.
+
+function transformUsername(user) {}
+
+console.log(
+  transformUsername({
+    id: 1,
+    firstName: 'Jacob',
+    lastName: 'Mercer',
+    email: 'j.mercer@mail.com',
+    friendCount: 40,
+  })
+);
+
+console.log(
+  transformUsername({
+    id: 2,
+    firstName: 'Adrian',
+    lastName: 'Cross',
+    email: 'a.cross@hotmail.com',
+    friendCount: 20,
+  })
+);
+|============================
+*/
+// -----------------------------------
+/** -- Решение: Артем - Example 5 - Операция spread
+|============================
+// Напиши функцію transformUsername(user) так, щоб вона повертала новий об'єкт із властивістю fullName, замість firstName та lastName.
+
+function transformUsername({ firstName, lastName, ...props }) {
+  return {
+    fullName: `${firstName} ${lastName}`,
+    ...props,
+  };
+}
+
+console.log(
+  transformUsername({
+    id: 1,
+    firstName: 'Jacob',
+    lastName: 'Mercer',
+    email: 'j.mercer@mail.com',
+    friendCount: 40,
+  })
+);
+console.log(
+  transformUsername({
+    id: 2,
+    firstName: 'Adrian',
+    lastName: 'Cross',
+    email: 'a.cross@hotmail.com',
+    friendCount: 20,
+  })
+);
+|============================
+*/
+// -----------------------------------
+/** -- Решение: Олег - Example 6 - Операция rest.
+|============================
+// ------------------
+// Решение: Вариант-1 
+// ------------------
+// Решение
+function transformUsername({ firstName, lastName, ...otherProps }) {
+  ----- Вариант-1 -----
+  return {
+    fullName: `${firstName} ${lastName}`,
+    ...otherProps,
+  };
+  ----- Вариант-2 -----
+  return {
+    fullName: firstName + ' ' + lastName,
+    ...otherProps,
+  };
+}
+
+console.log(
+  transformId({
+    id: 1,
+    firstName: 'Jacob',
+    lastName: 'Mercer',
+    email: 'j.mercer@mail.com',
+    friendCount: 40,
+  }),
+);
+
+console.log(
+  transformId({
+    id: 2,
+    firstName: 'Adrian',
+    lastName: 'Cross',
+    email: 'a.cross@hotmail.com',
+    friendCount: 20,
+  }),
+);
+// ------------------------
+// Решение: Вариант-2-Олег 
+// ------------------------
+// function transformUsername({
+//   firstName = "Default",
+//   lastName = "",
+//   ...newUser
+// }) {
+//   return {
+//     fullName: firstName + " " + lastName,
+//     createdAt: Date.now(),
+//     ...newUser,
+//     updatedAt: Date.now(),
+//   };
+// }
+
+// const user = transformUsername({
+//   id: 1,
+//   firstName: "Jacob",
+//   lastName: "Mercer",
+//   email: "j.mercer@mail.com",
+//   friendCount: 40,
+// });
+
+// console.log(user);
+
+// console.log(transformUsername(user));
+
+// console.log(
+//   transformUsername({
+//     id: 2,
+//     firstName: "Adrian",
+//     lastName: "Cross",
+//     email: "a.cross@hotmail.com",
+//     friendCount: 20,
+//   })
+// );
+|============================
+*/
+// ===========================================================================================
