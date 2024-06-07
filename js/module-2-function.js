@@ -564,7 +564,7 @@ console.log(filterNumbers([100, 200, 300, 400, 500], 7, 12, 200, 64)); // [200]
 // =====================
 
 // Через for --------------
-
+// 
 // function add() {
 //   let sum = 0;
 //   console.log(arguments);
