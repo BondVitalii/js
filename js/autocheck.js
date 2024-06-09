@@ -131,7 +131,7 @@ console.log(countProps({ mail: 'poly@mail.com', isOnline: true, score: 500 })); 
 |============================
 */
 // ===========================================================================================
-/** Задача-13: Перебери объект apartment используя метод Object.keys() и цикл for...of.
+/** Задача-13: /метод Object.keys() и цикл for...of./ Перебери объект apartment используя метод Object.keys() и цикл for...of.
 |============================
 Перебери объект apartment используя метод Object.keys() и цикл for...of. Запиши в переменную keys массив ключей собственных свойств объекта apartment, и добавь в массив values все значения его свойств.
 * Объявлена переменная apartment.
@@ -205,7 +205,7 @@ for (const key of keys) {
 |============================
 */
 // ===========================================================================================
-/** Задача-14: Выполни рефакторинг функции countProps(object) используя метод Object.keys()
+/** Задача-14: /метод Object.keys()/ Выполни рефакторинг функции countProps(object) используя метод Object.keys()
 |============================
 Выполни рефакторинг функции countProps(object) используя метод Object.keys() и, возможно, но необязательно, цикл for...of.
 * Объявлена функция countProps(object)
@@ -254,7 +254,7 @@ console.log(countProps({ mail: 'poly@mail.com', isOnline: true, score: 500 })); 
 |============================
 */
 // ===========================================================================================
-/** Задача-15: метод Object.values(obj). Запиши в переменную keys массив ключей собственных свойств объекта apartment, а в переменную values массив всех значений его свойств. 
+/** Задача-15: /метод Object.values(obj)/ Запиши в переменную keys массив ключей собственных свойств объекта apartment, а в переменную values массив всех значений его свойств. 
 |============================
 Запиши в переменную keys массив ключей собственных свойств объекта apartment, а в переменную values массив всех значений его свойств. 
 Используй методы Object.keys() и Object.values().
@@ -381,7 +381,7 @@ console.log(countTotalSalary({ kiwi: 200, poly: 50, ajax: 150 })); // возвр
 |============================
 */
 // ===========================================================================================
-/** Задача-17: Перебери массив объектов colors используя цикл for...of. Добавь в массив hexColors значения свойств hex, а в массив rgbColors значения свойств rgb из всех объектов массива colors.
+/** Задача-17: /Перебор масива объектов циклом for...of/ Перебери массив объектов colors используя цикл for...of. Добавь в массив hexColors значения свойств hex, а в массив rgbColors значения свойств rgb из всех объектов массива colors.
 |============================
 
 Перебери массив объектов colors используя цикл for...of. Добавь в массив hexColors значения свойств hex, а в массив rgbColors значения свойств rgb из всех объектов массива colors.
@@ -612,18 +612,92 @@ function calculateTotalPrice(productName) {
   return 0;
 }
 
-console.log(calculateTotalPrice('Blaster')); // возвращает 0
-console.log(calculateTotalPrice('Radar')); // возвращает 5200
-console.log(calculateTotalPrice('Droid')); // возвращает 2800
-console.log(calculateTotalPrice('Grip')); // возвращает 10800
-console.log(calculateTotalPrice('Scanner')); // возвращает 8100
-
 // Вызов ----------
 console.log(calculateTotalPrice('Blaster')); // возвращает 0
 console.log(calculateTotalPrice('Radar')); // возвращает 5200
 console.log(calculateTotalPrice('Droid')); // возвращает 2800
 console.log(calculateTotalPrice('Grip')); // возвращает 10800
 console.log(calculateTotalPrice('Scanner')); // возвращает 8100
+|============================
+*/
+// ===========================================================================================
+/** Задача-21: /Деструктуризация объекта/ Пришел трёхдневный прогноз максимальных температур и мы считаем среднюю температуру за три дня (meanTemperature). Замени объявления переменных yesterday, today и tomorrow одной операцией деструктуризации свойств объекта highTemperatures.
+|============================
+Пришел трёхдневный прогноз максимальных температур и мы считаем среднюю температуру за три дня (meanTemperature). Замени объявления переменных yesterday, today и tomorrow одной операцией деструктуризации свойств объекта highTemperatures.
+* Объявлена переменная highTemperatures
+* Значение переменной highTemperatures это объект
+* Объявлена переменная yesterday с помощью деструктуризации
+* Значение переменной yesterday это число 28
+* Объявлена переменная today с помощью деструктуризации
+* Значение переменной today это число 26
+* Объявлена переменная tomorrow с помощью деструктуризации
+* Значение переменной tomorrow это число 33
+* Объявлена переменная meanTemperature
+* Значение переменной meanTemperature это число 29
+* Используется синтаксис деструктуризации объекта highTemperatures
+
+const highTemperatures = {
+  yesterday: 28,
+  today: 26,
+  tomorrow: 33,
+};
+
+const yesterday = highTemperatures.yesterday;
+const today = highTemperatures.today;
+const tomorrow = highTemperatures.tomorrow;
+
+const meanTemperature = (yesterday + today + tomorrow) / 3;
+
+// ================== Решение ==================
+
+const highTemperatures = {
+  yesterday: 28,
+  today: 26,
+  tomorrow: 33,
+};
+
+const { yesterday, today, tomorrow } = highTemperatures;
+
+const meanTemperature = (yesterday + today + tomorrow) / 3;
+
+console.log(yesterday);
+console.log(today);
+console.log(tomorrow);
+console.log(meanTemperature);
+
+// ======= Теория к задаче-21 ================================================================
+
+Сложные данные всегда представлены объектом. Множественные обращения к свойствам объекта визуально загрязняют код.
+
+const book = {
+  title: "The Last Kingdom",
+  author: "Bernard Cornwell",
+  genres: ["historical prose", "adventure"],
+  public: true,
+  rating: 8.38,
+};
+
+const accessType = book.public ? "публичном" : "закрытом";
+const message = `Книга ${book.title} автора ${book.author} с рейтингом ${book.rating} находится в ${accessType} доступе.`;
+
+Деструктуризация позволяет «распаковать» значения свойств объекта в локальные переменные. Это делает код в месте их использования менее «шумным».
+
+const book = {
+  title: "The Last Kingdom",
+  author: "Bernard Cornwell",
+  genres: ["historical prose", "adventure"],
+  public: true,
+  rating: 8.38,
+};
+
+// Деструктуризируем
+const { title, author, public, rating, coverImage } = book;
+console.log(coverImage); // undefined
+
+const accessType = public ? "публичном" : "закрытом";
+const message = `Книга ${title} автора ${author} с рейтингом ${rating} находится в ${accessType} доступе.`;
+
+Деструктуризация всегда находится в левой части операции присвоения. Переменным внутри фигурных скобок присваиваются значения свойств объекта. Если имя переменной и имя свойства совпадают, то происходит присваивание, в противном случае ей будет присвоено undefined. Порядок объявления переменных в фигурных скобках не важен.
 |============================
 */
 // ===========================================================================================
