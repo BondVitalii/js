@@ -1,0 +1,23 @@
+{
+  "console-ninja.toolsToEnableSupportAutomaticallyFor": {
+    "live-server-extension": true
+  },
+  "console-ninja.lightTheme.gutterIcons": {
+    "covered": "#62b455",
+    "notCovered": "#cccccc",
+    "partiallyCovered": "#d2a032",
+    "errorSource": "#fe536a"
+  },
+  "console-ninja.darkTheme.obsolete.decorationAttachmentRenderOptions": {
+    "border": null,
+    "borderColor": null,
+    "fontStyle": null,
+    "fontWeight": null,
+    "textDecoration": null,
+    "color": "rgb(153, 153, 153)",
+    "backgroundColor": null,
+    "margin": "1em",
+    "width": null,
+    "height": null
+  }
+}
