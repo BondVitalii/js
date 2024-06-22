@@ -1418,14 +1418,113 @@ console.log(numbers);
 |============================
 */
 // --------------------------
+/** Метод map()
+|============================
+* Array.prototype.map()
+* - Поэлементо перебирает оригинальный массив
+* - Не изменяет оригинальный массив
+* - Возвращает новый массив такой же длины
+
+.map() - Всегда возвращает новый массив такой же длины, он не может делать что-то больше, меньше, что-то фильтровать или сортировать. 
+.map() - Используется для обновления, вытянуть что-то или обновить, все или какой-то один!
 
 const numbers = [5, 10, 15, 20, 25];
 
-numbers.forEach(function (number) {
-  console.log('number', number);
+const doubledNums = numbers.map(number => {
+  return number * 3;
+});
+console.log('numbers', numbers);
+console.log('doubledNums', doubledNums);
+
+// ----------------------------------------------
+
+const players = [
+  { id: 'player-1', name: 'Mango', timePlayed: 310, points: 54, online: false },
+  { id: 'player-2', name: 'Poly', timePlayed: 470, points: 92, online: true },
+  { id: 'player-3', name: 'Kiwi', timePlayed: 230, points: 48, online: true },
+  { id: 'player-4', name: 'Ajax', timePlayed: 150, points: 71, online: false },
+  { id: 'player-5', name: 'Chelsy', timePlayed: 80, points: 48, online: true },
+];
+// console.table(players);
+
+// -------------------------------------
+ * Получаем массив имён всех игроков
+
+// ----- Явный возврат.
+const playerNames = players.map(player => {
+  return player.name;
+});
+console.log('playerNames:', playerNames); // playerNames: ['Mango', 'Poly', 'Kiwi', 'Ajax', 'Chelsy']
+
+// ----- Неявный возврат.
+const playerNames = players.map(player => player.name);
+console.log('playerNames', playerNames);
+
+// -------------------------------------
+ * Получаем массив id всех игроков
+
+const playerIds = players.map(player => player.id);
+console.log('playerIds', playerIds);
+
+// -------------------------------------
+ * Получаем массив объектов с некоторыми отдельными свойствами которые мы хотим вернуть из масива объектов всех игроков.
+
+const res = players.map(({ name, online }) => ({ name, online }));
+console.log('res', res);
+
+// -------------------------------------
+//  * Увеличиваем кол-во поинтов каждого игрока на 10%
+
+// ----- Вариант-1
+const upatedPlayers = players.map(player => {
+  return {
+    ...player,
+    points: player.points * 1.1,
+  };
 });
 
-console.log(numbers);
+// ----- Вариант-2
+const upatedPlayers = players.map(player => ({
+  ...player,
+  points: player.points * 1.1,
+}));
+
+console.table(upatedPlayers);
+console.log(upatedPlayers);
+
+|============================
+*/
+
+const players = [
+  { id: 'player-1', name: 'Mango', timePlayed: 310, points: 54, online: false },
+  { id: 'player-2', name: 'Poly', timePlayed: 470, points: 92, online: true },
+  { id: 'player-3', name: 'Kiwi', timePlayed: 230, points: 48, online: true },
+  { id: 'player-4', name: 'Ajax', timePlayed: 150, points: 71, online: false },
+  { id: 'player-5', name: 'Chelsy', timePlayed: 80, points: 48, online: true },
+];
+
+// ----------------------------------------------------------
+//  * Увеличиваем кол-во часов у одного игрока по id
+
+const playerIdToUpdate = 'player-3';
+
+const updatedPlayers = players.map(player => {
+  if (playerIdToUpdate === player.id) {
+    return {
+      ...player,
+      timePlayed: player.timePlayed + 100,
+    };
+  }
+
+  return player;
+});
+
+// const updatedPlayers = players.map(player =>
+//   playerIdToUpdate === player.id
+//     ? { ...player, timePlayed: player.timePlayed + 100 }
+//     : player,
+// );
+console.table(updatedPlayers);
 
 // !--------------||| Артем модуль-4 занятие-1 callback-функции, Метод forEach, Стрелочные функции, Різновиди коду. |||--------------!
 
