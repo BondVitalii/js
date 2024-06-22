@@ -1398,7 +1398,34 @@ console.table(updatedPlayers);
 
 |============================
 */
-// ==========================================================================================
+
+// !--------------||| Репета модуль-4 занятие-2 Методы масивов. |||--------------!
+
+/** Метод forEach
+|============================
+* Array.prototype.forEach(callback(currentValue, index, array), thisArg)
+* - Поэлементо перебирает оригинальный массив
+* - Ничего не возвращает
+* - Заменяет классический for, если не нужно прерывать цикл
+
+const numbers = [5, 10, 15, 20, 25];
+
+numbers.forEach(function (number) {
+  console.log('number', number);
+});
+
+console.log(numbers);
+|============================
+*/
+// --------------------------
+
+const numbers = [5, 10, 15, 20, 25];
+
+numbers.forEach(function (number) {
+  console.log('number', number);
+});
+
+console.log(numbers);
 
 // !--------------||| Артем модуль-4 занятие-1 callback-функции, Метод forEach, Стрелочные функции, Різновиди коду. |||--------------!
 
@@ -1773,10 +1800,31 @@ createProduct({ name: '🍋', price: 20, quantity: 5 }, logTotalPrice);
 // ---------------------------------------
 /** Решение-Example 1 - Коллбек функції
 |============================
-
 // =================== Артем ===================
 
+function createProduct(obj, callback) {
+  const product = {
+    id: Date.now(),
+    ...obj,
+  };
+  callback(product);
+}
+
+// Коллбек функції
+function logProduct(obj) {
+  console.log(`Product ${obj.name}`);
+}
+
+function logTotalPrice({ price, quantity }) {
+  console.log(`Total price ${price * quantity}`);
+}
+
+// Вызов
+createProduct({ name: '🍎', price: 30, quantity: 3 }, logProduct);
+createProduct({ name: '🍋', price: 20, quantity: 5 }, logTotalPrice);
+
 // =================== Олег ===================
+
 // ---------- Вариант-1
 function createProduct(obj, callback) {
   const newObj = {
@@ -1794,13 +1842,6 @@ const createProduct = (obj, callback) => {
 // ---------- Вариант-3
 const createProduct = (obj, callback) =>
   callback({ ...obj, id: Math.random() });
-  
-// ---------- Вариант-4
-const createProduct = (obj, callback) =>
-  callback({ ...obj, id: Math.random() });
-
-// logProduct(product) - колббек приймаючий об'єкт продукту і логуючий його в консоль
-// logTotalPrice(product) - колббек, що приймає об'єкт продукту і логіює загальну вартість товару в консоль
 
 // Коллбек функції
 const logProduct = product => console.log(product);
@@ -1814,12 +1855,17 @@ createProduct({ name: '🍋', price: 20, quantity: 5 }, logTotalPrice);
 // ==========================================================================================
 /** Example 2 - Коллбек функції (Видео 1:00:00)
 |============================
-// Додайте об'єкт account методи withdraw(amount, onSuccess, onError) та deposit(amount, onSuccess, onError), 
+// Додайте в об'єкт account методи withdraw(amount, onSuccess, onError) та deposit(amount, onSuccess, onError), 
 // де перший параметр це сума операції, а другий та третій - коллбеки.
 // Метод withdraw викликає onError якщо amount більше TRANSACTION_LIMIT або this.balance, і onSuccess в іншому випадку.
 // Метод deposit викликає onError якщо amount більше TRANSACTION_LIMIT або менше або дорівнює нулю, і onSuccess в іншому випадку.
 
 const TRANSACTION_LIMIT = 1000;
+
+const account = {
+  username: 'Jacob',
+  balance: 400,
+};
 
 function handleSuccess(message) {
   console.log(`✅ Success! ${message}`);
@@ -1842,6 +1888,50 @@ account.deposit(600, handleSuccess, handleError);
 |============================
 
 // =================== Артем ===================
+
+const TRANSACTION_LIMIT = 1000;
+
+const account = {
+  username: 'Jacob',
+  balance: 400,
+  withdraw(amount, onSuccess, onError) {
+    if (amount > TRANSACTION_LIMIT) {
+      onError(`TRANSACTION_LIMIT: ${TRANSACTION_LIMIT}`);
+      return;
+    } else if (amount > this.balance) {
+      onError('Not enough in the account');
+      return;
+    }
+    this.balance -= amount;
+    onSuccess(`Transaction complete ${amount}, balance: ${this.balance}`);
+  },
+  deposit(amount, onSuccess, onError) {
+    if (amount > TRANSACTION_LIMIT) {
+      onError(`TRANSACTION_LIMIT: ${TRANSACTION_LIMIT}`);
+      return;
+    } else if (amount <= 0) {
+      onError(`Nice try Bro 😉`);
+      return;
+    }
+    this.balance += amount;
+    onSuccess(`Added: ${amount}, balance ${this.balance}`);
+  },
+};
+
+function handleSuccess(message) {
+  console.log(`✅ Success! ${message}`);
+}
+function handleError(message) {
+  console.log(`❌ Error! ${message}`);
+}
+
+account.withdraw(2000, handleSuccess, handleError);
+account.withdraw(600, handleSuccess, handleError);
+account.withdraw(300, handleSuccess, handleError);
+account.deposit(1700, handleSuccess, handleError);
+account.deposit(0, handleSuccess, handleError);
+account.deposit(-600, handleSuccess, handleError);
+account.deposit(600, handleSuccess, handleError);
 
 // =================== Олег ===================
 
@@ -1963,13 +2053,11 @@ function each(arr, callback) {
     const res = callback(arr[i]);
     result.push(res);
   }
-  
   // -----Вариант-2 с forEach
   arr.forEach(function (number) {
     const res = callback(number);
     result.push(res);
   });
-
   // -----Вариант-3 с forEach
   arr.forEach(number => result.push(callback(number)));
   return result;
@@ -2028,8 +2116,17 @@ createProduct({ name: '🍋', price: 20, quantity: 5 }, logTotalPrice);
 // ---------------------------------------
 /** Решение-Example 4 - Стрілочні функції
 |============================
-
 // =================== Артем ===================
+
+const createProduct = (partialProduct, callback) =>
+  callback({ id: Date.now(), ...partialProduct });
+
+const logProduct = product => console.log(product.name);
+
+const logTotalPrice = ({ price, quantity }) => console.log(price * quantity);
+
+createProduct({ name: '🍎', price: 30, quantity: 3 }, logProduct);
+createProduct({ name: '🍋', price: 20, quantity: 5 }, logTotalPrice);
 
 // =================== Олег ===================
 
@@ -2098,10 +2195,7 @@ account.deposit(600, handleSuccess, handleError);
 // ---------------------------------------
 /** Решение-Example 5 - Стрілочні функції
 |============================
-
-// =================== Артем ===================
-
-// =================== Олег ===================
+// =================== Артем - Олег ===================
 
 const TRANSACTION_LIMIT = 1000;
 
@@ -2187,10 +2281,7 @@ console.log(
 // ---------------------------------------
 /** Решение-Example 6 - Інлайн стрілочні функції
 |============================
-
-// =================== Артем ===================
-
-// =================== Олег ===================
+// =================== Артем - Олег ===================
 
 const each = (array, callback) => {
   const newArr = [];
@@ -2227,22 +2318,17 @@ logItems(['🍎', '🍇', '🍑', '🍌', '🍋']);
 // ---------------------------------------
 /** Решение-Example 7 - Інлайн стрілочні функції
 |============================
+// ----------Вариант-1 Артем
+const logItems = arr =>
+  arr.forEach((item, idx) => console.log(`${idx + 1} - ${item}`));
 
-// =================== Артем ===================
-
-// =================== Олег ===================
-
-// ----------Вариант-1
+// ----------Вариант-2 Олег
 const logItems = items => {
-  console.log(items);
-
   items.forEach((number, index) => console.log(`${index + 1} - ${number}`));
 };
 
-// ----------Вариант-2
+// ----------Вариант-3 Олег
 const logItems = (items = []) => {
-  console.log(items);
-
   items.forEach((item, i) => {
     console.log(`${i + 1} - ${item}`);
   });
@@ -2276,11 +2362,15 @@ printContactsInfo({
 // ---------------------------------------
 /** Решение-Example 8 - Метод forEach
 |============================
+// =================== Артем - Олег ===================
+// ----------Вариант-1 Артем
+const printContactsInfo = ({ names, phones }) => {
+  const nameList = names.split(',');
+  const phoneList = phones.split(',');
 
-// =================== Артем ===================
-
-// =================== Олег ===================
-
+  nameList.forEach((item, idx) => console.log(`${item}: ${phoneList[idx]}`));
+};
+// ----------Вариант-2 Олег
 function printContactsInfo({ names = '', phones = '' }) {
   const nameList = names.split(',');
   const phoneList = phones.split(',');
@@ -2289,7 +2379,7 @@ function printContactsInfo({ names = '', phones = '' }) {
     console.log(`${item}: ${phoneList[i]}`);
   });
 }
-
+// ----- Вызов
 printContactsInfo({
   names: 'Jacob,William,Solomon,Artemis',
   phones: '89001234567,89001112233,890055566377,890055566300',
@@ -2304,7 +2394,7 @@ printContactsInfo({
 
 function calсulateAverage(...args) {
   let total = 0;
-  for (let i = 0; i < args.length; i++) {
+  for (let i = 0; i < args.length; i+= 1) {
     total += args[i];
   }
   return total / args.length;
@@ -2318,22 +2408,22 @@ console.log(calсulateAverage(27, 43, 2, 8, 36)); // 23.2
 // ---------------------------------------
 /** Решение-Example 9 - Метод forEach
 |============================
-
-// =================== Артем ===================
-
-// =================== Олег ===================
-
+// ----------Вариант-1 Артем
 const calсulateAverage = (...args) => {
   let total = 0;
-
-  args.forEach(item => (total += item));
-
+  args.forEach(value => (total += value));
   return total / args.length;
 };
-
+// ----------Вариант-2 Олег
+const calсulateAverage = (...args) => {
+  let total = 0;
+  args.forEach(item => (total += item));
+  return total / args.length;
+};
+// ----- Вызов
 console.log(calсulateAverage(1, 2, 3, 4)); // 2.5
 console.log(calсulateAverage(14, 8, 2)); // 8
 console.log(calсulateAverage(27, 43, 2, 8, 36)); // 23.2
 |============================
 */
-// ==========================================================================================
+// ===========================================================================================
