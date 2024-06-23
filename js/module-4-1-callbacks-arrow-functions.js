@@ -1399,7 +1399,7 @@ console.table(updatedPlayers);
 |============================
 */
 
-// !--------------||| Репета модуль-4 занятие-2 Методы масивов. |||--------------!
+// !--------------||| Репета модуль-4 занятие-2 Методы масивов. видео часть-1 и часть-2 |||--------------!
 
 /** Метод forEach
 |============================
@@ -1492,22 +1492,12 @@ const upatedPlayers = players.map(player => ({
 console.table(upatedPlayers);
 console.log(upatedPlayers);
 
-|============================
-*/
-
-const players = [
-  { id: 'player-1', name: 'Mango', timePlayed: 310, points: 54, online: false },
-  { id: 'player-2', name: 'Poly', timePlayed: 470, points: 92, online: true },
-  { id: 'player-3', name: 'Kiwi', timePlayed: 230, points: 48, online: true },
-  { id: 'player-4', name: 'Ajax', timePlayed: 150, points: 71, online: false },
-  { id: 'player-5', name: 'Chelsy', timePlayed: 80, points: 48, online: true },
-];
-
 // ----------------------------------------------------------
 //  * Увеличиваем кол-во часов у одного игрока по id
 
 const playerIdToUpdate = 'player-3';
 
+// ----- Вариант-1
 const updatedPlayers = players.map(player => {
   if (playerIdToUpdate === player.id) {
     return {
@@ -1519,12 +1509,350 @@ const updatedPlayers = players.map(player => {
   return player;
 });
 
-// const updatedPlayers = players.map(player =>
-//   playerIdToUpdate === player.id
-//     ? { ...player, timePlayed: player.timePlayed + 100 }
-//     : player,
-// );
+// ----- Вариант-2 с тернарным оператором.
+const updatedPlayers = players.map(player => {
+  return playerIdToUpdate === player.id
+    ? { ...player, timePlayed: player.timePlayed + 100 }
+    : player;
+});
+
+// ----- Вариант-3 с тернарным оператором болеее кратко.
+const updatedPlayers = players.map(player =>
+  playerIdToUpdate === player.id
+    ? { ...player, timePlayed: player.timePlayed + 100 }
+    : player
+);
+
+// ---------------------------
 console.table(updatedPlayers);
+
+|============================
+*/
+// --------------------------
+/** Метод filter() многие из колекции.
+|============================
+ * Array.prototype.filter()
+ * - Поэлементо перебирает оригинальный массив
+ * - Возвращает новый массив (с элементами или пустой)
+ * - Добавляет в возвращаемый массив элементы которые удовлетворяют условию коллбек-функции
+ *    - если коллбек вернул true элемент добавляется в возвращаемый массив
+ *    - если коллбек вернул false элемент НЕ добавляется в возвращаемый массив
+
+const numbers = [5, 10, 15, 20, 25];
+
+// Ищем числа меньше 15 в масиве numbers.
+const filteredNumbers1 = numbers.filter(number => {
+  return number < 15;
+});
+console.log(filteredNumbers1);
+
+// Ищем числа меньше 10 и больше 20 в масиве numbers.
+const filteredNumbers2 = numbers.filter(number => number < 10 || number > 20);
+
+console.log(filteredNumbers2);
+
+// --------------------------------------------------
+
+const players = [
+  { id: 'player-1', name: 'Mango', timePlayed: 310, points: 54, online: false },
+  { id: 'player-2', name: 'Poly', timePlayed: 470, points: 92, online: true },
+  { id: 'player-3', name: 'Kiwi', timePlayed: 230, points: 48, online: true },
+  { id: 'player-4', name: 'Ajax', timePlayed: 150, points: 71, online: false },
+  { id: 'player-5', name: 'Chelsy', timePlayed: 280, points: 48, online: true },
+];
+
+// --------------------------------------
+//  * Получаем массив всех онлайн игроков
+
+// Без деструктуризации.
+const onlinePlayers = players.filter(player => player.online);
+
+// С деструктуризацией.
+const onlinePlayers = players.filter(({ online }) => online);
+console.table(onlinePlayers);
+
+// --------------------------------------
+//  * Получаем массив всех оффлайн игроков
+
+const offlinePlayers = players.filter(player => !player.online);
+console.table(offlinePlayers);
+
+// --------------------------------------
+//  * Получаем список хардкорных игроков с временем больше 250
+
+const hardcorePlayers = players.filter(player => player.timePlayed > 250);
+console.table(hardcorePlayers);
+|============================
+*/
+// --------------------------
+/** Метод find() один из колекции.
+|============================
+* Array.prototype.find()
+* - Поэлементо перебирает оригинальный массив
+* - Возвращает первый элемент удовлетворяющий условию или undefined
+
+const numbers = [5, 10, 15, 20, 25];
+
+const number = numbers.find(number => number === 10);
+console.log(number);
+
+// -----------------------------------------------------
+
+const players = [
+  { id: 'player-1', name: 'Mango', timePlayed: 310, points: 54, online: false },
+  { id: 'player-2', name: 'Poly', timePlayed: 470, points: 92, online: true },
+  { id: 'player-3', name: 'Kiwi', timePlayed: 230, points: 48, online: true },
+  { id: 'player-4', name: 'Ajax', timePlayed: 150, points: 71, online: false },
+  { id: 'player-5', name: 'Chelsy', timePlayed: 280, points: 48, online: true },
+];
+
+// -----------------------------------------------------
+* Ищем игрока по id
+
+const playerIdToFind = 'player-3';
+
+// Без деструктуризации.
+const playerWithId = players.find(player => player.id === playerIdToFind);
+console.log(playerWithId);
+
+// С деструктуризацией.
+const playerWithId = players.find(({ id }) => id === playerIdToFind);
+console.log(playerWithId);
+
+// ---------------------
+
+// Без деструктуризации.
+const finPlayerById = (allPlayer, playerId) => {
+  return allPlayer.find(player => player.id === playerId);
+};
+
+// С деструктуризацией, явный возврат.
+const finPlayerById = (allPlayer, playerId) => {
+  return allPlayer.find(({ id }) => id === playerId);
+};
+
+// С деструктуризацией, неявный возврат.
+const finPlayerById = (allPlayer, playerId) =>
+  allPlayer.find(({ id }) => id === playerId);
+
+// Вызов
+console.log(finPlayerById(players, 'player-1'));
+console.log(finPlayerById(players, 'player-4'));
+
+// -----------------------------------------------------
+* Ищем игрока по имени
+
+const playerNameToFind = 'Poly';
+const playerWithName = players.find(player => player.name === playerNameToFind);
+
+console.log(playerWithName);
+|============================
+*/
+// --------------------------
+/** Методы every() и some()  /// .every()-Если все true-тогда true.  /.some()-Если хотябы один true-тогда true.  
+|============================
+* .every() - Если все true-тогда true, если хотябы один не true тогда false.
+* .some() - Если хотябы один true-тогда true, если хотябы один не true, тогда false.
+
+const players = [
+  { id: 'player-1', name: 'Mango', timePlayed: 310, points: 54, online: true },
+  { id: 'player-2', name: 'Poly', timePlayed: 470, points: 92, online: false },
+  { id: 'player-3', name: 'Kiwi', timePlayed: 230, points: 48, online: true },
+  { id: 'player-4', name: 'Ajax', timePlayed: 150, points: 71, online: false },
+  { id: 'player-5', name: 'Chelsy', timePlayed: 280, points: 48, online: true },
+];
+
+// -----------------------
+ * Array.prototype.every()  Если все true - тогда true, если хотябы один не true тогда false.
+ * - Поэлементо перебирает оригинальный массив
+ * - Возвращает true если все элементы массива удовлетворяют условию
+
+const isAllOnline = players.every(player => player.online);
+console.log('isAllOnline: ', isAllOnline);
+
+// -----------------------
+ * Array.prototype.some()
+ * - Поэлементо перебирает оригинальный массив
+ * - Возвращает true если хотя бы один элемент массива удовлетворяет условию
+
+const isAnyOnline = players.some(player => player.online);
+console.log('isAnyOnline: ', isAnyOnline);
+
+const anyHardcorePlayers = players.some(player => player.timePlayed > 400);
+console.log('anyHardcorePlayers: ', anyHardcorePlayers);
+|============================
+*/
+// --------------------------
+/** Метод reduce()
+|============================
+ * Array.prototype.reduce()
+ * - Поэлементо перебирает оригинальный массив
+ * - Возвращает что угодно 🤯
+ * - Заменяет всё на свете, но использовать нужно с умом
+ 
+ const numbers = [5, 10, 15, 20, 25];
+
+// Явный возврат.
+const total = numbers.reduce((acc, number) => {
+  console.log('nnumber', number);
+  console.log('acc', acc);
+
+  return acc + number;
+}, 0);
+
+console.log(total);
+
+// Неявный возврат.
+const total = numbers.reduce((acc, number) => acc + number, 0);
+console.log(total);
+
+// accumulator = 0 -> number = 5 -> return 0 + 5
+// accumulator = 5 -> number = 10 -> return 5 + 10
+// accumulator = 15 -> number = 15 -> return 15 + 15
+// accumulator = 30 -> number = 20 -> return 30 + 20
+// accumulator = 50 -> number = 25 -> return 50 + 25
+
+// ----------------------------------------------------
+//  * Считаем общую зарплату
+
+const salary = {
+  mango: 100,
+  poly: 50,
+  ajax: 150,
+};
+
+const totalSalary = Object.values(salary).reduce(
+  (total, value) => total + value,
+  0
+);
+console.log(totalSalary);
+
+// ----------------------------------------------------
+//  * Считаем общее количество часов
+
+const players = [
+  { id: 'player-1', name: 'Mango', timePlayed: 310, online: false },
+  { id: 'player-2', name: 'Poly', timePlayed: 470, online: true },
+  { id: 'player-3', name: 'Kiwi', timePlayed: 230, online: true },
+  { id: 'player-4', name: 'Ajax', timePlayed: 150, online: false },
+  { id: 'player-5', name: 'Chelsey', timePlayed: 80, online: true },
+];
+
+const totalTimePlayed = players.reduce(
+  (totalTime, player) => totalTime + player.timePlayed,
+  0
+);
+
+console.log(totalTimePlayed);
+
+// ----------------------------------------------------
+//  * Считаем общую сумму товаров корзины
+
+const cart = [
+  { label: 'Apples', price: 100, quantity: 2 },
+  { label: 'Bananas', price: 120, quantity: 3 },
+  { label: 'Lemons', price: 70, quantity: 4 },
+];
+
+// Вариант-1 Явный возврат без деструктуризации.
+const totalAmount = cart.reduce((total, item) => {
+  return total + item.price * item.quantity;
+}, 0);
+
+// Вариант-2 Неявный возврат с деструктуризации.
+const totalAmount = cart.reduce(
+  (total, { price, quantity }) => total + price * quantity,
+  0
+);
+
+console.log(totalAmount);
+
+// ----------------------------------------------------
+//  * Собираем все теги из твитов
+
+const tweets = [
+  { id: '000', likes: 5, tags: ['js', 'nodejs'] },
+  { id: '001', likes: 2, tags: ['html', 'css'] },
+  { id: '002', likes: 17, tags: ['html', 'js', 'nodejs'] },
+  { id: '003', likes: 8, tags: ['css', 'react'] },
+  { id: '004', likes: 0, tags: ['js', 'nodejs', 'react'] },
+];
+
+// Вариант-1 явный возврат.
+const allTags = tweets.reduce((tags, tweet) => {
+  // tags.push(...tweet.tags); // линк будет ругаться. (литер)
+  // return tags;
+  return [...tags, ...tweet.tags]; // так литер примет.
+}, []);
+
+// Вариант-2 неявный возврат.
+const allTags = tweets.reduce((acc, tweet) => [...acc, ...tweet.tags], []);
+console.log(allTags);
+
+// Что происходит под капотом.
+// acc = [], tweet.tags = ['js', 'nodejs'] return [...[], ...['js', 'nodejs']]
+// acc = ['js', 'nodejs'] tweet.tags ['html', 'css']
+// return  [...['js', 'nodejs'], ...['html', 'css']]
+//  ['js', 'nodejs', 'html', 'css']
+
+// ----------------------------------------------------
+//  * Ведём статистику тегов. Посмотреть сколько какого тега поставили.
+
+const tweets = [
+  { id: '000', likes: 5, tags: ['js', 'nodejs'] },
+  { id: '001', likes: 2, tags: ['html', 'css'] },
+  { id: '002', likes: 17, tags: ['html', 'js', 'nodejs'] },
+  { id: '003', likes: 8, tags: ['css', 'react'] },
+  { id: '004', likes: 0, tags: ['js', 'nodejs', 'react'] },
+];
+
+const allTags = tweets.reduce((acc, tweet) => [...acc, ...tweet.tags], []);
+console.log(allTags);
+
+// если свойство с ключом tag есть. увеличить его значение на 1
+// если свойствоства нет с таким ключом что в tag, сделать и записать 1
+
+// Вариант-1 Тут происходит изменение по ссылке. Мутабельный вариант. Линтеры не любят когда что-то изменяется по ссылке.
+const tagsStats = allTags.reduce((acc, tag) => {
+  console.log(acc);
+
+  if (acc[tag]) {
+    acc[tag] += 1;
+
+    return acc;
+  }
+
+  acc[tag] = 1;
+
+  return acc;
+}, {});
+
+// Вариант-2 Не мутабельный вариант решения. На каждой итерации нужно создать новый объект аккумулятора.
+const tagsStats = allTags.reduce((acc, tag) => {
+  return {
+    ...acc,
+    [tag]: acc[tag] ? acc[tag] + 1 : 1,
+  };
+}, {});
+
+// Вариант-3 (без return) Не мутабельный вариант решения. На каждой итерации нужно создать новый объект аккумулятора.
+const tagsStats = allTags.reduce(
+  (acc, tag) => ({
+    ...acc,
+    [tag]: acc[tag] ? acc[tag] + 1 : 1,
+  }),
+  {}
+);
+
+console.log(tagsStats);
+|============================
+*/
+// --------------------------
+/**
+|============================
+
+|============================
+*/
 
 // !--------------||| Артем модуль-4 занятие-1 callback-функции, Метод forEach, Стрелочные функции, Різновиди коду. |||--------------!
 
