@@ -1529,7 +1529,7 @@ console.table(updatedPlayers);
 |============================
 */
 // --------------------------
-/** Метод filter() многие из колекции.
+/** Метод filter() многие из колекции. Фильтрует.
 |============================
  * Array.prototype.filter()
  * - Поэлементо перебирает оригинальный массив
@@ -1848,7 +1848,194 @@ console.log(tagsStats);
 |============================
 */
 // --------------------------
-/**
+/** Метод sort() Этот метод не выкидывает, он меняет местами - сортирует.
+|============================
+ * Array.prototype.sort(callback(currentEl, nextEl){})
+ * - Сортирует и ИЗМЕНЯЕТ оригинальный массив
+ * - По умолчанию:
+ *    - сортирует по возрастанию
+ *    - приводит элементы к строке и сортирует по [Unicode](https://unicode-table.com/en/)
+
+const numbers = [1, 9, 6, 2, 3];
+numbers.sort();
+console.log('numbers', numbers);
+
+const letters = ['b', 'B', 'a', 'A'];
+letters.sort();
+console.log('letters', letters);
+
+// --------------------------------------------------------------------
+ * compareFunction - функция сравнения (callback)
+ * Элементы массива сортируются в соответствии с её возвращаемым значением
+ *  - eсли compareFunction(A, B) меньше 0, сортировка поставит A перед B
+ *  - если compareFunction(A, B) больше 0, сортировка поставит B перед A
+ *  - если compareFunction(A, B) вернёт 0, сортировка оставит A и B на неизменными по отношению друг к другу, но отсортирует их по отношению ко всем другим элементам.
+// --------------------------------------------------------------------
+* Сортировка по увеличению и сортировка по уменьшению
+
+const numbers = [1, 9, 6, 2, 3];
+
+// Сортировка по возростанию.
+numbers.sort((curEl, nextEl) => {
+  return curEl - nextEl;
+});
+console.log(numbers); // [1, 2, 3, 6, 9]
+
+// Сортировка по убыванию.
+numbers.sort((curEl, nextEl) => {
+  return nextEl - curEl;
+});
+console.log(numbers); // [9, 6, 3, 2, 1]
+
+// --------------------------------------------------------------------
+ * Как сделать копию массива чтобы не сортировать оригинальный
+ * - Array.prototype.slice()
+ * - Операция spread
+// --------------------------------------------------------------------
+
+const numbers = [1, 9, 6, 2, 3];
+
+const sortedNumbers = [...numbers].sort(); // Cортировка cтандартная по возрастанию.
+const ascSortedNumbers = [...numbers].sort((a, b) => a - b); // Cортировка sort(compareFunction) по возрастанию. (перевод: ascending - восходящий)
+const descSortedNumbers = [...numbers].sort((a, b) => b - a); // Cортировка sort(compareFunction) по убыванию.   (перевод: descending - нисходящий)
+
+console.log('sortedNumbers', sortedNumbers); // sortedNumbers [1, 2, 3, 6, 9]
+console.log('ascSortedNumbers', ascSortedNumbers); // ascSortedNumbers [1, 2, 3, 6, 9]
+console.log('descSortedNumbers', descSortedNumbers); // descSortedNumbers [9, 6, 3, 2, 1]
+
+console.log('реверс', [1, 2, 3, 4, 5].reverse()); // [5, 4, 3, 2, 1]
+
+// --------------------------------------------------------------------
+ * Кастомная сортировка сложных типов
+// --------------------------------------------------------------------
+
+// --------------------
+* Сортировка по числам.
+// --------------------
+
+const players = [
+  { id: 'player-1', name: 'Mango', timePlayed: 310, online: false },
+  { id: 'player-2', name: 'Poly', timePlayed: 470, online: true },
+  { id: 'player-3', name: 'Kiwi', timePlayed: 230, online: true },
+  { id: 'player-3', name: 'Aiwi', timePlayed: 230, online: true },
+  { id: 'player-4', name: 'Ajax', timePlayed: 150, online: false },
+  { id: 'player-5', name: 'Chelsey', timePlayed: 80, online: true },
+];
+
+// По игровому времени. Сортировка объектов по значениям свойств.
+
+// Сортируем объекты по убыванию значений свойств (timePlayed)
+const sortedByBestPlayers = [...players].sort(
+  (prevPlayer, nextPlayer) => nextPlayer.timePlayed - prevPlayer.timePlayed
+);
+console.table(sortedByBestPlayers);
+
+// Сортируем объекты по возрастанию значений свойств (timePlayed)
+const sortedByWorstPlayers = [...players].sort(
+  (prevPlayer, nextPlayer) => prevPlayer.timePlayed - nextPlayer.timePlayed
+);
+console.table(sortedByWorstPlayers);
+
+// --------------------
+* Сортировка по имени.
+// --------------------
+
+* Кастомная сортировка по первой букве.
+
+const byName = [...players].sort((a, b) => {
+  const result = a.name[0] > b.name[0];
+
+  if (result) {
+    return 1;
+  }
+
+  if (!result) {
+    return -1;
+  }
+});
+
+console.table(byName);
+
+// * Функция charCodeAt()
+// ---------------------
+console.log('abc'.charCodeAt(2));
+
+|============================
+*/
+// --------------------------
+/** Метод flat() и flatMap()
+|============================
+// ----------------------------------------------------------
+ * Array.prototype.flat(depth)
+ * - Разглаживает массив до указанной глубины
+ * - По умолчанию глубина 1
+// ----------------------------------------------------------
+
+const array = [1, 2, [4, [5]], [6, [7, 8, [9]]]];
+
+console.log(array.flat(1)); // [1, 2, 4, [5], 6, [7, 8, [9]]]  Розгладит на 1 глубину вложености.
+console.log(array.flat(2)); // [1, 2, 4, 5, 6, 7, 8, [9]]      Розгладит на 2 глубины вложености.
+console.log(array.flat(3)); // [1, 2, 4, 5, 6, 7, 8, 9]        Розгладит на 3 глубины вложености.
+
+// ----------------------------------------------------------
+* Array.prototype.flatMap(callback)
+* - Комбинация map + flat
+// ----------------------------------------------------------
+
+const tweets = [
+  { id: '000', likes: 5, tags: ['js', 'nodejs'] },
+  { id: '001', likes: 2, tags: ['html', 'css'] },
+  { id: '002', likes: 17, tags: ['html', 'js', 'nodejs'] },
+  { id: '003', likes: 8, tags: ['css', 'react'] },
+  { id: '004', likes: 0, tags: ['js', 'nodejs', 'react'] },
+];
+// ----- Вариант-1 Этот вариант решение с прошлого урока по .reduce(), мы можем его заменить вариантом ниже .flatMap().
+const stats1 = tweets.reduce((acc, tweet) => [...acc, ...tweet.tags], []);
+console.log(stats1); // ['js', 'nodejs', 'html', 'css', 'html', 'js', 'nodejs', 'css', 'react', 'js', 'nodejs', 'react']
+
+// ----- Вариант-2 .map().flat()
+// Проблема таких вызовов втом что их несколько, мы два раза ходим по одному и тому же масиву,
+// и надо учитывать что при достаточном кол-ве таких методов производительность может упасть.
+
+const tags = tweets.map(t => t.tags).flat();
+console.log(tags); // ['js', 'nodejs', 'html', 'css', 'html', 'js', 'nodejs', 'css', 'react', 'js', 'nodejs', 'react']
+
+// ----- Вариант-3 .flatMap()
+// Это полный аналог варианта.map().flat(), но только чучуть быстрее за счет того, что мы проходимся один раз по масиву.
+// Делает тоже самое на глубину разглаживания 1.
+
+const tags = tweets.flatMap(t => t.tags);
+console.log(tags); // ['js', 'nodejs', 'html', 'css', 'html', 'js', 'nodejs', 'css', 'react', 'js', 'nodejs', 'react']
+
+// --------------------------------------------
+
+// Дальше можем этим тегам дать кол-во сколько каких тегов.
+
+// ----- Вариант явного возврата.
+const stats = tags.reduce((acc, tag) => {
+  return {
+    ...acc,
+    [tag]: acc[tag] ? acc[tag] + 1 : 1,
+  };
+}, {});
+
+// ----- Вариант неявного возврата.
+const stats = tweets
+  .flatMap(tweet => tweet.tags)
+  .reduce(
+    (acc, tag) => ({
+      ...acc,
+      [tag]: acc[tag] ? acc[tag] + 1 : 1,
+    }),
+    {}
+  );
+
+console.log(stats);
+
+|============================
+*/
+// --------------------------
+/** Цепочки вызовов (Chaining) 
 |============================
 
 |============================
