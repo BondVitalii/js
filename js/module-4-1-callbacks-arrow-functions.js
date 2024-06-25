@@ -2037,9 +2037,104 @@ console.log(stats);
 // --------------------------
 /** Цепочки вызовов (Chaining) 
 |============================
+// ---------------------------------------------------------------
+ * Цепочки вызовов - chaining
+// ---------------------------------------------------------------
+
+// Пример на масиве цифр.
+// 1) Отфильтровать те которые больше 2.
+// 2) Утроить значеения цифр (элементов) в масиве.
+// 3) Оставшиеся отсортировать по возрастанию, или по убыванию.
+
+const numbers = [1, 5, 2, 4, 3];
+
+// ----- Вариант-1 (от него нужно избавляться / Хороший вариант это вариант-3 chaining)
+const greaterThenTwo = numbers.filter(function (num) {
+  return num > 2;
+});
+console.log(greaterThenTwo); // [5, 4, 3]
+
+const multByThree = greaterThenTwo.map(function (num) {
+  return num * 3;
+});
+console.log(multByThree); // [15, 12, 9]
+
+const sorted = multByThree.sort(function (a, b) {
+  return a - b;
+});
+console.log(sorted); // [9, 12, 15]
+
+// ----- Вариант-2 (от него нужно избавляться  / Хороший вариант это вариант-3 chaining)
+
+const greaterThenTwo = numbers.filter(num => num > 2);
+console.log(greaterThenTwo); // [5, 4, 3]
+
+const multByThree = greaterThenTwo.map(num => num * 3);
+console.log(multByThree); // [15, 12, 9]
+
+const sorted = multByThree.sort((a, b) => a - b);
+console.log(sorted); // [9, 12, 15]
+
+// ----- Вариант-3 (Цепочка вызовов - chaining) Цепочка предыдущих трёх (Правильны современный синтаксис решения!)
+// Каждый из примененных методов создает новый масив, и на новом созданном масиве применяем следующий метод.
+const sorted = numbers
+  .filter(num => num > 2)
+  .map(num => num * 3)
+  .sort((a, b) => a - b);
+
+console.log(sorted);
+
+// ---------------------------------------------------------------
+ * Сортируем тех кто онлайн по рангу
+ * - сначала фильтруем
+ * - потом сортируем
+// ---------------------------------------------------------------
+
 
 |============================
 */
+
+const players = [
+  { id: 'id-1', tag: 'Mango', isOnline: true, rank: 800 },
+  { id: 'id-2', tag: 'Poly', isOnline: false, rank: 600 },
+  { id: 'id-3', tag: 'Ajax', isOnline: true, rank: 100 },
+  { id: 'id-4', tag: 'Kiwi', isOnline: true, rank: 400 },
+  { id: 'id-5', tag: 'Chelsy', isOnline: false, rank: 200 },
+];
+
+const onlineAndSorted = players
+  .filter(player => player.isOnline)
+  .sort((a, b) => a.rank - b.rank);
+
+console.table(onlineAndSorted);
+
+// const onlineAndSorted = players
+//   .filter(player => player.isOnline)
+//   .sort((playerA, playerB) => playerA.rank - playerB.rank);
+
+// console.table(onlineAndSorted);
+
+/*
+ * Chaining в методах объекта как jquery
+ */
+
+// const element = {
+//     class: '',
+//     hovered: false,
+//     changeClass(cls) {
+//         this.class = cls;
+
+//         return this;
+//     },
+//     toggleHovered() {
+//         this.hovered = !this.hovered;
+
+//         return this;
+//     },
+// };
+
+// element.toggleHovered().changeClass('open').toggleHovered();
+// console.log(element);
 
 // !--------------||| Артем модуль-4 занятие-1 callback-функции, Метод forEach, Стрелочные функции, Різновиди коду. |||--------------!
 
