@@ -2040,7 +2040,6 @@ console.log(stats);
 // ---------------------------------------------------------------
  * Цепочки вызовов - chaining
 // ---------------------------------------------------------------
-
 // Пример на масиве цифр.
 // 1) Отфильтровать те которые больше 2.
 // 2) Утроить значеения цифр (элементов) в масиве.
@@ -2089,11 +2088,6 @@ console.log(sorted);
  * - сначала фильтруем
  * - потом сортируем
 // ---------------------------------------------------------------
-
-
-|============================
-*/
-
 const players = [
   { id: 'id-1', tag: 'Mango', isOnline: true, rank: 800 },
   { id: 'id-2', tag: 'Poly', isOnline: false, rank: 600 },
@@ -2108,33 +2102,138 @@ const onlineAndSorted = players
 
 console.table(onlineAndSorted);
 
-// const onlineAndSorted = players
-//   .filter(player => player.isOnline)
-//   .sort((playerA, playerB) => playerA.rank - playerB.rank);
-
-// console.table(onlineAndSorted);
-
-/*
+// ---------------------------------------------------------------
  * Chaining в методах объекта как jquery
- */
+// ---------------------------------------------------------------
+const element = {
+  class: '',
+  hovered: false,
+  changeClass(cls) {
+    this.class = cls;
 
-// const element = {
-//     class: '',
-//     hovered: false,
-//     changeClass(cls) {
-//         this.class = cls;
+    return this;
+  },
+  toggleHovered() {
+    this.hovered = !this.hovered;
 
-//         return this;
-//     },
-//     toggleHovered() {
-//         this.hovered = !this.hovered;
+    return this;
+  },
+};
 
-//         return this;
-//     },
-// };
+element.toggleHovered().changeClass('open').toggleHovered();
+console.log(element);
 
-// element.toggleHovered().changeClass('open').toggleHovered();
-// console.log(element);
+|============================
+*/
+// --------------------------
+/** Библиотека lodash библиотека методов.
+|============================
+// Библиотеку обязательно нужно подкулючить в файле html. https://www.jsdelivr.com/package/npm/lodash
+// В файле html подключили библиотеку lodash, этот скрипт  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+
+// (видео 1:13:07  https://www.youtube.com/watch?v=tJjxVHDQuwQ&t=11s)
+
+// ------------------------------------------------------------
+//  * isEmpty()  (видео 1:01:05)
+// ------------------------------------------------------------
+
+console.log(_.isEmpty({}));
+console.log(_.isEmpty({ a: 1 }));
+
+// ------------------------------------------------------------
+ * get()      (видео 1:04:04)
+ *
+ * - user && user.location && obj.location.city
+ * - user?.location?.city
+// ------------------------------------------------------------
+
+const user = {
+  name: 'mango',
+  location: {
+    city: 'Lviv',
+  },
+};
+
+console.log(_.get(user, 'location.city')); // синтаксис библиотеки.
+
+console.log(user.location.city);
+
+if (user && user.location && user.location.city) {
+  console.log(user.location.city);
+}
+
+console.log(user?.location?.city); // Это новый синтаксис JS. (?.) - означает необязательное свойство. Оно говорит - если этого свойства нету, то дальше уже не ищи.
+
+// ------------------------------------------------------------
+ * _.union()  (видео 1:13:07)
+// ------------------------------------------------------------
+// ссылка на библиотеку https://lodash.com/docs/4.17.15#union
+
+console.log(_.union([1, 2, 3], [3, 4, 5]));         // [1, 2, 3, 4, 5] обьединит два масива только уникальных элементов, повторяющихся элементов в масиве не будет.
+
+// ------------------------------------------------------------
+ * _.range()  (видео 1:14:50)
+// ------------------------------------------------------------
+// ссылка на библиотеку https://lodash.com/docs/4.17.15#range
+
+// если к примеру нужно сделать масив к примеру от 3 до 10   _.range([start=0], end, [step=1])
+
+// Правило _.range([start=0], end, [step=1])
+
+console.log(_.range(10, 20));             // [10, 11, 12, 13, 14, 15, 16, 17, 18, 19] сделаем масив от start до end, невключая end.
+console.log(_.range(10, 20, 2));          // [10, 12, 14, 16, 18] сделаем масив с шагом 2, от start до end, невключая end.
+
+// ------------------------------------------------------------
+ * sortBy()  (видео 1:17:00) 
+// ------------------------------------------------------------
+//  ссылка на библиотеку https://lodash.com/docs/4.17.15#sortBy
+// 
+// 
+// ------------------------------------------------------------
+ * sum() и sumBy()
+// ------------------------------------------------------------
+
+const players = [
+    { id: 'player-1', name: 'Mango', timePlayed: 310, online: false },
+    { id: 'player-2', name: 'Poly', timePlayed: 470, online: true },
+    { id: 'player-3', name: 'Aiwi', timePlayed: 230, online: true },
+    { id: 'player-4', name: 'Ajax', timePlayed: 150, online: false },
+    { id: 'player-5', name: 'Chelsey', timePlayed: 80, online: true },
+];
+
+console.log(_.sumBy(players, player => player.timePlayed));
+
+// ------------------------------------------------------------
+ * uniq() и uniqBy()
+ * sortedUniq() и sortedUniqBy()
+// ------------------------------------------------------------
+// 
+// 
+// ------------------------------------------------------------
+ * random()
+// ------------------------------------------------------------
+// 
+// 
+// ------------------------------------------------------------
+ * min() и max()
+ * minBy() и maxBy()
+// ------------------------------------------------------------
+
+console.log(_.minBy(players, player => player.timePlayed));
+
+// ------------------------------------------------------------
+ * camelCase(), capitalize(), kebabCase(), lowerCase(), upperCase()
+// ------------------------------------------------------------
+
+console.log(_.kebabCase(' a b c '));
+|============================
+*/
+// --------------------------
+/**
+|============================
+
+|============================
+*/
 
 // !--------------||| Артем модуль-4 занятие-1 callback-функции, Метод forEach, Стрелочные функции, Різновиди коду. |||--------------!
 
@@ -2334,7 +2433,6 @@ user.sayHello1();
 user.sayHello2();
 |============================
 */
-// ==========================================================================================
 
 // !--------------||| Олег модуль-4 занятие-1 callback-функции, Метод forEach, Стрелочные функции, Різновиди коду. |||--------------!
 
