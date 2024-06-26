@@ -2126,7 +2126,7 @@ console.log(element);
 |============================
 */
 // --------------------------
-/** Библиотека lodash библиотека методов.
+/** Библиотека lodash (библиотека готовых небольших методов, которые делают одну узко направленную свою задачу).
 |============================
 // Библиотеку обязательно нужно подкулючить в файле html. https://www.jsdelivr.com/package/npm/lodash
 // В файле html подключили библиотеку lodash, этот скрипт  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
@@ -2187,81 +2187,104 @@ console.log(_.range(10, 20, 2));          // [10, 12, 14, 16, 18] сделаем
  * sortBy()  (видео 1:17:00) 
 // ------------------------------------------------------------
 //  ссылка на библиотеку https://lodash.com/docs/4.17.15#sortBy
-// 
-// 
-// ------------------------------------------------------------
- * sum() и sumBy()
-// ------------------------------------------------------------
 
-const players = [
-    { id: 'player-1', name: 'Mango', timePlayed: 310, online: false },
-    { id: 'player-2', name: 'Poly', timePlayed: 470, online: true },
-    { id: 'player-3', name: 'Aiwi', timePlayed: 230, online: true },
-    { id: 'player-4', name: 'Ajax', timePlayed: 150, online: false },
-    { id: 'player-5', name: 'Chelsey', timePlayed: 80, online: true },
-];
-
-console.log(_.sumBy(players, player => player.timePlayed));
-
-// ------------------------------------------------------------
- * uniq() и uniqBy()
- * sortedUniq() и sortedUniqBy()
-// ------------------------------------------------------------
-// 
-// 
-// ------------------------------------------------------------
- * random()
-// ------------------------------------------------------------
-// 
-// 
-// ------------------------------------------------------------
- * min() и max()
- * minBy() и maxBy()
-// ------------------------------------------------------------
-
-console.log(_.minBy(players, player => player.timePlayed));
-
-// ------------------------------------------------------------
- * camelCase(), capitalize(), kebabCase(), lowerCase(), upperCase()
-// ------------------------------------------------------------
-
-console.log(_.kebabCase(' a b c '));
-|============================
-*/
-// --------------------------
-/**
-|============================
-
-|============================
-*/
-
+// ----- Пример из библиотеки
 const users = [
   { user: 'fred', age: 48 },
   { user: 'barney', age: 36 },
   { user: 'fred', age: 40 },
   { user: 'barney', age: 34 },
 ];
-console.table(users);
 
-console.log(_.sortBy(users, user => user.age));
+_.sortBy(users, [
+  function (o) {
+    return o.user;
+  },
+]);
+=> objects for [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 40]]
 
-// _.sortBy(users, [
-//   function (o) {
-//     return o.user;
-//   },
-// ]); // => objects for [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 40]]
+_.sortBy(users, ['user', 'age']);
+=> objects for [['barney', 34], ['barney', 36], ['fred', 40], ['fred', 48]]
 
-console.log(
-  _.sortBy(users, [
-    function (o) {
-      return o.user;
-    },
-  ])
-); // [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 40]]
+// ----- Пример Репета
 
-// _.sortBy(users, ['user', 'age']); // => objects for [['barney', 34], ['barney', 36], ['fred', 40], ['fred', 48]]
+console.log(_.sortBy(users, user => user.age));    // [{user: 'barney', age: 34}, {user: 'barney', age: 36}, {user: 'fred', age: 40}, {user: 'fred', age: 48}]
+console.log(_.sortBy(users, ['user', 'age']));     // [{user: 'barney', age: 34}, {user: 'barney', age: 36}, {user: 'fred', age: 40}, {user: 'fred', age: 48}]
 
-// console.log(_.sortBy(users, ['user', 'age'])); // [['barney', 34], ['barney', 36], ['fred', 40], ['fred', 48]]
+// ------------------------------------------------------------
+ * sum() и sumBy()  (видео 1:19:45) 
+// ------------------------------------------------------------
+// ----- sum() Считает общую сумму чисел в масиве.
+
+console.log(_.sum([1, 2, 3, 4, 5]));   // 15
+
+// ----- sumBy() Работает с масивом обьектов. Считает общую сумму значений свойства объекта в масиве обьектов.
+// Это тоже самое, что мы делали с методом reduce(). Считаем общее кол-во балов timePlayed.
+
+const players = [
+  { id: 'player-1', name: 'Mango', timePlayed: 310, online: false },
+  { id: 'player-2', name: 'Poly', timePlayed: 470, online: true },
+  { id: 'player-3', name: 'Aiwi', timePlayed: 230, online: true },
+  { id: 'player-4', name: 'Ajax', timePlayed: 150, online: false },
+  { id: 'player-5', name: 'Chelsey', timePlayed: 80, online: true },
+];
+
+console.log(_.sumBy(players, player => player.timePlayed));     // 1240
+
+// ------------------------------------------------------------
+ * uniq() и uniqBy()                 (видео 1:22:05) 
+ * sortedUniq() и sortedUniqBy()       
+// ------------------------------------------------------------
+// ссылка на библиотеку https://lodash.com/docs/4.17.15#uniq
+
+// ------------------------------------------------------------
+ * random()
+// ------------------------------------------------------------
+// 
+
+// ------------------------------------------------------------
+ * min() и max()          (видео 1:22:40) 
+ * minBy() и maxBy()
+// ------------------------------------------------------------
+//  ссылка на библиотеку https://lodash.com/docs/4.17.15#min
+
+// ----- min() и max() Ищет минимальное и максимальное число в масиве чисел. -----
+
+// Пример из JS
+console.log(Math.min(...[1, 2, 3, 4, 5]));                   // 1
+
+// Пример из lodash
+console.log(_.min([1, 2, 3, 4, 5]));                         // 1
+console.log(_.max([1, 2, 3, 4, 5]));                         // 5
+
+// ----- minBy() Работает с масивом обьектов. -----
+
+const objects = [{ n: 1 }, { n: 2 }, { n: 3 }, { n: 4 }];
+
+console.log(_.minBy(objects, minN => minN.n));              // {n: 1}
+
+// Сокращение итерируемого объекта `_.property`.
+console.log(_.minBy(objects, 'n'));                         // {n: 1}
+
+// ----- Пример Репета.
+
+const players = [
+  { id: 'player-1', name: 'Mango', timePlayed: 310, online: false },
+  { id: 'player-2', name: 'Poly', timePlayed: 470, online: true },
+  { id: 'player-3', name: 'Aiwi', timePlayed: 230, online: true },
+  { id: 'player-4', name: 'Ajax', timePlayed: 150, online: false },
+  { id: 'player-5', name: 'Chelsey', timePlayed: 80, online: true },
+];
+
+console.log(_.minBy(players, player => player.timePlayed)); // {id: 'player-5', name: 'Chelsey', timePlayed: 80, online: true}
+
+// ------------------------------------------------------------
+ * camelCase(), capitalize(), kebabCase(), lowerCase(), upperCase() (видео 1:24:30) 
+// ------------------------------------------------------------
+
+console.log(_.kebabCase(' a b c '));         // a-b-c
+|============================
+*/
 
 // !--------------||| Артем модуль-4 занятие-1 callback-функции, Метод forEach, Стрелочные функции, Різновиди коду. |||--------------!
 
