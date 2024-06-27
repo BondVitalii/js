@@ -2741,12 +2741,6 @@ console.log(res); // [10, 100, 1, 2]
 // // 8. (1, 7) => 2 === 7 -> false -> [10, 100, 1, 2]
 |============================
 */
-// --------------------------
-/** --
-|============================
-
-|============================
-*/
 
 // ---------- РЕШЕНИЕ ЗАДАЧ Артем-Олег: модуль-4 занятие-1 ----------
 
@@ -3394,4 +3388,440 @@ console.log(calсulateAverage(14, 8, 2)); // 8
 console.log(calсulateAverage(27, 43, 2, 8, 36)); // 23.2
 |============================
 */
-// ===========================================================================================
+
+// // ---------- РЕШЕНИЕ ЗАДАЧ Олег: модуль-4 занятие-2(8) Перебираючі методи масиву ----------
+
+/** Колекція об'єктів для всіх прикладів з автомобілями (файл с задачками https://github.com/goitacademy/js-instructor-examples/blob/main/lesson-08/uk.md)
+|============================
+файл с задачками - https://github.com/goitacademy/js-instructor-examples/blob/main/lesson-08/uk.md
+
+// Колекція об'єктів для всіх прикладів з автомобілями
+
+// const cars = [
+//   { make: "Honda", model: "CR-V", type: "suv", amount: 14, price: 24045, onSale: true, },
+//   { make: "Honda", model: "Accord", type: "sedan", amount: 2, price: 22455, onSale: true, },
+//   { make: "Mazda", model: "Mazda 6", type: "sedan", amount: 8, price: 24195, onSale: false, },
+//   { make: "Mazda", model: "CX-9", type: "suv", amount: 7, price: 31520, onSale: true, },
+//   { make: "Toyota", model: "4Runner", type: "suv", amount: 19, price: 34210, onSale: false, },
+//   { make: "Toyota", model: "Sequoia", type: "suv", amount: 16, price: 45560, onSale: false, },
+//   { make: "Toyota", model: "Tacoma", type: "truck", amount: 4, price: 24320, onSale: true, },
+//   { make: "Ford", model: "F-150", type: "truck", amount: 11, price: 27110, onSale: true, },
+//   { make: "Ford", model: "Fusion", type: "sedan", amount: 13, price: 22120, onSale: true, },
+//   { make: "Ford", model: "Explorer", type: "suv", amount: 6, price: 31660, onSale: false, },
+// ];
+
+// console.table(cars);
+|============================
+*/
+const cars = [
+  {
+    make: 'Honda',
+    model: 'CR-V',
+    type: 'suv',
+    amount: 14,
+    price: 24045,
+    onSale: true,
+  },
+  {
+    make: 'Honda',
+    model: 'Accord',
+    type: 'sedan',
+    amount: 2,
+    price: 22455,
+    onSale: true,
+  },
+  {
+    make: 'Mazda',
+    model: 'Mazda 6',
+    type: 'sedan',
+    amount: 8,
+    price: 24195,
+    onSale: false,
+  },
+  {
+    make: 'Mazda',
+    model: 'CX-9',
+    type: 'suv',
+    amount: 7,
+    price: 31520,
+    onSale: true,
+  },
+  {
+    make: 'Toyota',
+    model: '4Runner',
+    type: 'suv',
+    amount: 19,
+    price: 34210,
+    onSale: false,
+  },
+  {
+    make: 'Toyota',
+    model: 'Sequoia',
+    type: 'suv',
+    amount: 16,
+    price: 45560,
+    onSale: false,
+  },
+  {
+    make: 'Toyota',
+    model: 'Tacoma',
+    type: 'truck',
+    amount: 4,
+    price: 24320,
+    onSale: true,
+  },
+  {
+    make: 'Ford',
+    model: 'F-150',
+    type: 'truck',
+    amount: 11,
+    price: 27110,
+    onSale: true,
+  },
+  {
+    make: 'Ford',
+    model: 'Fusion',
+    type: 'sedan',
+    amount: 13,
+    price: 22120,
+    onSale: true,
+  },
+  {
+    make: 'Ford',
+    model: 'Explorer',
+    type: 'suv',
+    amount: 6,
+    price: 31660,
+    onSale: false,
+  },
+];
+
+console.table(cars);
+// ==========================================================================================
+/** Example 1 - Метод map
+|============================
+// Нехай функція getModels повертає масив моделей (поле model) всіх автомобілів.
+
+const getModels = cars => {};
+
+console.table(getModels(cars));
+|============================
+*/
+// --------------------------
+/** Решение-Example 1
+|============================
+const getModels = cars => cars.map(car => car.model);
+
+console.log(getModels(cars));        // ['CR-V', 'Accord', 'Mazda 6', 'CX-9', '4Runner', 'Sequoia', 'Tacoma', 'F-150', 'Fusion', 'Explorer']
+|============================
+*/
+// ==========================================================================================
+/** Example 2 - Метод map
+|============================
+// Нехай функція makeCarsWithDiscount повертає новий масив об'єктів із змінним значенням властивості price залежно від переданої знижки.
+
+const makeCarsWithDiscount = (cars, discount) => {};
+
+console.table(makeCarsWithDiscount(cars, 0.2));
+console.table(makeCarsWithDiscount(cars, 0.4));
+|============================
+*/
+// --------------------------
+/** Решение-Example 2
+|============================
+// ----- Вариант-1 (неявный возврат)
+
+const makeCarsWithDiscount = (cars, discount) =>
+  cars.map(car => ({
+    ...car,
+    price: car.price - car.price * discount,
+  }));
+
+// ----- Вариант-2 (явный возврат + вариант-2 вычетания discount)
+
+const makeCarsWithDiscount = (cars, discount) => {
+  return cars.map(car => ({
+    ...car,
+    price: car.price * (1 - discount),
+  }));
+};
+
+// Вызов
+console.table(makeCarsWithDiscount(cars, 0.2));
+console.table(makeCarsWithDiscount(cars, 0.4));
+|============================
+*/
+// ==========================================================================================
+/** Example 3 - Метод filter
+|============================
+// Нехай функція filterByPrice повертає масив автомобілів ціна,
+// яких менша ніж значення параметра threshold.
+
+const filterByPrice = (cars, threshold) => {};
+
+console.table(filterByPrice(cars, 30000));
+console.table(filterByPrice(cars, 25000));
+|============================
+*/
+// --------------------------
+/** Решение-Example 3
+|============================
+
+// ----- Вариант-1 (неявный возврат)
+const filterByPrice = (cars, threshold) =>
+  cars.filter(car => car.price < threshold);
+
+// ----- Вариант-2 (явный возврат)
+const filterByPrice = (cars, threshold) => {
+  return cars.filter(car => car.price < threshold);
+};
+
+// Вызов
+console.table(filterByPrice(cars, 30000));
+console.table(filterByPrice(cars, 25000));
+|============================
+*/
+// ==========================================================================================
+/** Example 4 - Метод filter
+|============================
+// Нехай функція getCarsWithDiscount повертає масив автомобілів властивість onSale яких true.
+
+const getCarsWithDiscount = cars => {};
+
+console.table(getCarsWithDiscount(cars));
+|============================
+*/
+// --------------------------
+/** Решение-Example 4
+|============================
+// ----- Вариант-1 (неявный возврат)
+const getCarsWithDiscount = cars => cars.filter(car => car.onSale);
+
+// ----- Вариант-2 (явный возврат)
+const getCarsWithDiscount = cars => {
+  return cars.filter(car => car.onSale);
+};
+
+// Вызов
+console.table(getCarsWithDiscount(cars));
+|============================
+*/
+// ==========================================================================================
+/** Example 5 - Метод filter
+|============================
+// Нехай функція getCarsWithType повертає масив автомобілів тип яких збігається зі значенням параметра type.
+
+const getCarsWithType = (cars, type) => {};
+
+console.table(getCarsWithType(cars, 'suv'));
+console.table(getCarsWithType(cars, 'sedan'));
+|============================
+*/
+// --------------------------
+/** Решение-Example 5
+|============================
+// ----- Вариант-1 (неявный возврат)
+const getCarsWithType = (cars, type) => cars.filter(car => car.type === type);
+
+// ----- Вариант-2 (явный возврат)
+const getCarsWithType = (cars, type) => {
+  return cars.filter(car => car.type === type);
+};
+
+// Вызов
+console.table(getCarsWithType(cars, 'suv'));
+console.table(getCarsWithType(cars, 'sedan'));
+|============================
+*/
+// ==========================================================================================
+/** Example 6 - Метод find
+|============================
+// find(callback) дозволяє знайти і повернути перший відповідний елемент, після чого перебирання масиву припиняється. 
+// Тобто він шукає до першого збігу.
+
+const getCarByModel = (cars, model) => {};
+
+console.log(getCarByModel(cars, 'F-150'));
+console.log(getCarByModel(cars, 'CX-9'));
+|============================
+*/
+// --------------------------
+/** Решение-Example 6
+|============================
+// ----- Вариант-1 (неявный возврат)
+const getCarByModel = (cars, model) => cars.find(car => car.model === model);
+
+// ----- Вариант-2 (явный возврат)
+const getCarByModel = (cars, model) => {
+  return cars.find(car => car.model === model);
+};
+
+// Вызов
+console.log(getCarByModel(cars, 'F-150'));
+console.log(getCarByModel(cars, 'CX-9'));
+|============================
+*/
+// ==========================================================================================
+/** Example 7 - Метод sort
+|============================
+// Нехай функція sortByAscendingAmount повертає новий масив автомобілів відсортований за зростанням значення якості amount.
+
+const sortByAscendingAmount = cars => {};
+
+console.table(sortByAscendingAmount(cars));
+|============================
+*/
+// --------------------------
+/** Решение-Example 7
+|============================
+// ----- Вариант-1 (неявный возврат)
+
+
+// ----- Вариант-2 (явный возврат)
+
+
+// Вызов
+// ?????????????????????????????????????????????????????????
+const sortByAscendingAmount = cars.sort(
+  (carA, carB) => carA.amount - carB.amount
+);
+
+console.table(sortByAscendingAmount(cars));
+
+// По игровому времени. Сортировка объектов по значениям свойств.
+// Сортируем объекты по убыванию значений свойств (timePlayed)
+
+// const sortedByBestPlayers = [...players].sort(
+//   (prevPlayer, nextPlayer) => nextPlayer.timePlayed - prevPlayer.timePlayed
+// );
+// console.table(sortedByBestPlayers);
+
+// // Сортируем объекты по возрастанию значений свойств (timePlayed)
+// const sortedByWorstPlayers = [...players].sort(
+//   (prevPlayer, nextPlayer) => prevPlayer.timePlayed - nextPlayer.timePlayed
+// );
+// console.table(sortedByWorstPlayers);
+
+// const scores = [61, 19, 74, 35, 92, 56];
+// const ascendingScores = [...scores].sort((a, b) => a - b);
+// console.log(ascendingScores); // [19, 35, 56, 61, 74, 92]
+|============================
+*/
+
+// ==========================================================================================
+/** Example 8 - Метод sort
+|============================
+// Нехай функція sortByDescendingPrice повертає новий масив автомобілів відсортований за зменшенням значення властивості price.
+
+const sortByDescendingPrice = cars => {};
+
+console.table(sortByDescendingPrice(cars));
+|============================
+*/
+// --------------------------
+/** Решение-Example 8
+|============================
+// ----- Вариант-1 (неявный возврат)
+
+
+// ----- Вариант-2 (явный возврат)
+
+
+// Вызов
+|============================
+*/
+// ==========================================================================================
+/** Example 9 - Метод sort
+|============================
+// Нехай функція sortByModel повертає новий масив автомобілів відсортований за назвою моделі в алфавітному та зворотному алфавітному порядку, 
+// в залежності від значення параметра order.
+
+const sortByModel = (cars, order) => {};
+
+console.table(sortByModel(cars, 'asc'));
+console.table(sortByModel(cars, 'desc'));
+|============================
+*/
+// --------------------------
+/** Решение-Example 9
+|============================
+// ----- Вариант-1 (неявный возврат)
+
+
+// ----- Вариант-2 (явный возврат)
+
+
+// Вызов
+|============================
+*/
+// ==========================================================================================
+/** Example 10 - Метод reduce
+|============================
+// Нехай функція getTotalAmount повертає загальну кількість автомобілів (значення властивостей amount).
+
+const getTotalAmount = cars => {};
+
+console.log(getTotalAmount(cars));
+|============================
+*/
+// --------------------------
+/** Решение-Example 10
+|============================
+// ----- Вариант-1 (неявный возврат)
+const getTotalAmount = cars =>
+  cars.reduce((total, car) => (total += car.amount), 0);
+
+// ----- Вариант-2 (явный возврат)
+const getTotalAmount = cars => {
+  return cars.reduce((total, car) => (total += car.amount), 0);
+};
+
+// Вызов
+console.log(getTotalAmount(cars));
+|============================
+*/
+// ==========================================================================================
+/** Example 11 - Ланцюжки методів 
+|============================
+// Нехай функція getAvailableCarNames повертає масив моделей автомобілів, але тільки тих, які зараз на розпродажі.
+
+const getModelsOnSale = cars => {};
+
+console.table(getModelsOnSale(cars));
+|============================
+*/
+// --------------------------
+/** Решение-Example 
+|============================
+// ----- Вариант-1 (неявный возврат)
+
+
+// ----- Вариант-2 (явный возврат)
+
+
+// Вызов
+|============================
+*/
+// ==========================================================================================
+/** Example 12 - Ланцюжки методів
+|============================
+// Нехай функція getSortedCarsOnSale повертає масив автомобілів на розпродажі (Властивість onSale), відсортованих за зростанням ціни.
+
+const getSortedCarsOnSale = cars => {};
+
+console.table(getSortedCarsOnSale(cars));
+|============================
+*/
+// --------------------------
+/** Решение-Example 
+|============================
+// ----- Вариант-1 (неявный возврат)
+
+
+// ----- Вариант-2 (явный возврат)
+
+
+// Вызов
+|============================
+*/
+// ==========================================================================================
