@@ -3413,90 +3413,6 @@ console.log(calсulateAverage(27, 43, 2, 8, 36)); // 23.2
 // console.table(cars);
 |============================
 */
-const cars = [
-  {
-    make: 'Honda',
-    model: 'CR-V',
-    type: 'suv',
-    amount: 14,
-    price: 24045,
-    onSale: true,
-  },
-  {
-    make: 'Honda',
-    model: 'Accord',
-    type: 'sedan',
-    amount: 2,
-    price: 22455,
-    onSale: true,
-  },
-  {
-    make: 'Mazda',
-    model: 'Mazda 6',
-    type: 'sedan',
-    amount: 8,
-    price: 24195,
-    onSale: false,
-  },
-  {
-    make: 'Mazda',
-    model: 'CX-9',
-    type: 'suv',
-    amount: 7,
-    price: 31520,
-    onSale: true,
-  },
-  {
-    make: 'Toyota',
-    model: '4Runner',
-    type: 'suv',
-    amount: 19,
-    price: 34210,
-    onSale: false,
-  },
-  {
-    make: 'Toyota',
-    model: 'Sequoia',
-    type: 'suv',
-    amount: 16,
-    price: 45560,
-    onSale: false,
-  },
-  {
-    make: 'Toyota',
-    model: 'Tacoma',
-    type: 'truck',
-    amount: 4,
-    price: 24320,
-    onSale: true,
-  },
-  {
-    make: 'Ford',
-    model: 'F-150',
-    type: 'truck',
-    amount: 11,
-    price: 27110,
-    onSale: true,
-  },
-  {
-    make: 'Ford',
-    model: 'Fusion',
-    type: 'sedan',
-    amount: 13,
-    price: 22120,
-    onSale: true,
-  },
-  {
-    make: 'Ford',
-    model: 'Explorer',
-    type: 'suv',
-    amount: 6,
-    price: 31660,
-    onSale: false,
-  },
-];
-
-console.table(cars);
 // ==========================================================================================
 /** Example 1 - Метод map
 |============================
@@ -3676,38 +3592,19 @@ console.table(sortByAscendingAmount(cars));
 |============================
 // ----- Вариант-1 (неявный возврат)
 
+const sortByAscendingAmount = cars =>
+  cars.sort((carA, carB) => carA.amount - carB.amount);
 
 // ----- Вариант-2 (явный возврат)
 
+const sortByAscendingAmount = cars => {
+  return cars.sort((carA, carB) => carA.amount - carB.amount);
+};
 
 // Вызов
-// ?????????????????????????????????????????????????????????
-const sortByAscendingAmount = cars.sort(
-  (carA, carB) => carA.amount - carB.amount
-);
-
 console.table(sortByAscendingAmount(cars));
-
-// По игровому времени. Сортировка объектов по значениям свойств.
-// Сортируем объекты по убыванию значений свойств (timePlayed)
-
-// const sortedByBestPlayers = [...players].sort(
-//   (prevPlayer, nextPlayer) => nextPlayer.timePlayed - prevPlayer.timePlayed
-// );
-// console.table(sortedByBestPlayers);
-
-// // Сортируем объекты по возрастанию значений свойств (timePlayed)
-// const sortedByWorstPlayers = [...players].sort(
-//   (prevPlayer, nextPlayer) => prevPlayer.timePlayed - nextPlayer.timePlayed
-// );
-// console.table(sortedByWorstPlayers);
-
-// const scores = [61, 19, 74, 35, 92, 56];
-// const ascendingScores = [...scores].sort((a, b) => a - b);
-// console.log(ascendingScores); // [19, 35, 56, 61, 74, 92]
 |============================
 */
-
 // ==========================================================================================
 /** Example 8 - Метод sort
 |============================
@@ -3721,13 +3618,11 @@ console.table(sortByDescendingPrice(cars));
 // --------------------------
 /** Решение-Example 8
 |============================
-// ----- Вариант-1 (неявный возврат)
+const sortByDescendingPrice = cars => {
+  return cars.sort((carA, carB) => carB.price - carA.price);
+};
 
-
-// ----- Вариант-2 (явный возврат)
-
-
-// Вызов
+console.table(sortByDescendingPrice(cars));
 |============================
 */
 // ==========================================================================================
@@ -3745,15 +3640,37 @@ console.table(sortByModel(cars, 'desc'));
 // --------------------------
 /** Решение-Example 9
 |============================
-// ----- Вариант-1 (неявный возврат)
+const sortByModel = (cars, order) => {
+  const copy = [...cars];
+  switch (order) {
+    case 'asc':
+      return copy.sort((a, b) => a.model.localeCompare(b.model));
+    case 'desc':
+      return copy.sort((a, b) => b.model.localeCompare(a.model));
 
+    default:
+      return copy;
+  }
 
-// ----- Вариант-2 (явный возврат)
+  // Вариант нерешенный!
+  // cars.sort((a, b) => {
+  //   switch (order) {
+  //     case 'asc':
+  //       return a.model.localeCompare(b.model);
+  //     case 'desc':
+  //       return b.model.localeCompare(a.model);
 
+  //     default:
+  //       return 0;
+  //   }
+  // });
+};
 
-// Вызов
+console.table(sortByModel(cars, 'asc'));
+console.table(sortByModel(cars, 'desc'));
 |============================
 */
+
 // ==========================================================================================
 /** Example 10 - Метод reduce
 |============================
@@ -3785,21 +3702,30 @@ console.log(getTotalAmount(cars));
 |============================
 // Нехай функція getAvailableCarNames повертає масив моделей автомобілів, але тільки тих, які зараз на розпродажі.
 
-const getModelsOnSale = cars => {};
+const getAvailableCarNames = cars => {};
 
-console.table(getModelsOnSale(cars));
+console.table(getAvailableCarNames(cars));
 |============================
 */
 // --------------------------
-/** Решение-Example 
+/** Решение-Example 11
 |============================
 // ----- Вариант-1 (неявный возврат)
 
+// Вариант (цепочка методов, Chaining)
+const getAvailableCarNames = cars =>
+  cars.filter(car => car.onSale).map(car => car.model);
 
-// ----- Вариант-2 (явный возврат)
+// ----- Вариант-2 явный возврат, отдельно прописаны опирации методов в отдельной строке.
 
+// const getAvailableCarNames = cars => {
+//   const carOnSale = cars.filter(car => car.onSale); // Нашли машины которые на распродаже.
+//   const models = carOnSale.map(car => car.model);
+//   return models;
+// };
 
 // Вызов
+console.log(getAvailableCarNames(cars)); // ['CR-V', 'Accord', 'CX-9', 'Tacoma', 'F-150', 'Fusion']
 |============================
 */
 // ==========================================================================================
@@ -3816,12 +3742,16 @@ console.table(getSortedCarsOnSale(cars));
 /** Решение-Example 
 |============================
 // ----- Вариант-1 (неявный возврат)
-
+const getSortedCarsOnSale = cars =>
+  cars.filter(car => car.onSale).sort((a, b) => a.price - b.price);
 
 // ----- Вариант-2 (явный возврат)
-
+const getSortedCarsOnSale = cars => {
+  return cars.filter(car => cars.onSale).sort((a, b) => a.price - b.price);
+};
 
 // Вызов
+console.table(getSortedCarsOnSale(cars));
 |============================
 */
 // ==========================================================================================
