@@ -1,6 +1,6 @@
 // !--------------||| Репета модуль-5 занятие-1 Ключове слово this. |||--------------!
 
-/** this
+/** Контекст this
 |============================
 // * Функция это частный случай объекта -> ССЫЛОЧНЫЙ ТИП
 // -----------------------------------------------------
@@ -272,6 +272,296 @@ updateCounter(10, counter.increment); // increment -> this undefined            
 updateCounter(5, counter.decrement); // increment -> this undefined             // При передаче метода объекта как колбэка контекст не сохраняется! Мы передаём ссылку на какуюто рандомную функцию в памяти, которая ничего не знает про объект который хранит на неё ссылку.
 // -----
 counter.increment(10); // increment -> this {value: 0, increment: ƒ, decrement: ƒ} // Так сработает потому что ты вызываешь метод increment в контексте объекта counter.
+|============================
+*/
+// --------------------
+/** Методі функций call и apply
+|============================
+// Метод call
+// ----------------------------------------------
+// Метод call позволяет тебе взять какую-то произвольную функцию и принудительно вызвать в контексте какого-то объекта.
 
+const showThis = function () {
+  console.log('showThis -> this', this);
+};
+
+showThis();                                     // showThis -> this undefined
+
+const objA = {
+  a: 5,
+  b: 10,
+};
+
+showThis.call(objA, 10, 20, 30, 40, 50);       // showThis -> this {a: 5, b: 10}
+
+// console.log(showThis);
+// console.dir(showThis);
+
+// ----------------------------------------------
+// Передача аргументов.
+
+const showThis = function (a, b, c, d) {
+  console.log(a, b, c, d); // 10 20 30 40
+  console.log('showThis -> this', this);      
+};
+
+// showThis();                                // showThis -> this undefined
+
+const objA = {
+  a: 5,
+  b: 10,
+};
+
+showThis.call(objA, 10, 20, 30, 40, 50);     // showThis -> this {a: 5, b: 10}
+
+// ----------------------------------------------
+
+const showThis = function (...args) {
+  console.log(args);                       // [5, 1, 1, 1]
+  console.log('showThis -> this', this);   // showThis -> this {a: 5, b: 10}
+};
+
+// showThis();                             // showThis -> this undefined
+
+const objA = {
+  a: 5,
+  b: 10,
+};
+
+showThis.call(objA, 5, 1, 1, 1);
+
+const objB = {
+  a: 5,
+  b: 10,
+};
+
+showThis.call(objB, 1, 1, 2, 2);
+
+// ----------------------------------------------
+// Метод apply
+// ----------------------------------------------
+// Разница между .call() и .apply()
+
+// * В .call(objA, 5, 1, 1, 1)    - мы передаем контекст в котором его вызвать, тоесть объект, а потом любое кол-во аргументов через запятую.
+// * В .apply(objA, [5, 1, 1, 1]) - мы передаем контекст в котором его вызвать, тоесть объект, а потом один аргумент масив аргументов.
+
+const showThis = function (...args) {
+  console.log(args);                          
+  console.log('showThis -> this', this);      // showThis -> this {a: 5, b: 10}   
+};
+
+// showThis();                                // showThis -> this undefined
+
+const objA = {
+  a: 5,
+  b: 10,
+};
+
+showThis.call(objA, 5, 1, 1, 1);              // [5, 1, 1, 1]
+showThis.apply(objA, [5, 1, 1, 1]);           // [5, 1, 1, 1]
+
+const objB = {
+  a: 5,
+  b: 10,
+};
+
+showThis.call(objB, 1, 1, 2, 2);              // [1, 1, 2, 2]
+showThis.apply(objB, [1, 1, 2, 2]);           // [1, 1, 2, 2]
+
+// ----------------------------------------------
+
+const showThis = function (a, b, c) {
+  console.log(a, b, c); // 5 1 1
+  console.log('showThis -> this', this); // showThis -> this {a: 5, b: 10}
+};
+
+// showThis();                               // showThis -> this undefined
+
+const objA = {
+  a: 5,
+  b: 10,
+};
+
+showThis.call(objA, 5, 1, 1); // 5 1 1
+showThis.apply(objA, [5, 1, 1]); // 5 1 1
+
+const objB = {
+  a: 5,
+  b: 10,
+};
+
+showThis.call(objB, 1, 1, 2); // 5 1 1
+showThis.apply(objB, [1, 1, 2]); // 5 1 1
+
+// ----------------------------------------------
+
+const showThis = function (a, b, arr) {
+  console.log(a, b, arr); // [5, 1, 1]
+  console.log('showThis -> this', this);                  // showThis -> this {a: 5, b: 10}
+};
+
+// showThis();                                            // showThis -> this undefined
+
+const objA = {
+  a: 5,
+  b: 10,
+};
+
+// showThis.call(objA, [5, 1, 1]);                       // [5, 1, 1]
+showThis.apply(objA, [5, 1, [100, 200, 300]]);           // 5 1 [100, 200, 300]
+
+const objB = {
+  a: 5,
+  b: 10,
+};
+
+// showThis.call(objB, [1, 1, 2]);                      // [1, 1, 2]
+showThis.apply(objB, [1, 1, [200, 300, 400]]);          // 1 1 [200, 300, 400]
+
+// ----------------------------------------------
+
+// Используя методы .call() и .apply() мы можем сделать одну внешнюю функцию и просто вызывать её в контексте какого-то объекта.
+
+const changeColor = function (color) {
+  console.log('changeColor -> this', this);
+  this.color = color;
+};
+
+const hat = {
+  color: 'black',
+};
+
+changeColor.call(hat, 'orange');
+console.log(hat);
+
+const sweater = {
+  color: 'green',
+};
+
+changeColor.call(sweater, 'blue');
+console.log(sweater);
+|============================
+*/
+// --------------------
+/** Метод bind()
+|============================
+// Что делает bind(), он в отличии от call и apply не вызывает эту функцию прямо здесь и сейчас, он берет эту функцию делает её копию, но с навсегда привязаным контекстом. Тоесть в этой копии this всегда будет ссылаться на этот объект.
+
+const changeColor = function (color) {
+  console.log('changeColor -> this', this);
+};
+
+const hat = {
+  color: 'black',
+};
+
+const sweater = {
+  color: 'green',
+};
+
+const changeHatColor = changeColor.bind(hat);
+const changeSweaterColor = changeColor.bind(sweater);
+
+changeColor();                               // changeColor -> this undefined
+changeHatColor();                            // changeColor -> this {color: 'black'}
+changeSweaterColor();                        // changeColor -> this {color: 'green'}
+
+// ----------------------------------------------
+
+const changeColor = function (color) {
+  console.log('changeColor -> this', this);
+  this.color = color;
+};
+
+const hat = {
+  color: 'black',
+};
+
+const sweater = {
+  color: 'green',
+};
+
+const changeHatColor = changeColor.bind(hat);
+const changeSweaterColor = changeColor.bind(sweater);
+
+changeColor(); // changeColor -> this undefined  // Он не изменяет оригинальную функцию.
+
+changeHatColor('yellow');
+console.log(hat); // changeColor -> this {color: 'yellow'}
+
+changeSweaterColor('red');
+console.log(sweater); // changeColor -> this {color: 'red'}
+
+// ----------------------------------------------
+//  * counter
+// ----------------------------------------------
+// Вот так решается проблема передачи методов объекта как колбэка.
+
+const counter = {
+  value: 0,
+  increment(value) {
+    console.log('increment -> this', this);
+    this.value += value;
+  },
+  decrement(value) {
+    console.log('decrement -> this', this);
+    this.value -= value;
+  },
+};
+
+const updateCounter = function (value, operation) {
+  operation(value);
+};
+
+updateCounter(10, counter.increment.bind(counter)); // Вот так решается проблема передачи методов объекта как колбэка.
+updateCounter(5, counter.decrement.bind(counter)); // Вот так решается проблема передачи методов объекта как колбэка.
+
+// console.log(counter);
+
+|============================
+*/
+// --------------------
+/** Делаем счетчик
+|============================
+// ---------------код html------------------------
+<div class="counter">
+  <button class="js-decrement">Уменьшить</button>
+  <p class="js-value">0</p>
+  <button class="js-increment">Увеличить</button>
+</div>
+// -----------------------------------------------
+const counter = {
+  value: 0,
+  increment() {
+    console.log('increment -> this', this);
+    this.value += 1;
+  },
+  decrement() {
+    console.log('decrement -> this', this);
+    this.value -= 1;
+  },
+};
+
+const decrementBtn = document.querySelector('.js-decrement');
+const incrementBtn = document.querySelector('.js-increment');
+const valueEl = document.querySelector('.js-value');
+
+decrementBtn.addEventListener('click', function () {
+  console.log('Кликнули на декремент');
+
+  counter.decrement();
+  console.log(counter);
+  valueEl.textContent = counter.value;
+});
+
+incrementBtn.addEventListener('click', function () {
+  console.log('Кликнули на инкремент');
+
+  counter.increment();
+  console.log(counter);
+  valueEl.textContent = counter.value;
+});
+
+console.log(window);
 |============================
 */
