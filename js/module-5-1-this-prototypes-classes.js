@@ -565,3 +565,253 @@ incrementBtn.addEventListener('click', function () {
 console.log(window);
 |============================
 */
+
+// !--------------||| Олег модуль-5 занятие-1 Ключове слово this. Методы .bind(), .call(), .apply() |||--------------!
+
+/** Контекст this
+|============================
+
+|============================
+*/
+// --------------------------
+/** Методы .bind(), .call(), .apply()
+|============================
+// ----------------------------------------------
+Метод .bind()
+// ----------------------------------------------
+const user = {
+  balance: 1000,
+
+  getBalance() {
+    return this.balance;
+  },
+};
+
+function showInfoFromCallback(callback) {
+  const res = callback();
+  console.log('INFO: ' + res);
+}
+// const newF = user.getBalance.bind({ balance: 10000000 });             // INFO: 10000000  // Запомнит на всегда balance: 10000000!
+
+// const newF = user.getBalance.bind(user);                              // INFO: 1000  // Тоесть мы сказали в середине this всегда будет user.
+
+showInfoFromCallback(user.getBalance.bind(user));                        // INFO: 1000  // Тоже самое но в одну строку. Без промежуточной переменной.
+
+// ----------------------------------------------
+Метод .call()
+// ----------------------------------------------
+const user = {
+  balance: 1000,
+
+  getBalance(a, b, c) {
+    console.log(a, b, c);                                // 1 2 3
+    return this.balance;
+  },
+};
+
+function showInfoFromCallback(callback) {
+  const res = callback.call(user, 1, 2, 3);
+  console.log('INFO: ' + res);                          // INFO: 1000
+}
+
+showInfoFromCallback(user.getBalance);
+
+// ----------------------------------------------
+Метод .apply()
+// ----------------------------------------------
+const user = {
+  balance: 1000,
+
+  getBalance(a, b, c) {
+    console.log(a, b, c);                               // 1 2 3
+    return this.balance;
+  },
+};
+
+function showInfoFromCallback(callback) {
+  const res = callback.apply(user, [1, 2, 3]);
+  console.log('INFO: ' + res);                          // INFO: 1000
+}
+
+showInfoFromCallback(user.getBalance);
+|============================
+*/
+// --------------------------
+/** ЗАДАЧИ Олег: модуль-5 занятие-1 Контекст вызова функции и this
+|============================
+* Example 1 - Мастерская драгоценностей
+* Напишите метод calcTotalPrice(stoneName), который принимает название камня и рассчитывает и возвращает общую стоимость камней с таким именем, ценой и количеством из свойства stones.
+
+const chopShop = {
+  stones: [
+    { name: 'Emerald', price: 1300, quantity: 4 },
+    { name: 'Diamond', price: 2700, quantity: 3 },
+    { name: 'Sapphire', price: 1400, quantity: 7 },
+    { name: 'Ruby', price: 800, quantity: 2 },
+  ],
+
+  calcTotalPrice(stoneName) {},
+};
+
+console.log(chopShop.calcTotalPrice('Emerald')); // 5200
+console.log(chopShop.calcTotalPrice('Diamond')); // 8100
+console.log(chopShop.calcTotalPrice('Sapphire')); // 9800
+console.log(chopShop.calcTotalPrice('Ruby')); // 1600
+
+// ===============================================
+* Example 2 - Телефонная книга
+* Выполните рефакторинг методов объекта phonebook чтобы код заработал.
+
+const phonebook = {
+  contacts: [],
+
+  add(contact) {
+    const newContact = {
+      list: 'default',
+      ...contact,
+      id: generateId(),
+      createdAt: getDate(),
+    };
+    contacts.push(newContact);
+  },
+
+  generateId() {
+    return '_' + Math.random().toString(36).substr(2, 9);
+  },
+
+  getDate() {
+    return Date.now();
+  },
+};
+
+console.log(
+  phonebook.add({
+    name: 'Mango',
+    email: 'mango@mail.com',
+    list: 'friends',
+  })
+);
+console.log(
+  phonebook.add({
+    name: 'Poly',
+    email: 'poly@hotmail.com',
+  })
+);
+
+// ===============================================
+Example 3 - Калькулятор
+Создайте объект calculator с тремя методами:
+
+* read(a, b)- принимает два значения и сохраняет их как свойства объекта.
+* add() - возвращает сумму сохранённых значений.
+* mult() - перемножает сохранённые значения и возвращает результат.
+
+const calculator = {};
+|============================
+*/
+// -------------------------------------------------------------------
+/** ОТВЕТЫ на задачи модуль-5 занятие-1 Контекст вызова функции и this
+|============================
+// Решение - Example 1 Мастерская драгоценностей
+// Напишите метод calcTotalPrice(stoneName), который принимает название камня и рассчитывает и возвращает общую стоимость камней с таким именем, ценой и количеством из свойства stones.
+
+const chopShop = {
+  stones: [
+    { name: 'Emerald', price: 1300, quantity: 4 },
+    { name: 'Diamond', price: 2700, quantity: 3 },
+    { name: 'Sapphire', price: 1400, quantity: 7 },
+    { name: 'Ruby', price: 800, quantity: 2 },
+  ],
+
+  calcTotalPrice(stoneName) {
+    const stone = this.stones.find(stone => stone.name === stoneName);
+
+    if (!stone) return 0;
+
+    return stone.price * stone.quantity;
+  },
+};
+
+console.log(chopShop.calcTotalPrice('Emerald')); // 5200
+console.log(chopShop.calcTotalPrice('Diamond')); // 8100
+console.log(chopShop.calcTotalPrice('Sapphire')); // 9800
+console.log(chopShop.calcTotalPrice('Ruby')); // 1600
+// ========================================================================
+// Решение - Example 2 - Телефонная книга
+// Выполните рефакторинг методов объекта phonebook чтобы код заработал.
+
+const phonebook = {
+  contacts: [],
+
+  add(contact) {
+    const newContact = {
+      list: 'default',
+      ...contact,
+      id: this.generateId(),
+      createdAt: this.getDate(),
+    };
+    this.contacts.push(newContact);
+  },
+
+  generateId() {
+    return '_' + Math.random().toString(36).substr(2, 9);
+  },
+
+  getDate() {
+    return Date.now();
+  },
+};
+
+console.log(
+  phonebook.add({
+    name: 'Mango',
+    email: 'mango@mail.com',
+    list: 'friends',
+  })
+);
+console.log(
+  phonebook.add({
+    name: 'Poly',
+    email: 'poly@hotmail.com',
+  })
+);
+
+console.log(phonebook.contacts);
+// ========================================================================
+// Решение - Example 3 - Калькулятор
+// Создайте объект calculator с тремя методами:
+
+* read(a, b)- принимает два значения и сохраняет их как свойства объекта.
+* add() - возвращает сумму сохранённых значений.
+* mult() - перемножает сохранённые значения и возвращает результат.
+
+const calculator = {
+  a: 0,
+  b: 0,
+
+  read(a, b) {
+    this.a = a ?? this.a;
+    this.b = b ?? this.b;
+  },
+
+  add() {
+    return this.a + this.b;
+  },
+
+  mult() {
+    return this.a * this.b;
+  },
+};
+
+calculator.read(10, 30);
+
+console.log(calculator.add());
+console.log(calculator.mult());
+
+calculator.read(20);
+
+console.log(calculator.add());
+console.log(calculator.mult());
+
+|============================
+*/
