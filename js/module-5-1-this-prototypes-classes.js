@@ -815,3 +815,343 @@ console.log(calculator.mult());
 
 |============================
 */
+
+// !--------------||| Артем модуль-5 занятие-1 Ключове слово this. Методы .bind(), .call(), .apply() |||--------------!
+
+/** Контекст this
+|============================
+// Типы функций и как они себя ведут в разных областях видимости.
+// -------------------------------------------------------------
+
+// function declaration -----
+function foo() {}
+
+// function expression -----
+const foo = function () {};
+
+// arrow function -----
+const foo = () => {};
+
+// Глобальная область видимости в строгом режиме ('use strict' или type="module"), и без него.
+
+// ----------------------------------------------
+// Без строгого режима
+// ----------------------------------------------
+function foo() {
+  console.log(this);
+}
+
+foo();                            // Window {window: Window, self: Window, document: document, name: '', location: Location, …}
+
+const boo = function () {
+  console.log(this);
+};
+
+boo();                            // Window {window: Window, self: Window, document: document, name: '', location: Location, …}
+
+const arrow = () => {
+  console.log(this);
+};
+
+arrow();                          // Window {window: Window, self: Window, document: document, name: '', location: Location, …}
+
+// ----------------------------------------------
+// Строгий режим 'use strict' или type = "module" 
+// ----------------------------------------------
+// Прписываем в начале этого файла 'use strict';  // или вместо 'use strict' прописываем type="module" в файле html в ссылке подключения скрипта на этот файл js.
+// Пример как подллючен этот файл  с type = "module"    <script src = "./js/module-5-1-this-prototypes-classes.js" type = "module"></ >
+
+// * При варианте ('use strict')    - function declaration и function expression  будут (undefined), а arrow function будет (Window)
+// * При варианте (type = "module") - function declaration, function expression, arrow function все будут (undefined).
+
+// Функции declaration и expression становятся undefined, в строгом режиме выполнения кода они не могут оределить свой this и они принимают значения undefined.
+// В то время как arrow function держит значение - Window {window: Window, self: Window, document: document, name: '', location: Location, …}
+
+// При определении контекста в 'use strict' функция arrow function (стрелочной функции) определяется своим фактическим местом написания в рамках какого объекта она была написана, она написана у нас в середине глобального объекта Window, соответственно она будет ссылаться на Window .
+
+// 'use strict';
+
+function foo() {
+  console.log(this);
+}
+
+foo();                        // undefined
+
+const boo = function () {
+  console.log(this);
+};
+
+boo();                        // undefined
+
+const arrow = () => {
+  console.log(this);
+};
+
+arrow();                      // В режиме ('use strict') будет Window       // В режиме (type = "module") будет undefined
+
+// -------------------------------------
+// Примеры в строгом режиме.
+// -------------------------------------
+// ----- function declaration 
+const objA = {
+  name: 'User name',
+  nickName() {
+    console.log(this);
+  },
+};
+
+objA.nickName();                     // {name: 'User name', nickName: ƒ}
+
+// -------------------------------------
+//  ----- arrow function
+const objB = {
+  name: 'User name',
+  nickName: () => {
+    console.log(this);
+  },
+};
+
+objB.nickName();                      // В режиме ('use strict') будет Window       // В режиме (type = "module") будет undefined
+
+// -------------------------------------
+//  ----- function declaration
+const objA = {
+  name: 'User name',
+  skills: {
+    mySkill: 'html',
+    nickName() {
+      console.log(this);
+    },
+  },
+};
+
+objA.skills.nickName();               // {mySkill: 'html', nickName: ƒ}
+
+// -------------------------------------
+//  ----- function declaration
+const objA = {
+  name: 'User name',
+  skills: {
+    mySkill: 'html',
+    someValue: {
+      value: 10,
+      nickName() {
+        console.log(this);
+      },
+    },
+  },
+};
+
+objA.skills.someValue.nickName();       // {value: 10, nickName: ƒ}
+
+// -------------------------------------
+// Еще пример: Так не работает! Потому что функция nickName вызывается без какого либо контекста.
+const objB = {
+  name: 'User name',
+  skills: {
+    mySkill: 'html',
+    someValue: {
+      value: 10,
+      foo() {
+        console.log('foo', this); // foo {value: 10, foo: ƒ}
+        function nickName() {
+          console.log('nickName', this); // nickName undefined
+        }
+        nickName();
+      },
+    },
+  },
+};
+
+objB.skills.someValue.foo(); // В режиме (type = "module") будет undefined   // В режиме ('use strict') будет Window   // Не в строгом режиме будет Window
+|============================
+*/
+// -------------------------------------------------------------
+/** Стрелочные функции (arrow function)
+|============================
+// -------------------------------------
+//  Стрелочные функции (arrow function) как методы объекта не используем! Так как они не имеют своего this и ссылаются на отцовский элемент.
+// -------------------------------------
+// ----- Пример ниже: Так не работает!
+const objB = {
+  name: 'User name',
+  skills: {
+    mySkill: 'html',
+    someValue: {
+      value: 10,
+      nickName: () => {
+        console.log(this);
+      },
+    },
+  },
+};
+
+objB.skills.someValue.nickName();        // В режиме ('use strict') будет Window   // В режиме (type = "module") будет undefined
+
+// -------------------------------------
+// Но, есть исключения! Так работает! но такие случаи используют редко.
+* Есть такие случаи когда мы создаем какой-то метод объекта (с помощью функции function declaration) в середине которого будет создана функция arrow function(стрелочная функция).
+* Исключение когда стрелочная функция может использоваться- это когда стрелочная функция брёт свой this у отцовского элемента и если стрелочная функция вызвана в середине функции function declaration, а та в свою очередь вызвана объектом, то стрелочная функция возьмёт this у отцовской функции.
+
+// Пример: В этом случае стрелочная функция nickName вызвана в середине функции foo (function declaration) и значит она берёт this с этой функции foo, а сама функция foo вызвана объектом someValue и ссылается на этот объект. Поэтому стрелочная функция сошлёт свой this на функцию foo в которой находится.
+
+const objB = {
+  name: 'User name',
+  skills: {
+    mySkill: 'html',
+    someValue: {
+      value: 10,
+      foo() {
+        const nickName = () => {
+          console.log(this);
+        };
+        nickName();
+      },
+    },
+  },
+};
+
+objB.skills.someValue.foo();              // {value: 10, foo: ƒ}
+
+// -------------------------------------
+// Еще пример: Так не работает!
+// Стрелочная функция nickName вызвана в середине стрелочной функции foo, та же в свою очередь тоже не имее своего this или возьмет его из глобального
+элемента Window. Поэтому будет в режиме('use strict') Window, а в режиме(type = "module") undefined.
+
+const objB = {
+  name: 'User name',
+  skills: {
+    mySkill: 'html',
+    someValue: {
+      value: 10,
+      foo: () => {
+        const nickName = () => {
+          console.log(this);
+        };
+        nickName();
+      },
+    },
+  },
+};
+
+objB.skills.someValue.foo();      // В режиме ('use strict') будет Window   // В режиме (type = "module") будет undefined
+
+// -------------------------------------
+// Еще пример: Так не работает!
+const objB = {
+  name: 'User name',
+  skills: {
+    mySkill: 'html',
+    someValue: {
+      value: 10,
+      foo: () => {
+        function nickName() {
+          console.log(this);
+        }
+        nickName();
+      },
+    },
+  },
+};
+
+objB.skills.someValue.foo(); // В режиме (type = "module") будет undefined   // В режиме ('use strict') будет Window   // Не в строгом режиме будет Window
+|============================
+*/
+// -------------------------------------------------------------
+/** Тренировка this
+|============================
+// -------------------------------------
+Тренировка
+// -------------------------------------
+const objA = {
+  age: 22,
+  myAge() {
+    console.log(this);
+  },
+};
+objA.myAge();             // {age: 22, myAge: ƒ}
+
+// -------------------------------------
+const objA = {
+  age: 22,
+  myAge: () => {
+    console.log(this);
+  },
+};
+objA.myAge();            // В режиме (type = "module") будет undefined   // В режиме ('use strict') будет Window   // Не в строгом режиме будет Window
+
+// -------------------------------------
+const objA = {
+  age: 22,
+  myAge: () => {
+    const test = () => {
+      console.log(this);
+    };
+    test();
+  },
+};
+objA.myAge();                // В режиме (type = "module") будет undefined   // В режиме ('use strict') будет Window   // Не в строгом режиме будет Window
+
+// -------------------------------------
+const objA = {
+  age: 22,
+  myAge() {
+    const test = () => {
+      console.log(this);
+    };
+    test();
+  },
+};
+
+objA.myAge();                // {age: 22, myAge: ƒ}
+
+// -------------------------------------
+const objA = {
+  age: 22,
+  myAge() {
+    function test() {
+      console.log(this);
+    }
+    test();
+  },
+};
+
+objA.myAge();                 // undefined
+
+// -------------------------------------
+const objA = {
+  age: 22,
+  skilss: {
+    skill: ['html', 'css'],
+    foo() {
+      const boo = () => {
+        console.log(this);
+      };
+      boo();
+    },
+  },
+};
+
+objA.skilss.foo(); // {skill: Array(2), foo: ƒ}
+
+// -------------------------------------
+
+|============================
+*/
+// -------------------------------------------------------------
+const objA = {
+  age: 22,
+  skilss: {
+    skill: ['html', 'css'],
+    foo() {
+      const boo = () => {
+        console.log(this);
+      };
+      boo();
+    },
+  },
+};
+
+objA.skilss.foo(); // {skill: Array(2), foo: ƒ}
+
+// 51:35
