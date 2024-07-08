@@ -1130,26 +1130,68 @@ const objA = {
   },
 };
 
-objA.skilss.foo(); // {skill: Array(2), foo: ƒ}
+objA.skilss.foo();             // {skill: Array(2), foo: ƒ}
 
 // -------------------------------------
-
-|============================
-*/
-// -------------------------------------------------------------
 const objA = {
   age: 22,
-  skilss: {
-    skill: ['html', 'css'],
-    foo() {
-      const boo = () => {
-        console.log(this);
-      };
-      boo();
-    },
+  myAge() {
+    const test = () => {
+      console.log(this);
+    };
+    test();
   },
 };
 
-objA.skilss.foo(); // {skill: Array(2), foo: ƒ}
+const objB = {
+  age: 12,
+  someFunction: objA.myAge,
+};
 
-// 51:35
+objB.someFunction();           // {age: 12, someFunction: ƒ}
+
+// -------------------------------------
+const objA = {
+  age: 22,
+  myAge() {
+    const test = () => {
+      console.log(this);
+    };
+    test();
+  },
+};
+
+const objB = {
+  age: 12,
+  someFunction: objA.myAge,
+};
+
+const objC = {
+  age: 13,
+  somecrazy: objB.someFunction,
+};
+
+objC.somecrazy();             // {age: 13, somecrazy: ƒ}
+
+// -------------------------------------
+const objA = {
+  name: 'A',
+  foo() {
+    console.log(this);
+  },
+};
+
+objA.foo();                  // {name: 'A', foo: ƒ}
+
+// -------------------------------------
+const objA = {
+  name: 'A',
+  foo: () => {
+    console.log(this);
+  },
+};
+
+objA.foo();                   // В режиме (type = "module") будет undefined   // В режиме ('use strict') будет Window   // Не в строгом режиме будет Window
+|============================
+*/
+// -------------------------------------------------------------
