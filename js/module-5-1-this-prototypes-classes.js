@@ -636,185 +636,6 @@ function showInfoFromCallback(callback) {
 showInfoFromCallback(user.getBalance);
 |============================
 */
-// --------------------------
-/** ЗАДАЧИ Олег: модуль-5 занятие-1 Контекст вызова функции и this
-|============================
-* Example 1 - Мастерская драгоценностей
-* Напишите метод calcTotalPrice(stoneName), который принимает название камня и рассчитывает и возвращает общую стоимость камней с таким именем, ценой и количеством из свойства stones.
-
-const chopShop = {
-  stones: [
-    { name: 'Emerald', price: 1300, quantity: 4 },
-    { name: 'Diamond', price: 2700, quantity: 3 },
-    { name: 'Sapphire', price: 1400, quantity: 7 },
-    { name: 'Ruby', price: 800, quantity: 2 },
-  ],
-
-  calcTotalPrice(stoneName) {},
-};
-
-console.log(chopShop.calcTotalPrice('Emerald')); // 5200
-console.log(chopShop.calcTotalPrice('Diamond')); // 8100
-console.log(chopShop.calcTotalPrice('Sapphire')); // 9800
-console.log(chopShop.calcTotalPrice('Ruby')); // 1600
-
-// ===============================================
-* Example 2 - Телефонная книга
-* Выполните рефакторинг методов объекта phonebook чтобы код заработал.
-
-const phonebook = {
-  contacts: [],
-
-  add(contact) {
-    const newContact = {
-      list: 'default',
-      ...contact,
-      id: generateId(),
-      createdAt: getDate(),
-    };
-    contacts.push(newContact);
-  },
-
-  generateId() {
-    return '_' + Math.random().toString(36).substr(2, 9);
-  },
-
-  getDate() {
-    return Date.now();
-  },
-};
-
-console.log(
-  phonebook.add({
-    name: 'Mango',
-    email: 'mango@mail.com',
-    list: 'friends',
-  })
-);
-console.log(
-  phonebook.add({
-    name: 'Poly',
-    email: 'poly@hotmail.com',
-  })
-);
-
-// ===============================================
-Example 3 - Калькулятор
-Создайте объект calculator с тремя методами:
-
-* read(a, b)- принимает два значения и сохраняет их как свойства объекта.
-* add() - возвращает сумму сохранённых значений.
-* mult() - перемножает сохранённые значения и возвращает результат.
-
-const calculator = {};
-|============================
-*/
-// -------------------------------------------------------------------
-/** ОТВЕТЫ на задачи модуль-5 занятие-1 Контекст вызова функции и this
-|============================
-// Решение - Example 1 Мастерская драгоценностей
-// Напишите метод calcTotalPrice(stoneName), который принимает название камня и рассчитывает и возвращает общую стоимость камней с таким именем, ценой и количеством из свойства stones.
-
-const chopShop = {
-  stones: [
-    { name: 'Emerald', price: 1300, quantity: 4 },
-    { name: 'Diamond', price: 2700, quantity: 3 },
-    { name: 'Sapphire', price: 1400, quantity: 7 },
-    { name: 'Ruby', price: 800, quantity: 2 },
-  ],
-
-  calcTotalPrice(stoneName) {
-    const stone = this.stones.find(stone => stone.name === stoneName);
-
-    if (!stone) return 0;
-
-    return stone.price * stone.quantity;
-  },
-};
-
-console.log(chopShop.calcTotalPrice('Emerald')); // 5200
-console.log(chopShop.calcTotalPrice('Diamond')); // 8100
-console.log(chopShop.calcTotalPrice('Sapphire')); // 9800
-console.log(chopShop.calcTotalPrice('Ruby')); // 1600
-// ========================================================================
-// Решение - Example 2 - Телефонная книга
-// Выполните рефакторинг методов объекта phonebook чтобы код заработал.
-
-const phonebook = {
-  contacts: [],
-
-  add(contact) {
-    const newContact = {
-      list: 'default',
-      ...contact,
-      id: this.generateId(),
-      createdAt: this.getDate(),
-    };
-    this.contacts.push(newContact);
-  },
-
-  generateId() {
-    return '_' + Math.random().toString(36).substr(2, 9);
-  },
-
-  getDate() {
-    return Date.now();
-  },
-};
-
-console.log(
-  phonebook.add({
-    name: 'Mango',
-    email: 'mango@mail.com',
-    list: 'friends',
-  })
-);
-console.log(
-  phonebook.add({
-    name: 'Poly',
-    email: 'poly@hotmail.com',
-  })
-);
-
-console.log(phonebook.contacts);
-// ========================================================================
-// Решение - Example 3 - Калькулятор
-// Создайте объект calculator с тремя методами:
-
-* read(a, b)- принимает два значения и сохраняет их как свойства объекта.
-* add() - возвращает сумму сохранённых значений.
-* mult() - перемножает сохранённые значения и возвращает результат.
-
-const calculator = {
-  a: 0,
-  b: 0,
-
-  read(a, b) {
-    this.a = a ?? this.a;
-    this.b = b ?? this.b;
-  },
-
-  add() {
-    return this.a + this.b;
-  },
-
-  mult() {
-    return this.a * this.b;
-  },
-};
-
-calculator.read(10, 30);
-
-console.log(calculator.add());
-console.log(calculator.mult());
-
-calculator.read(20);
-
-console.log(calculator.add());
-console.log(calculator.mult());
-
-|============================
-*/
 
 // !--------------||| Артем модуль-5 занятие-1 Ключове слово this. Методы .bind(), .call(), .apply() |||--------------!
 
@@ -1195,3 +1016,511 @@ objA.foo();                   // В режиме (type = "module") будет un
 |============================
 */
 // -------------------------------------------------------------
+/**  Методы функцый  .bind(), .call(), .apply()
+|============================
+// -------------------------------------------------------
+// Метод.call()
+// -------------------------------------------------------
+// Метод call вызывает функцию или метот тут и сейчас. Он может вызывать метод объекта в контексте другого объекта.
+// Есть возмщжность переиспользовать функцию.
+
+// Параметры передаваемые в call. Первым параметром указываем объект в контексте которого должен быть вызван this, начиная со второго параметра и дальше мы можем передавать какие-то свои аргументы.
+
+// В примере ниже первым параметром указываем объект objB(на его контекст будет ссылаться this), вторым и третим параметром указываем (a, b) в них прийдут значения которые мы передадим в аргументы при вызове. 
+// Тоесть 
+* При вызове в контексте (objA) в параметр (а) прийдет аргумент (22), и в параметр (b) прийдет аргумент (44). 
+* При вызове в контексте (objB) в параметр (а) прийдет аргумент (1),  и в параметр (b) прийдет аргумент (2).
+
+const objA = {
+  age: 22,
+  myAge(a, b) {
+    console.log(this, a, b);
+  },
+};
+objA.myAge(22, 44);                       // {age: 22, myAge: ƒ} 22 44
+
+const objB = {
+  age: 23,
+};
+
+objA.myAge.call(objB, 1, 2);             // {age: 23} 1 2   // Фактически мы говорим, что this в методе объекта myAge в объекте objA бери контекст объекта objB(ссылайся на объект objB). Вызови и передай свой контекст.
+
+// -------------------------------------------------------
+const objA = {
+  name: 'A',
+  myAge(a, b) {
+    console.log(this, a, b);
+  },
+};
+
+objA.myAge(22, 44);                    // {age: 22, myAge: ƒ} 22 44
+
+const objB = {
+  name: 'B',
+};
+const objC = {
+  name: 'C',
+};
+
+objA.myAge.call(objB, 1, 2);           // {name: 'B'} 1 2
+objA.myAge.call(objC, 10, 20);         // {name: 'C'} 10 20
+
+// -------------------------------------------------------
+// Метод.apply()
+// -------------------------------------------------------
+// Метод apply вызывает функцию или метот тут и сейчас. Он может вызывать метод объекта в контексте другого объекта.
+// Есть возмщжность переиспользовать функцию.
+
+// Метод.apply() максимально подобный методу .call(). Есть между ними одно отличие.
+
+* Метод.call()- принимает первым параметром объект в котором будет выполняться контекст(наш будущий this), начиная со второго и далее все те параметры которые ожидает наш метод. (Передает список параметров начиная со второго).
+* Метод.apply()- принимает два параметра, первым параметром объект в котором будет выполняться контекст(наш будущий this), вторым параметром масив наших параметров.(Передает масив параметров вторым параметром).
+
+// Метод.apply() и Метод.call() Используются эти методы функций в том случае когда у нас есть готовый метод объекта и нам нужно его переиспользовать с изменением контекста(в контексте другого объекта). Для того чтоб этот метод не копировать ни куда, не присваивать никуда, просто воспользоваться им, мы можем вызвать apply или call. 
+
+const objA = {
+  name: 'A',
+  myAge(a, b) {
+    console.log(this, a, b);
+  },
+};
+
+// objA.myAge(22, 44);                       // {age: 22, myAge: ƒ} 22 44
+
+const objB = {
+  name: 'B',
+};
+const objC = {
+  name: 'C',
+};
+
+objA.myAge.call(objB, 1, 2);
+objA.myAge.call(objC, 10, 20);               // {name: 'C'} 10 20
+
+objA.myAge.apply(objC, [10, 20]);            // {name: 'C'} 10 20
+objA.myAge.apply(objC, [10, 20, 30, 40]);    // {name: 'C'} 10 20
+
+// -------------------------------------------------------
+const objA = {
+  name: 'A',
+  myAge(a, b, c) {
+    console.log(this, a, b, c);
+    return 'Some value';
+  },
+};
+
+// objA.myAge(22, 44);                                      // {age: 22, myAge: ƒ} 22 44
+
+const objB = {
+  name: 'B',
+  // myAge: objA.myAge
+};
+const objC = {
+  name: 'C',
+  // myAge: objA.myAge
+};
+
+objA.myAge.call(objB, 1, 2);                               // {name: 'B'} 1 2
+objA.myAge.call(objC, 10, 20);                             // {name: 'C'} 10 20
+
+objA.myAge.apply(objC, [10, 20]);                          // {name: 'C'} 10 20
+objA.myAge.apply(objC, [10, 20, 30, 40]);                  // {name: 'C'} 10 20 30
+
+const str = objA.myAge.call(objC, 10, 20);
+console.log(str); // Some value
+
+// ------------------
+// К примеру с бекенда прилетел какой-то масив и нам нужно его обработать.
+
+const fromBackEnd = [55, 66, 77, 88, 99, 100];              // масив с бекенда  и нам нужно его обработать.
+
+// Вариант-1 с операцией apply
+
+objA.myAge.apply(objC, fromBackEnd);                        // {name: 'C'} 55 66 77 
+
+// *  С появлением распыления в JS можно это сделать с помощью оператора ...spread. Это будет взаимно заменимая операция.
+
+// Вариант-2 с распылением ...spread
+
+const str2 = objA.myAge.call(objC, ...fromBackEnd);        // {name: 'C'} 55 66 77
+
+// -------------------------------------------------------
+Метод .bind()
+// -------------------------------------------------------
+// Метод .bind() Даёт нам возможность скопировать функцию, навсегда присвоивши ей свой this.
+// Метод .bind() Копирует функцию и навсегда привязывает ей контекст.
+
+const objA = {
+  name: 'A',
+  myAge(a, b, c, d) {
+    console.log(this, a, b, c, d);
+    return 'Some value';
+  },
+};
+
+const objB = {
+  name: 'B',
+};
+
+const result = objA.myAge.bind(objB, 10, 20, 30, 40);
+
+result(); //  {name: 'B'} 10 20 30 40
+
+// -------------------------------------------------------
+// Если нам каждый раз нужно будет изменять те параметры которые принимает наша функция или наш метод, мы ни вкоем случае не должны передавать их с помощью bind. Мы привязываем контекст с помощью bind, а дальше передаем дополнительные параметры с помощью вызова.
+
+const objA = {
+  name: 'A',
+  myAge(a, b, c, d) {
+    console.log(this, a, b, c, d);
+    return 'Some value';
+  },
+};
+
+const objB = {
+  name: 'B',
+};
+
+const objC = {
+  name: 'C',
+};
+
+// -----------
+// Так лучше не делать!
+// В этом варианте мы привязываем дополнительные параметры(10, 20, 30, 40) на всегда и чтобы перезаписать их нам нужно заново пререзаписть весь вызов. Это не удобно!
+
+const result = objA.myAge.bind(objB, 10, 20, 30, 40);
+const result2 = objA.myAge.bind(objB, 96, 97, 98, 99);
+
+result();                                              // {name: 'B'} 10 20 30 40
+result2();                                             // {name: 'B'} 10 20 30 40
+
+// -----------
+// Так будет правельнее!
+// В этом варианте мы привязали контекст с помощью bind, а парамептры передаем в переменную при вызове.
+
+const res = objA.myAge.bind(objB);
+
+res(10, 20, 30, 40);                                  // {name: 'B'} 10 20 30 40
+res(999, 888, 777, 666);                              // {name: 'B'} 999 888 777 666
+
+const res2 = objA.myAge.bind(objC);
+
+res2(1, 2, 3, 4);                                     // {name: 'C'} 1 2 3 4
+
+// если аргументов при вызове менньше чем заданых параметров в функции, то на месте тех параметров где нехватает аргументов будет undefined.
+res2(1, 2);                                           // {name: 'C'} 1 2 undefined undefined
+
+// -------------------------------------------------------
+// Если мы не знаем сколько аргументов прийдет, то в таком случае в функции не обьявляем параметра, а используем псевдомасив arguments или распыление ...spread
+
+const objA = {
+  name: 'A',
+  myAge(...args) {
+  // или arguments
+    console.log(this, args);
+    return 'Some value';
+  },
+};
+
+const objB = {
+  name: 'B',
+};
+
+const objC = {
+  name: 'C',
+};
+
+const result = objA.myAge.bind(objB);
+
+result(10, 20, 30, 40);                    // {name: 'B'} 10 20 30 40
+result(999, 888, 777, 666);                // {name: 'B'} 999 888 777 666
+
+const res = objA.myAge.bind(objC);
+
+res(1, 2, 3, 4);                           // {name: 'C'} 1 2 3 4
+res(1, 2);                                 // {name: 'C'} 1 2 
+
+// -------------------------------------------------------
+// Если нам нужно что-то обработать один раз то используем .call(), .apply()
+// Если нам нужно что-то обработать несколько раз то используем .bind()
+// -------------------------------------------------------
+|============================
+*/
+
+// !--------------||| ЗАДАЧИ Артем - Олег модуль-5 занятие-1 Ключове слово this. Методы .bind(), .call(), .apply() |||--------------!
+
+/** ЗАДАЧИ Олег: модуль-5 занятие-1 Контекст вызова функции и this
+|============================
+* Example 1 - Мастерская драгоценностей
+* Напишите метод calcTotalPrice(stoneName), который принимает название камня и рассчитывает и возвращает общую стоимость камней с таким именем, ценой и количеством из свойства stones.
+
+const chopShop = {
+  stones: [
+    { name: 'Emerald', price: 1300, quantity: 4 },
+    { name: 'Diamond', price: 2700, quantity: 3 },
+    { name: 'Sapphire', price: 1400, quantity: 7 },
+    { name: 'Ruby', price: 800, quantity: 2 },
+  ],
+
+  calcTotalPrice(stoneName) {},
+};
+
+console.log(chopShop.calcTotalPrice('Emerald')); // 5200
+console.log(chopShop.calcTotalPrice('Diamond')); // 8100
+console.log(chopShop.calcTotalPrice('Sapphire')); // 9800
+console.log(chopShop.calcTotalPrice('Ruby')); // 1600
+
+// ===============================================
+* Example 2 - Телефонная книга
+* Выполните рефакторинг методов объекта phonebook чтобы код заработал.
+
+const phonebook = {
+  contacts: [],
+
+  add(contact) {
+    const newContact = {
+      list: 'default',
+      ...contact,
+      id: generateId(),
+      createdAt: getDate(),
+    };
+    contacts.push(newContact);
+  },
+
+  generateId() {
+    return '_' + Math.random().toString(36).substr(2, 9);
+  },
+
+  getDate() {
+    return Date.now();
+  },
+};
+
+console.log(
+  phonebook.add({
+    name: 'Mango',
+    email: 'mango@mail.com',
+    list: 'friends',
+  })
+);
+console.log(
+  phonebook.add({
+    name: 'Poly',
+    email: 'poly@hotmail.com',
+  })
+);
+
+// ===============================================
+Example 3 - Калькулятор
+Создайте объект calculator с тремя методами:
+
+* read(a, b)- принимает два значения и сохраняет их как свойства объекта.
+* add() - возвращает сумму сохранённых значений.
+* mult() - перемножает сохранённые значения и возвращает результат.
+
+const calculator = {};
+|============================
+*/
+// -------------------------------------------------------------------
+/** ОТВЕТЫ на задачи модуль-5 занятие-1 Контекст вызова функции и this
+|============================
+// Example 1 Мастерская драгоценностей
+// Напишите метод calcTotalPrice(stoneName), который принимает название камня и рассчитывает и возвращает общую стоимость камней с таким именем, ценой и количеством из свойства stones.
+
+const chopShop = {
+  stones: [
+    { name: 'Emerald', price: 1300, quantity: 4 },
+    { name: 'Diamond', price: 2700, quantity: 3 },
+    { name: 'Sapphire', price: 1400, quantity: 7 },
+    { name: 'Ruby', price: 800, quantity: 2 },
+  ],
+
+  // ------------------------------ Решение (Олег)
+  calcTotalPrice(stoneName) {
+    const stone = this.stones.find(stone => stone.name === stoneName);
+
+    if (!stone) return 0;
+
+    return stone.price * stone.quantity;
+  },
+
+  // ------------------------------ Решение (Артем)
+  const chopShop = {
+  stones: [
+    { name: 'Emerald', price: 1300, quantity: 4 },
+    { name: 'Diamond', price: 2700, quantity: 3 },
+    { name: 'Sapphire', price: 1400, quantity: 7 },
+    { name: 'Ruby', price: 800, quantity: 2 },
+  ],
+
+  calcTotalPrice(stoneName) {
+    const { price, quantity } = this.stones.find(
+      ({ name }) => name === stoneName
+    );
+    return price * quantity;
+  },
+};
+
+// ----- Если нам нужно увеличить наш магазин. Пример работы с методом .call()
+
+const shop2 = {
+  stones: [
+    { name: 'Щебень', price: 1300, quantity: 4 },
+    { name: 'Песок', price: 2700, quantity: 3 },
+  ],
+};
+
+// Вызов ------------------------------------------------
+
+console.log(chopShop.calcTotalPrice.call(shop2, 'Щебень'));    // 5200
+
+console.log(chopShop.calcTotalPrice('Emerald'));      // 5200
+console.log(chopShop.calcTotalPrice('Diamond'));      // 8100
+console.log(chopShop.calcTotalPrice('Sapphire'));     // 9800
+console.log(chopShop.calcTotalPrice('Ruby'));         // 1600
+
+// ========================================================================
+// Решение - Example 2 - Телефонная книга
+// Выполните рефакторинг методов объекта phonebook чтобы код заработал.
+
+// ------------------------------ Решение (Олег)
+const phonebook = {
+  contacts: [],
+
+  add(contact) {
+    const newContact = {
+      list: 'default',
+      ...contact,
+      id: this.generateId(),
+      createdAt: this.getDate(),
+    };
+    this.contacts.push(newContact);
+  },
+
+  generateId() {
+    return '_' + Math.random().toString(36).substr(2, 9);
+  },
+
+  getDate() {
+    return Date.now();
+  },
+};
+
+console.log(
+  phonebook.add({
+    name: 'Mango',
+    email: 'mango@mail.com',
+    list: 'friends',
+  })
+);
+console.log(
+  phonebook.add({
+    name: 'Poly',
+    email: 'poly@hotmail.com',
+  })
+);
+
+console.log(phonebook.contacts);
+
+ // ------------------------------ Решение (Артем)
+ const phonebook = {
+  contacts: [],
+
+  add(contact) {
+    const newContact = {
+      list: 'default',
+      ...contact,
+      id: this.generateId(),
+      createdAt: this.getDate(),
+    };
+    this.contacts.push(newContact);
+    return this.contacts;
+  },
+
+  generateId() {
+    return '_' + Math.random().toString(36).substr(2, 9);
+  },
+
+  getDate() {
+    return Date.now();
+  },
+};
+
+console.log(
+  phonebook.add({
+    name: 'Mango',
+    email: 'mango@mail.com',
+    list: 'friends',
+  })
+);
+console.log(
+  phonebook.add({
+    name: 'Poly',
+    email: 'poly@hotmail.com',
+  })
+);
+
+// ========================================================================
+// Решение - Example 3 - Калькулятор
+// Создайте объект calculator с тремя методами:
+
+* read(a, b)- принимает два значения и сохраняет их как свойства объекта.
+* add() - возвращает сумму сохранённых значений.
+* mult() - перемножает сохранённые значения и возвращает результат.
+
+// ------------------------------ Решение (Олег)
+const calculator = {
+  a: 0,
+  b: 0,
+
+  read(a, b) {
+    this.a = a ?? this.a;
+    this.b = b ?? this.b;
+  },
+
+  add() {
+    return this.a + this.b;
+  },
+
+  mult() {
+    return this.a * this.b;
+  },
+};
+
+calculator.read(10, 30);
+
+console.log(calculator.add());
+console.log(calculator.mult());
+
+calculator.read(20);
+
+console.log(calculator.add());
+console.log(calculator.mult());
+
+// ------------------------------ Решение (Артем)
+
+const calculator = {
+  read(a, b) {
+    this.a = a;
+    this.b = b;
+  },
+  add() {
+    return (this.a ?? 0) + (this.b ?? 0); // (??) - это оператор нолевого соединения, хорошая замена оператору ( ИЛИ - || ).(видео 2:03:07)
+  },
+  mult() {
+    return (this.a ?? 1) * (this.b ?? 1);
+  },
+};
+
+// calculator.read(3);
+calculator.read(3, 0);
+console.log(calculator.mult());
+console.log(calculator.add());
+// calculator.read(1, 2);
+
+console.log(calculator);
+
+|============================
+*/
+// -------------------------------------------------------------------
