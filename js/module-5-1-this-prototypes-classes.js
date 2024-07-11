@@ -1528,35 +1528,72 @@ console.log(calculator);
  * - Object.getPrototypeOf()
  * - Собственные свойства и Object.prototype.hasOwnProperty()
  * - Цепочка прототипов
-|============================
-*/
 // ------------------------------------------------
-// Object.create()
+// Object.create()    Цепочка прототипов.
 // ------------------------------------------------
-// Эта штука создает новый пустой объект objB и делает для этого объекта прототипом тот объект который мы укажем как аргумент (objC).
+// Эта штука создает новый пустой объект objB и делает для этого объекта прототипом тот объект который мы укажем как аргумент в Object.create(objC).
 // objC - это прототип для объекта objB. В объекте objC лежит ссылка на объект objB.
+// В созданный новый объект добавляем свойство, чтоб он не показывал пустой объект.
 
 const objC = {
   z: 5,
 };
 
-console.log(objC.hasOwnProperty('z')); // true  // Если есть собственное свойство 'z' оно мне вернет true, если нет, то false.
+const objB = Object.create(objC);          // Говорю сделай мне новый объект objB и пусть у него прототипом будет objC.
+objB.y = 2; 
 
-console.log('objC', objC);
+const objA = Object.create(objB);          // Говорю сделай мне новый объект objA и пусть у него прототипом будет objB.
+objA.x = 1;
 
-const objB = Object.create(objC);
+console.log('objC', objC);                // objC {z: 5}
+console.log('objB', objB);                // objB {y: 2}
+console.log('objA', objA);                // objA {x: 1}
+
+// Получилась цепочка прототипов.
+// Объект objA, у него прототип объект objB, в свою очередь у объекта objB прототип объект objC.
+
+// ------------------------------------------------
+
+|============================
+*/
+
+const objC = {
+  z: 5,
+};
+
+const objB = Object.create(objC); // Говорю сделай мне новый объект objB и пусть у него прототипом будет objC.
 objB.y = 2;
-
-console.log('objB', objB); // {y: 2}
-
-console.log(objB.y); // 2 (собственное свойство объекта objB)
-console.log(objB.z); // 5 (не собственное свойство объекта objB)
 
 const objA = Object.create(objB); // Говорю сделай мне новый объект objA и пусть у него прототипом будет objB.
 objA.x = 1;
 
-console.log('objA', objA); // {x: 1}
+console.log('objC', objC); // objC {z: 5}
+console.log('objB', objB); // objB {y: 2}
+console.log('objA', objA); // objA {x: 1}
 
+// Получилась цепочка прототипов.
+// Объект objA, у него прототип объект objB, в свою очередь у объекта objB прототип объект objC.
+
+console.log(objB.y); // 2     // (собственное свойство объекта objB)
+console.log(objB.z); // 5     // (не собственное свойство объекта objB)
+console.log(objA.z); // 5     // (не собственное свойство объекта objB)
+
+// Добавление свойства в объект. ----------
+objA.z = 1000; // Создаст новое свойство x сщ значением 1000
+console.log('objA', objA); // objA {x: 1, z: 1000}
+
+// Проверка на собственное свойство. .hasOwnProperty() ----------
+console.log(objC.hasOwnProperty('z')); // true    // Если есть собственное свойство 'z' оно мне вернет true, если нет, то false.
+console.log(objC.hasOwnProperty('y')); // false   // Оно мне скажет false такого собственного свойства в объекте objC нет.
+
+//
+//
+//
+//
+//
+//
+//
+//
 // const objB = Object.create(objC);
 // objB.y = 2;
 
