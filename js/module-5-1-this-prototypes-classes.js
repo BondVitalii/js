@@ -1526,7 +1526,7 @@ console.log(calculator);
 // ________________________________________________________________________________________________
 /* ! <<<<<<<<<<<<<<< ||| Репета модуль-5 занятие-2 Прототипне наслідування ||| >>>>>>>>>>>>>>> ! */
 // ________________________________________________________________________________________________
-/** Прототипное наследование
+/** Прототипное наследование (видео https://www.youtube.com/watch?v=snuVmKJ1gBg)
 |============================
  * Прототип объекта
  * - https://miro.com/app/board/o9J_ku0WE0g=/
@@ -1626,29 +1626,27 @@ console.log(dummyObj.message2);                  // Это свойство об
 //  * - Оператор new
 //  * - Свойство Function.prototype
 
-// Функция-конструктор - Её имя должно быть с большой буквы существительное в единственном числе!
+Функция-конструктор - Её имя должно быть с большой буквы существительное в единственном числе! (например Car)
+
 const Car = function () {
   // console.log(this);              // Car {}
 
-  // Добавляем свойство в объект
-  this.brand = '';
-  this.model = '';
+  this.brand = '';                  // Добавляем свойство brand в объект
+  this.model = '';                  // Добавляем свойство model в объект
   this.price = '';
 };
 
-// 1) Если функция вызывается через оператор new, создается пустой объект (где-то в памяти).
-// 2) Функция конструктор вызывается в контексте созданного объекта, то есть в this записывается ссылка на него. Во время вот этого вызова Car() - это вызов функции, this будет ссылаться пока что на тот пустой созданный объект.
-// 3. В свойство this.__proto__ записывается ссылка на обьект Car.prototype, тоесть Car.prototype это ПРОТОТИП будущего обьекта (экземпляра)
-// 4. Ссылка на обьект возвращается в место вызова new Car.
-
 // Создаём экземпляры класса Car.
-// ---------- Первый экземпляр класса Car.
-const myCar = new Car();        // Это говорит создай новый экземпляр(новую машину) и этот оператор new отвечает за создание нового экземпляра.
-console.log(myCar);             // В результате этого вызова мы получаем объект myCar который является экземпляром класса Car
+const myCar = new Car();       // Создаём первый экземпляр  // Это говорит создай новый экземпляр(новую машину), оператор new отвечает за создание нового экземпляра.
+console.log(myCar);                                         // В результате этого вызова мы получаем объект myCar который является экземпляром класса Car
 
-// ---------- Второй экземпляр класса Car.
-const myCar2 = new Car();
+const myCar2 = new Car();      // Создаём второй экземпляр
 console.log(myCar2);
+
+1) Если функция вызывается через оператор new, создается пустой объект (где-то в памяти).
+2) Функция конструктор вызывается в контексте созданного объекта, то есть в this записывается ссылка на него. Во время вот этого вызова Car() - это вызов функции, this будет ссылаться пока что на тот пустой созданный объект.
+3. В свойство this.__proto__ записывается ссылка на обьект Car.prototype, тоесть Car.prototype это ПРОТОТИП будущего обьекта (экземпляра)
+4. Ссылка на обьект возвращается в место вызова new Car.
 
 // ------------------------------------------------
 Передача аргументов в параметры.
@@ -1666,124 +1664,276 @@ const myCar2 = new Car();
 console.log(myCar2);                           // Car {brand: undefined, model: undefined, price: undefined}    // Будет три undefined потому что ни чего не передали.
 
 // ------------------------------------------------
-// Усли у нас два и больше аргументов, то лучше передовать аргументы через обьект настроек, а не просто набор какой-то, потому что это не удобно. Пример: ниже.
+Улудшаем.
+Усли у нас два и больше аргументов, то лучше передовать аргументы через обьект настроек, а не просто набор параметров, это не удобно. Пример: ниже.
 
-
-|============================
-*/
-// --------------------
-//
-//
-//
-//
-
-const Car = function (config) {
-  // console.log(config); // {brand: 'Audi', model: 'Q3', price: 35000}
+const Car = function (config) {           // Вместо слова config можно использовать любое слово, это просто название параметра.
+  // console.log(config);                                                    // {brand: 'Audi', model: 'Q3', price: 35000}
 
   this.brand = config.brand;
   this.model = config.model;
   this.price = config.price;
 };
 
-const myCar = new Car({ brand: 'Audi', model: 'Q3', price: 35000 });   // Передаем объект как аргумент
-console.log(myCar); // Car {brand: 'Audi', model: 'Q3', price: 35000}
+const myCar = new Car({ brand: 'Audi', model: 'Q3', price: 35000 });        // Передаем объект как аргумент
+console.log(myCar);                                                         // Car {brand: 'Audi', model: 'Q3', price: 35000}
 
 const myCar2 = new Car({ brand: 'BMW', model: 'X6', price: 50000 });
-console.log(myCar2); // Car {brand: 'BMW', model: 'X6', price: 50000}
+console.log(myCar2);                                                        // Car {brand: 'BMW', model: 'X6', price: 50000}
 
-//
-//
-//
-//
-//
-// const Car = function ({ brand, model, price } = {}) {
-//   // const { brand, model, price } = config;
-//   // 2. Функция вызывается в контексте созданного объекта,
-//   //    то есть в this записывается ссылка на него
-//   this.brand = brand;
-//   this.model = model;
-//   this.price = price;
+// ------------------------------------------------
+Улудшаем.
+Параметр по умолчанию, чтоб небыло ошибки.
 
-//   // 3. В свойство this.__proto__ записывается ссылка на обьект Car.prototype
-//   //    тоесть Car.prototype это ПРОТОТИП будущего обьекта (экземпляра)
+const Car = function (config = {}) {
+  this.brand = config.brand;
+  this.model = config.model;
+  this.price = config.price;
+};
 
-//   // 4. Ссылка на обьект возвращается в место вызова new Car
-// };
+const myCar = new Car({ brand: 'Audi', model: 'Q3', price: 35000 });        // Передаем объект как аргумент
+console.log(myCar);                                                         // Car {brand: 'Audi', model: 'Q3', price: 35000}
 
-// Car.prototype.sayHi = function () {
-//   console.log('Car.prototype.sayHi -> this', this);
-//   console.log('Hello :) ');
-// };
+const myCar2 = new Car({ brand: 'BMW', model: 'X6', price: 50000 });
+console.log(myCar2);                                                        // Car {brand: 'BMW', model: 'X6', price: 50000}
 
-// Car.prototype.changePrice = function (newPrice) {
-//   this.price = newPrice;
-// };
+const myCar3 = new Car();
+console.log(myCar3);                                                       // Car {brand: 'BMW', model: 'X6', price: 50000}
 
-// console.log(Car.prototype);
+В myCar3 не передаем аргументы,поэтому будет ошибка. 
+Чтоб небыло ошибки в параметр функции Car нужно поставить параметр по умолчанию хотябы пустой объект (config = {}). Если ничего не передаем, то в config запишется пустой объект.
 
+// ------------------------------------------------
+Улудшаем.
+Деструктуризация обьекта.
+
+// ---------- Вариант-1 Деструктуризация в теле функции.
+const Car = function (config = {}) {
+  const { brand, model, price } = config;
+  this.brand = brand;
+  this.model = model;
+  this.price = price;
+};
+
+const myCar = new Car({ brand: 'Audi', model: 'Q3', price: 35000 });      // Передаем объект как аргумент
+console.log(myCar);                                                       // Car {brand: 'Audi', model: 'Q3', price: 35000}
+
+const myCar2 = new Car({ brand: 'BMW', model: 'X6', price: 50000 });
+console.log(myCar2);                                                     // Car {brand: 'BMW', model: 'X6', price: 50000}
+
+const myCar3 = new Car();
+console.log(myCar3);                                                     // Car {brand: undefined, model: undefined, price: undefined}
+
+// ---------- Вариант-2 (Деструктуризация в параметре функции)
+const Car = function ({ brand, model, price } = {}) {
+  this.brand = brand;
+  this.model = model;
+  this.price = price;
+};
+
+const myCar = new Car({ brand: 'Audi', model: 'Q3', price: 35000 });   // Передаем объект как аргумент
+console.log(myCar);                                                    // Car {brand: 'Audi', model: 'Q3', price: 35000}
+
+const myCar2 = new Car({ brand: 'BMW', model: 'X6', price: 50000 });
+console.log(myCar2);                                                   // Car {brand: 'BMW', model: 'X6', price: 50000}
+
+const myCar3 = new Car();
+console.log(myCar3);                                                   // Car {brand: undefined, model: undefined, price: undefined}
+
+// ------------------------------------------------
+// Пробуем добавить метод который меняет цену машины. (видео 45:27 https://www.youtube.com/watch?v=snuVmKJ1gBg)
+
+// Вызывается new Car() делается пустой объект. Функция ссылается в контексе этого объекта, тоесть this ссылается на этот объект. В него добавляются свойства brand,model,price (по ссылке просто записываем этот объект) И в том числе ему автоматически добавляется свойство __proto__ которое ссылается на Car.pototype. Получается что прототип устанавливается сразу при создании экземпляра. И мы можем использовать этот объект pototype для того чтобы создать какие-то общие методы.
+
+const Car = function ({ brand, model, price } = {}) {
+  this.brand = brand;
+  this.model = model;
+  this.price = price;
+};
+
+// Создаем общий метод объекта для экземпляров этого класса
+Car.prototype.sayHi = function () {
+  console.log('Car.prototype.sayHi -> this', this);                    // Car.prototype.sayHi -> this Car {brand: 'Audi', model: 'Q3', price: 35000}
+  console.log('Hello :) ');                                            // Hello :)
+};
+console.log(Car.prototype);                                            // {sayHi: ƒ}
+
+const myCar = new Car({ brand: 'Audi', model: 'Q3', price: 35000 });
+console.log(myCar);                                                   // Car {brand: 'Audi', model: 'Q3', price: 35000}
+
+myCar.sayHi();                                                        // Происходит вазов функции sayHi в контексте объекта myCar, поэтому this будет ссылаться на myCar
+
+const myCar2 = new Car({ brand: 'BMW', model: 'X6', price: 50000 });
+console.log(myCar2);                                                  // Car {brand: 'BMW', model: 'X6', price: 50000}
+
+myCar2.sayHi();
+
+const myCar3 = new Car({ brand: 'Audi', model: 'A6', price: 65000 });
+console.log(myCar3);                                                  // Car {brand: 'Audi', model: 'A6', price: 65000}
+
+myCar3.sayHi();
+
+// Каждый из моих машин может пойти и обратиться к этому методу в экземпляре.
+
+// ------------------------------------------------
+// Меняем стоимость авто
+
+const Car = function ({ brand, model, price } = {}) {
+  this.brand = brand;
+  this.model = model;
+  this.price = price;
+};
+
+Car.prototype.sayHi = function () {
+  console.log('Car.prototype.sayHi -> this', this);
+  console.log('Hello :) ');
+};
+
+Car.prototype.chngePrice = function (newPrice) {
+  this.price = newPrice;
+};
+
+console.log(Car.prototype);
+
+const myCar = new Car({ brand: 'Audi', model: 'Q3', price: 35000 });
+console.log(myCar);
+
+myCar.sayHi();
+myCar.chngePrice(10000);                                               // Меняем стоимость авто
+
+const myCar2 = new Car({ brand: 'BMW', model: 'X6', price: 50000 });
+console.log(myCar2);
+
+myCar2.sayHi();
+
+const myCar3 = new Car({ brand: 'Audi', model: 'A6', price: 65000 });
+console.log(myCar3);
+
+myCar3.sayHi();
+
+Еще раз алгоритм наших правил.
 // 1. Если функция вызывается через new, создаётся пустой объект
-// const myCar = new Car({
-//   brand: 'Audi',
-//   model: 'Q3',
-//   price: 35000,
-// });
-// console.log(myCar);
+// 2. Функция вызывается в контексте созданного объекта, то есть в this записывается ссылка на него
+// 3. В свойство this.__proto__ записывается ссылка на обьект Car.prototype тоесть Car.prototype это ПРОТОТИП будущего обьекта (экземпляра)
+// 4. Ссылка на обьект возвращается в место вызова new Car
 
-// myCar.sayHi();
-// myCar.changePrice(10000);
+// ------------------------------------------------
+// Тренеровка-2 на другом вариане объекта (видео 57:09 https://www.youtube.com/watch?v=snuVmKJ1gBg)
 
-// const myCar2 = new Car({ brand: 'BMW', model: 'X6', price: 50000 });
-// console.log(myCar2);
-
-// myCar2.sayHi();
-
-// const myCar3 = new Car({ brand: 'Audi', model: 'A6', price: 65000 });
-// console.log(myCar3);
-
-// myCar3.sayHi();
-
-// const User = function ({ email, password } = {}) {
-//   this.email = email;
-//   this.password = password;
-// };
+const User = function ({ email, password } = {}) {
+  this.email = email;
+  this.password = password;
+};
 
 // console.log(User.prototype);
 
-// User.prototype.changeEmail = function (newMail) {
-//   this.email = newMail;
-// };
+User.prototype.changeEmail = function (newMail) {
+  this.email = newMail;
+};
 
-// const mango = new User({ email: 'mango@mail.com', password: 1111111 });
+const mango = new User({ email: 'mango@mail.com', password: 1111111 });
 
-// mango.changeEmail('my-new-mail@mail.com');
-// console.log(mango);
+mango.changeEmail('my-new-mail@mail.com');
+console.log(mango);                                            // User {email: 'my-new-mail@mail.com', password: 1111111}
 
-/*
- * Статические свойства и методы
- * - Статические свойства и методы доступны только на самом конструкторе
- * - В статических методах не нужен this
- */
+// ------------------------------------------------
+Итог: Прототипное наследование
+* 1. У каждого обьекта есть свойство __proto__
+* 2. В этом свойстве лежит ссылка на его ПРОТОТИП, то есть другой обьект
+* 3. При создании литера обьекта, в свойство __proto__ записывается ссылка на Функция.prototype
+* 4. Функция-конструктор это просто функция :)
+* 5. Всю магию делает оператор new
+* 6. Если функция вызывается через new, создаётся пустой объект
+* 7. Функция вызывается в контексте созданного объекта
+* 8. В свойство this.__proto__ записывается ссылка на обьект Функция.prototype
+* 9. Ссылка на обьект возвращается в место вызова new Фунукция()
 
-// User.message =
-//   'Я статическое свойство, меня нет на экземплярах или в прототипе.';
+// ------------------------------------------------
+// Статические свойства и методы   (видео 1:13:00  https://www.youtube.com/watch?v=snuVmKJ1gBg)
+// ------------------------------------------------
+* Статические свойства и методы
+* - Статические свойства и методы доступны только на самом конструкторе
+* - В статических методах не нужен this
 
-// User.logInfo = function (obj) {
-//   console.log('User.logInfo -> obj', obj);
-//   console.log('Почта: ', obj.email);
-//   console.log('Пароль: ', obj.password);
-// };
+// User.message = 'Я статическое свойство, меня нет на экземплярах или в прототипе.';
 
-// User.logInfo(mango);
+User.logInfo = function (obj) {
+  console.log('User.logInfo -> obj', obj);
+  console.log('Почта: ', obj.email);
+  console.log('Пароль: ', obj.password);
+};
 
-// Object.keys()
-// Object.value()
+User.logInfo(mango);
+|============================
+*/
+// --------------------
+/** Дополнение для тех кто хочет посмотреть для чего нам єто нужно.
+|============================
+файл https://github.com/luxplanjay/js-22/blob/05-1-прототипы/js/03-counter.js
+видио (видео 1:26:59  https://www.youtube.com/watch?v=snuVmKJ1gBg)
 
-// 1. У каждого обьекта есть свойство __proto__
-// 2. В этом свойстве лежит ссылка на его ПРОТОТИП, то есть другой обьект
-// 3. При создании литера обьекта, в свойство __proto__ записывается ссылка на Функция.prototype
-// 4. Функция-конструктор это просто функция :)
-// 5. Всю магию делает оператор new
-// 6. Если функция вызывается через new, создаётся пустой объект
-// 7. Функция вызывается в контексте созданного объекта
-// 8. В свойство this.__proto__ записывается ссылка на обьект Функция.prototype
-// 9. Ссылка на обьект возвращается в место вызова new Фунукция()
+const CounterPlugin = function ({
+  rootSelector,
+  initialValue = 0,
+  step = 1,
+  onUpdate = () => null,
+} = {}) {
+  this._value = initialValue;
+  this._step = step;
+  this._refs = this._getRefs(rootSelector);
+
+  this.onUpdate = onUpdate;
+
+  this._bindEvents();
+  this.updateValueUI();
+};
+
+CounterPlugin.prototype._getRefs = function (rootSelector) {
+  const refs = {};
+  refs.container = document.querySelector(rootSelector);
+  refs.incrementBtn = refs.container.querySelector('[data-increment]');
+  refs.decrementBtn = refs.container.querySelector('[data-decrement]');
+  refs.value = refs.container.querySelector('[data-value]');
+
+  return refs;
+};
+
+CounterPlugin.prototype._bindEvents = function () {
+  this._refs.incrementBtn.addEventListener('click', () => {
+    console.log('CounterPlugin.prototype._bindEvents -> this', this);
+    this.increment();
+    this.updateValueUI();
+  });
+
+  this._refs.decrementBtn.addEventListener('click', () => {
+    console.log('CounterPlugin.prototype._bindEvents -> this', this);
+    this.decrement();
+    this.updateValueUI();
+  });
+};
+
+CounterPlugin.prototype.updateValueUI = function () {
+  this._refs.value.textContent = this._value;
+
+  this.onUpdate();
+};
+
+CounterPlugin.prototype.increment = function () {
+  this._value += this._step;
+};
+
+CounterPlugin.prototype.decrement = function () {
+  this._value -= this._step;
+};
+
+new CounterPlugin({
+  rootSelector: '#counter-1',
+  step: 10,
+  initialValue: 100,
+  onUpdate: () => console.log('Это мой кастомный колбек для onUpdate'),
+});
+
+new CounterPlugin({ rootSelector: '#counter-2', step: 2 });
+|============================
+*/
+// --------------------
