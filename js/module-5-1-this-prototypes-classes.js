@@ -1616,8 +1616,49 @@ console.log(dummyObj.message2);                  // Это свойство об
 |============================
 */
 // --------------------
-/** * Функции-конструкторы * Основы ООП: класс, экземпляр (объект), интерфейс (видео Прототипное наследование)
+/** * Функции-конструкторы (видео Прототипное наследование)
 |============================
+// ------------------------------------------------
+// Функции-конструкторы
+// ------------------------------------------------
+// Класс Car.
+const Car = function ({ brand, model, price } = {}) {
+  this.brand = brand;
+  this.model = model;
+  this.price = price;
+};
+
+// Метод класса на свойстве прототип.
+Car.prototype.changePrice = function (newPrice) {
+  this.price = newPrice;
+};
+
+// Статическое свойство.
+Car.description = 'Класс описывающий автомобиль';
+
+// Статический метод.
+Car.logInfo = function (carObj) {
+  console.log('Car.logInfo -> carObj', carObj);
+};
+
+// Экземпляр класса.
+const myCar = new Car({
+  brand: 'Audi',
+  model: 'Q3',
+  price: 35000,
+});
+
+// console.dir(Car);
+console.log(myCar); // Car {brand: 'Audi', model: 'Q3', price: 35000}
+
+myCar.changePrice(10);
+console.log(myCar); // Car  {brand: 'Audi', model: 'Q3', price: 10}
+
+Car.logInfo(); // Car.logInfo -> carObj undefined
+
+// ================================================================
+// Ниже разбираем по шагово что такое "Функции-конструкторы" (видео Прототипное наследование)
+// ================================================================
 * Основы ООП: класс, экземпляр (объект), интерфейс
 // ------------------------------------------------
  * Функции-конструкторы
@@ -1635,10 +1676,9 @@ const Car = function () {
   this.price = '';
 };
 
-console.dir(Car);
+// console.dir(Car);
 
-// Создаём экземпляры класса Car.
-const myCar = new Car();       // Создаём первый экземпляр  // Это говорит создай новый экземпляр(новую машину), оператор new отвечает за создание нового экземпляра.
+const myCar = new Car();       // Создаём первый экземпляр. Это говорит создай новый экземпляр(новую машину), оператор new отвечает за создание нового экземпляра.
 console.log(myCar);                                         // В результате этого вызова мы получаем объект myCar который является экземпляром класса Car
 
 const myCar2 = new Car();      // Создаём второй экземпляр
@@ -1684,7 +1724,7 @@ console.log(myCar2);                                                        // C
 
 // ------------------------------------------------
 Улудшаем.
-Параметр по умолчанию, чтоб небыло ошибки.
+Параметр по умолчанию (config = {}), чтоб небыло ошибки.
 
 const Car = function (config = {}) {
   this.brand = config.brand;
@@ -1779,34 +1819,50 @@ myCar3.sayHi();
 // ------------------------------------------------
 // Меняем стоимость авто
 
+// Класс Car
 const Car = function ({ brand, model, price } = {}) {
   this.brand = brand;
   this.model = model;
   this.price = price;
 };
 
-Car.prototype.sayHi = function () {
+// На прототип вешаем методы чтобы экземпляры могли получить к ним доступ.
+
+// ---------- Метод
+Car.prototype.sayHi = function () {                   
   console.log('Car.prototype.sayHi -> this', this);
   console.log('Hello :) ');
 };
 
-Car.prototype.chngePrice = function (newPrice) {
+// ---------- Метод
+Car.prototype.chngePrice = function (newPrice) {      
   this.price = newPrice;
 };
 
+// ---------- Статическое свойство.
+Car.description = 'Класс описывающий автомобиль'  
+
+// ---------- Статическое свойство.
+Car.logInfo = function(carObj){
+  console.log('Car.logInfo -> carObj', carObj);
+}
+
 console.log(Car.prototype);
 
+// Экземпляр класса
 const myCar = new Car({ brand: 'Audi', model: 'Q3', price: 35000 });
 console.log(myCar);
 
 myCar.sayHi();
 myCar.chngePrice(10000);                                               // Меняем стоимость авто
 
+// Экземпляр класса
 const myCar2 = new Car({ brand: 'BMW', model: 'X6', price: 50000 });
 console.log(myCar2);
 
 myCar2.sayHi();
 
+// Экземпляр класса
 const myCar3 = new Car({ brand: 'Audi', model: 'A6', price: 65000 });
 console.log(myCar3);
 
@@ -1819,7 +1875,7 @@ myCar3.sayHi();
 // 4. Ссылка на обьект возвращается в место вызова new Car
 
 // ------------------------------------------------
-// Тренеровка-2 на другом вариане объекта (видео 57:09 https://www.youtube.com/watch?v=snuVmKJ1gBg)
+// Тренеровка-2 на другом вариане объекта User (видео 57:09 https://www.youtube.com/watch?v=snuVmKJ1gBg)
 
 const User = function ({ email, password } = {}) {
   this.email = email;
@@ -1958,21 +2014,6 @@ new CounterPlugin({ rootSelector: '#counter-2', step: 2 });
   * И через new создается объект в свойстве [[Prototype]] которого лежит ссылка на свойство prototype этого класса.
   * В теле мы пишем constructor() {} - это синтаксис метода класса. Эта штука выполняется(инициализируется) автоматически, сразу как только мы создаем экземпляр и в нём конструкторе есть this.
 
-class Car {
-  constructor({brand, model, price} = {}) {
-    console.log('Выполняется constructor');
-    console.log(this);                          // Car { a:5 b:10 }
-
-    this.a = 5;
-    this.b = 10;
-  }
-}
-
-console.dir(Car);                               // class Car
-
-const carInstance = new Car({ brand: 'Audi', model: 'Q3', price: 35000 });
-
-console.log(carInstance);                      // Car {a: 5, b: 10}
 
 // ------------------------------------------------
 
@@ -1980,24 +2021,96 @@ console.log(carInstance);                      // Car {a: 5, b: 10}
 |============================
 */
 
-class Car {
+class Car1 {
+  // Статическое свойство класса. (После него обязательно точка с запятой).
+  static description = 'Класс описывающий автомобиль';
+
+  // Статический метод класса. (После него точка с запятой не нужна).
+  static logInfo(carObj) {
+    console.log('Car.logInfo -> carObj', carObj);
+  }
+
+  // Приватное свойство. (Чтобы создать приватное свойство, добавляем #)
+  #test = 'test';
+
+  // Публичное свойство.
+  mySuperPublicField = 555; // Это синтаксис публичного свойства в классе.
+
+  // Конструктор метод класса.
+  // В этом варианте в параметрах конструктора проводим сразу деструктуризацию с параметром по умолчанию ({ brand, model, price } = {}).
   constructor({ brand, model, price } = {}) {
-    console.log('Выполняется constructor');
-    console.log(this); // Car { a:5 b:10 }
+    // console.log('Выполняется constructor');        // Выполняется constructor
+    // console.log(this);                             // Car1 {}   brand: 'Audi'   model: 'Q3'   price: 35000
 
     this.brand = brand;
-    this.model = model;
+    this._model = model; // При работе с геттерами и сеттерами в свойстве ставим впереди нижнее подчеркивание.
     this.price = price;
+    // Публичное свойство.
+    this.mySuperPublicField = 555; // Это синтаксис публичного свойства в методе.
+  }
+
+  // Публичное свойство как метод(стрелочная функция). Все что мы объявляем публичными свойствами, все оно идёт на экземпляр. Поэтому врядли мы хотим методы класса делать публичными свойствами.
+  // qweqwe = newPrice => {
+  //   this.model = newPrice;
+  // };
+
+  // Метод класса.
+  changePrice(newPrice) {
+    this.price = newPrice;
+  }
+  // Метод класса.
+  updateModel(newModel) {
+    this.model = newModel;
+  }
+
+  // API - геттеры и сеттеры - интерфейс для работы с доступом к свойствам.
+  // Вариант-1 работа со свойствами(интерфейс) через геттеры и сеттеры get model(), set model().
+  get model() {
+    return this._model;
+  }
+  set model(newModel) {
+    this._model = newModel;
+  }
+  // Вариант-2 (Репета) работа со свойствами(интерфейс) через методы getModel() и setModel().
+  setModel(newModel) {
+    this.model = newModel;
+  }
+  getModel() {
+    return this.model;
   }
 }
 
-console.dir(Car);
+console.dir(Car1); // class Car1
+console.log(Car1.description); // Класс описывающий автомобиль
 
-const carInstance = new Car({ brand: 'Audi', model: 'Q3', price: 35000 });
+// Создаём экземпляр carInstance класса Car1
+const carInstance = new Car1({
+  brand: 'Audi',
+  model: 'Q3',
+  price: 35000,
+});
 
-console.log(carInstance); // Car {a: 5, b: 10}
+// С помощью Object.getPrototypeOf() можем спросить,что является прототипом этого экземпляра carInstance?
+console.log(Object.getPrototypeOf(carInstance)); // {} constructor: class Car1
 
-// ----------
+console.log(carInstance); // Car1 {brand: 'Audi', model: 'Q3', price: 35000}
+
+Car1.logInfo(carInstance); // Car.logInfo -> carObj Car1 {brand: 'Audi', model: 'Q3', price: 35000}
+
+// ----------------------------
+// Доступ к свойствам через set model() и get model().
+// * console.log(carInstance.model); Такое обращение без(геттеров, сеттеров get model() и set model()) будет работать, НО ЭТО НЕ ПРАВИЛЬНО! Потому что мы не хотоим на прямую обращяться к свойствам, свойство используеться в десяти местах кода и в будующем оно может изминиться, и если оно изменится в одном классе, то нам нужно будет рефакторить его везде.
+// * Для этого делают (API - тоесть интерфейс для работы с доступом к свойствам. (Вариант-1 Геттеры и Сеттеры) или (Вариант-2 через Методы).
+// * Вариант-1 правильный! (работа с гетерами и сетерами - set model() и get model()).
+console.log(carInstance.model);
+carInstance.model = 'Q4';
+// * Вариант-2 Репета (работа через методы - getModel() и setModel()), но при таком подходе куча вызовов методов. Поэтому используют геттеры и сеттеры!
+// console.log(carInstance.getModel()); // Q3    (getModel() - метод исполюзуется для получения доступа к значению свойства (без гетера)).
+// carInstance.setModel('Q4'); // (setModel() - метод ипользуется для изменения значения свойства (без сетера)).
+// console.log(carInstance.getModel()); // Q4
+// ----------------------------
+
+// ----------))))))))))))))))))))))))))))))))))))))))))))))))))))))))
 // class Car {
 //   static description = 'Класс описывающий автомобиль';
 
