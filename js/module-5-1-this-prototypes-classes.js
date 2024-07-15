@@ -2117,50 +2117,225 @@ console.log(carInstance); // Car1 {mySuperPublicField: 555, brand: 'Audi', _mode
 |============================
 */
 // --------------------
+/** Наследование классов.
+|============================
+// Базовый класс героя.
+class Hero {
+  constructor(name = 'hero', xp = 0) {
+    this.name = name;
+    this.xp = xp;
+  }
 
-// ----------))))))))))))))))))))))))))))))))))))))))))))))))))))))))
-// class Car {
-//   static description = 'Класс описывающий автомобиль';
+  gainXp(amount) {
+    console.log(`${this.name} получает ${amount} опыта`);
+    this.xp += amount;
+  }
+}
 
-//   static logInfo(carObj) {
-//     console.log('Car.logInfo -> carObj', carObj);
-//   }
+// Воин+
+class Warrior extends Hero {
+  constructor(name, xp, weapon) {
+    super(name, xp);
 
-//   constructor({ brand, model, price } = {}) {
-//     this.brand = brand;
-//     this._model = model;
-//     this._price = price;
-//   }
+    this.weapon = weapon;
+  }
+}
 
-//   get price() {
-//     return this._price;
-//   }
+const mango = new Warrior('mango', 1000, 'алебарда');
 
-//   set price(newPrice) {
-//     this._price = newPrice;
-//   }
+console.log(mango);
 
-//   get model() {
-//     return this._model;
-//   }
+// mango.gainXp(1000);
 
-//   set model(newModel) {
-//     this._model = newModel;
-//   }
-// }
+// ----------- Что на что указывает.
+// console.log(mango.__proto__ === Warrior.prototype); // true
+// console.log('Warrior.prototype', Warrior.prototype); // Что лежит тут  Warrior.prototype Hero {}
+// console.log(Warrior.prototype.__proto__ === Hero.prototype); // true
 
-// const carInstance = new Car({
-//   brand: 'Audi',
-//   model: 'Q3',
-//   price: 35000,
-// });
+// ---------------------------------------------------------
+// Вариант, с обчныой передачей параметров.
+// Базовый класс Hero
+class Hero {
+  constructor(name = 'hero', xp = 0) {
+    this.name = name;
+    this.xp = xp;
+  }
 
-// console.log(carInstance.model);
-// carInstance.model = 'Q4';
-// console.log(carInstance.model);
+  gainXp(amount) {
+    console.log(`${this.name} получает ${amount} опыта`);
+    this.xp += amount;
+  }
+}
+// Воин-1 Новый класс с ссылкой на базовый класс Hero  ------
+class Warrior extends Hero {
+  constructor(name, xp, weapon) {
+    super(name, xp);
 
-// console.log(carInstance.price);
-// carInstance.price = 50000;
-// console.log(carInstance.price);
+    this.weapon = weapon;
+  }
 
-// console.log(carInstance);
+  attack() {
+    console.log(`${this.name} атакует используя ${this.weapon}`);
+  }
+}
+// Воин-2 Новый класс с ссылкой на базовый класс Hero ------
+class Mage extends Hero {
+  constructor(name, xp, spells = []) {
+    super(name, xp);
+
+    this.spells = spells;
+  }
+  cast() {
+    console.log();
+    console.log(`${this.name} что-то там кастует 🚡`);
+  }
+}
+
+// Воин-1 Создаем воина ------
+const mango = new Warrior('mango', 1000, 'алебарда');
+
+console.log(mango);
+mango.attack();
+mango.gainXp(1000);
+
+// Воин-2 Создаем воина ------
+const poly = new Mage('poly', 500, ['фаербол']);
+
+console.log(poly);
+poly.cast();
+poly.gainXp(200);
+
+// console.log('Warrior.prototype', Warrior.prototype); //
+// console.log('Hero.prototype', Hero.prototype); //
+
+// ---------------------------------------------------------
+
+// Тот же вариант, но с объектом настроек + ...rest
+// Базовый класс Hero
+class Hero {
+  constructor({ name = 'hero', xp = 0 } = {}) {
+    this.name = name;
+    this.xp = xp;
+  }
+
+  gainXp(amount) {
+    console.log(`${this.name} получает ${amount} опыта`);
+    this.xp += amount;
+  }
+}
+
+// Воин-1 Новый класс с ссылкой на базовый класс Hero  ------
+class Warrior extends Hero {
+  constructor({ weapon, ...restProps } = {}) {
+    super(restProps);
+
+    this.weapon = weapon;
+  }
+
+  attack() {
+    console.log(`${this.name} атакует используя ${this.weapon}`);
+  }
+}
+
+// Воин-2 Новый класс с ссылкой на базовый класс Hero ------
+class Mage extends Hero {
+  constructor({ spells, ...restProps } = {}) {
+    super(restProps);
+
+    this.spells = spells;
+  }
+  cast() {
+    console.log();
+    console.log(`${this.name} что-то там кастует 🚡`);
+  }
+}
+
+// Воин-1 Создаем воина ------
+const mango = new Warrior({ name: 'mango', xp: 1000, weapon: 'алебарда' });
+
+console.log(mango);
+mango.attack();
+mango.gainXp(1000);
+
+// Воин-2 Создаем воина ------
+const poly = new Mage({ name: 'poly', xp: 500, spells: ['фаербол'] });
+
+console.log(poly);
+poly.cast();
+poly.gainXp(200);
+
+// console.log('Warrior.prototype', Warrior.prototype); //
+// console.log('Hero.prototype', Hero.prototype); //
+
+// ---------------------------------------------------------
+// Еще один вариант для практики.
+
+class Hero {
+  constructor({ name = 'hero', xp = 0 } = {}) {
+    this.name = name;
+    this.xp = xp;
+  }
+
+  gainXp(amount) {
+    console.log(`${this.name} получает ${amount} опыта`);
+    this.xp += amount;
+  }
+}
+
+class Warrior extends Hero {
+  constructor({ weapon, ...restProps } = {}) {
+    super(restProps);
+
+    this.weapon = weapon;
+  }
+
+  attack() {
+    console.log(`${this.name} атакует используя ${this.weapon}`);
+  }
+}
+
+class Berserk extends Warrior {
+  constructor({ warcry, ...restProps } = {}) {
+    super(restProps);
+
+    this.warcry = warcry;
+  }
+
+  babyRage() {
+    console.log(this.warcry);
+  }
+}
+
+const ajax = new Berserk({
+  name: 'ajax',
+  xp: 500,
+  weapon: 'axe',
+  warcry: 'waaaaaaaah',
+});
+
+console.log(ajax);
+
+ajax.babyRage();
+ajax.attack();
+ajax.gainXp();
+
+class Mage extends Hero {
+  constructor({ spells, ...restProps } = {}) {
+    super(restProps);
+
+    this.spells = spells;
+  }
+
+  cast() {
+    console.log(`${this.name} что-то там кастует 🧙‍♂️`);
+  }
+}
+|============================
+*/
+// --------------------
+/** Поздравляем! Вы выучили современный синтаксис JS. (Репета). Что нужно помнить из пяти модулей JS.
+|============================
+!!! Из пяти модулей нам нужно помнить то, что используется ежедневно, это: обращение к свойству, обьявление функций, параметры -дефолтные значения, деструктуризация - обязательно, методы, цепочки методов, ключевое слово this, синтаксис Геттеров и Сеттеров, классы писать!
+|============================
+*/
+// --------------------
