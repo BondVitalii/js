@@ -2413,8 +2413,6 @@ console.log(poly.login); // Poly
 poly.login = 'Polycutie';
 console.log(poly.login); // Polycutie
 // ===============================================
-
-
 |============================
 */
 // --------------------
@@ -2515,31 +2513,6 @@ console.table(storage.items); // [ '🍎', '🍇', '🍑', '🍌' ]
 Example 3 - User
 Напиши класс User который создаёт объект со свойствами login и email. Объяви приватные свойства #login и #email, доступ к которым сделай через геттер и сеттер login и email.
 
-const mango = new User({
-  login: 'Mango',
-  email: 'mango@dog.woof',
-});
-
-console.log(mango.login); // Mango
-mango.login = 'Mangodoge';
-console.log(mango.login); // Mangodoge
-
-const poly = new User({
-  login: 'Poly',
-  email: 'poly@mail.com',
-});
-
-console.log(poly.login); // Poly
-poly.login = 'Polycutie';
-console.log(poly.login); // Polycutie
-// ===============================================
-|============================
-*/
-// --------------------
-
-// Example 3 - User
-// Напиши класс User который создаёт объект со свойствами login и email. Объяви приватные свойства #login и #email, доступ к которым сделай через геттер и сеттер login и email.
-
 class User {
   #login;
   #email;
@@ -2555,6 +2528,12 @@ class User {
   set login(newLogin) {
     this.#login = newLogin;
   }
+  
+  // ----- Сеттер с проверкой на пробелы.
+  // set login(newLogin) {
+  //   if (newLogin.trim() !== '') this.#login = newLogin;
+  //   else console.log('Your login not correct');
+  // }
 
   get email() {
     return this.#email;
@@ -2575,6 +2554,12 @@ console.log(mango.login); // Mango
 mango.login = 'Mangodoge';
 console.log(mango.login); // Mangodoge
 
+console.log(mango.email); // mango@dog.woof
+mango.email = 'mango@gmail.com'; // Перезаписываю почту.
+console.log(mango.email); // mango@gmail.com
+
+// mango.login = '       '; // ----- Сеттер с проверкой на пробелы.
+
 const poly = new User({
   login: 'Poly',
   email: 'poly@mail.com',
@@ -2583,3 +2568,8 @@ const poly = new User({
 console.log(poly.login); // Poly
 poly.login = 'Polycutie';
 console.log(poly.login); // Polycutie
+// ===============================================
+
+|============================
+*/
+// --------------------
