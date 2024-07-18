@@ -2761,9 +2761,10 @@ console.log(objB.a);
 // ------------------------------------------------------------------------------------------------
 /* ! <<<<<<<<<<<<<<< ||| Артем модуль-5 занятие-2 Прототипы и классы ||| >>>>>>>>>>>>>>> ! */
 // ------------------------------------------------------------------------------------------------
-/** Прототипное наследование (По такому принципу раньше и делали объектно ориентированное програмированние)
+/** Прототипное наследование (По такому принципу раньше и делали объектно ориентированное програмированние, до появления ES6 классы).
 |============================
 // Экземпляры user1 и user2 берут свойства из (объекта прототипа user), user является прототипом для user1 и user2.
+
 const user = {
   name: 'test user a',
   age: 18,
@@ -2788,11 +2789,6 @@ const user2 = Object.create(user);
 user2.showAge();
 console.log('user2', user2);
 // -------------------------------------------------------
-
-|============================
-*/
-// --------------------
-
 // Цепочка наследований
 
 const user = {
@@ -2804,10 +2800,9 @@ const user = {
 
 const admin = Object.create(user);
 
-admin.age = 19; // Добавляем свойство age в объект admin
+admin.age = 19;                                                     // Добавляем свойство age в объект admin
 
-// Добавляем метод в экземпляр admin
-admin.showAge = function () {
+admin.showAge = function () {                                       // Добавляем метод в экземпляр admin
   console.log(this.age);
 };
 
@@ -2815,7 +2810,7 @@ admin.showAge = function () {
 
 const practiceOwner = Object.create(admin);
 
-practiceOwner.name = 'Owner'; // Добавляем свойство name в объект practiceOwner
+practiceOwner.name = 'Owner';                                       // Добавляем свойство name в объект practiceOwner
 
 // console.log(practiceOwner);
 
@@ -2823,3 +2818,132 @@ practiceOwner.showAge();
 practiceOwner.sayHello();
 
 console.log(practiceOwner);
+
+// -------------------------------------------------------
+// Прототипы наследования работают с верху вниз, первое что найдет то и забирает. 
+// Идет в низ до конца пока ненайдет. С низу вверх работать не может (будет ошибка).
+
+const user = {
+  name: 'test user a',
+  age: 33,
+  sayHello() {
+    console.log(this.name);
+  },
+};
+
+const admin = Object.create(user);
+
+admin.showAge = function () {
+  console.log(this.age);
+};
+
+console.log(admin);                                           // {showAge: ƒ}
+
+const practiceOwner = Object.create(admin);
+practiceOwner.name = 'Owner';                                // Добавляем свойство name в объект practiceOwner
+
+console.log(practiceOwner);                                  // {name: 'Owner'}
+
+practiceOwner.showAge();                                     // 33
+practiceOwner.sayHello();                                    // Owner
+
+console.log(practiceOwner);
+
+// user.showAge();                                          // Ошибка. В обратном порядке не работает! TypeError: user.showAge is not a function
+
+// console.log(user.qwerty);                                // Вернёт undefined, потому что такого свойства нет в цепочке.
+// user.qwerty();                                           // Ошибка TypeError: user.qwerty is not a function потому что такого метода нет в цепочке.
+
+// -------------------------------------------------------
+
+|============================
+*/
+// --------------------
+/** Классы
+|============================
+// Создаем класс User.
+// В класе User создаем constructor, в конструкторе указываем ожидаемые параметры. Если при передаче аргументов будет меньше чем параметров, то на том параметре у которого не хватает аргумента будет undefined (пример: параметрр age).
+
+class User {                                             // Создаем класс User.
+  constructor(name, email, age) {
+    this.name = name;
+    this.email = email;
+    this.age = age;
+  }
+}
+
+const test = new User('User A', 'test@gmail.com');       // Инициализуем экземпляр класса.
+
+console.log(test);                                       // User {name: 'User A', email: 'test@gmail.com', age: undefined} 
+
+// ----------------------------------
+// Параметр по умолчанию.
+// Для того чтобы небыло undefined указываем в параметр дефолтное значение (пример: параметрр age = 18). 
+// В таком случае если аргумента не будет для параметра он возьмёт дефолтное значение.
+
+class User {                                             
+  constructor(name, email, age = 18) {
+    this.name = name;
+    this.email = email;
+    this.age = age;
+  }
+}
+
+const test = new User('User A', 'test@gmail.com');
+
+const test1 = new User('User B', 'gmail@gmail.com', 99);
+
+console.log(test);                                           // User {name: 'User A', email: 'test@gmail.com', age: 18}
+console.log(test1);                                          // User {name: 'User B', email: 'gmail@gmail.com', age: 99}
+
+// ------------------------------------------------
+// Паттерн "Объект параметров", Деструктуризация.
+// Если мы заранее не знаем какие аргументы будут передоваться в параметры, в таком случае используем  паттерн "объект параметров" и деструктуризацию с свойствами по умолчанию.
+
+class User {
+  constructor({ name, email, age = 18, location = 'World' }) {
+    this.name = name;
+    this.email = email;
+    this.age = age;
+    this.location = location;
+  }
+}
+
+const test = new User({
+  name: 'User A',
+  email: 'test@gmail.com',
+  location: 'Lviv',
+});
+
+const test1 = new User({ name: 'User A', email: 'test@gmail.com', age: 99 });
+
+
+console.log(test);                                             // User {name: 'User A', email: 'test@gmail.com', age: 18, location: 'Lviv'}
+console.log(test1);                                            // User {name: 'User A', email: 'test@gmail.com', age: 99, location: 'World'}
+
+// ------------------------------------------------
+
+|============================
+*/
+// --------------------
+
+// Методы классов.
+class User {
+  constructor({ name, email, age = 18, location = 'World' }) {
+    this.name = name;
+    this.email = email;
+    this.age = age;
+    this.location = location;
+  }
+}
+
+const test = new User({
+  name: 'User A',
+  email: 'test@gmail.com',
+  location: 'Lviv',
+});
+
+const test1 = new User({ name: 'User A', email: 'test@gmail.com', age: 99 });
+
+console.log(test); // User {name: 'User A', email: 'test@gmail.com', age: 18, location: 'Lviv'}
+console.log(test1); // User {name: 'User A', email: 'test@gmail.com', age: 99, location: 'World'}
