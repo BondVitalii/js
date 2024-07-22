@@ -1281,7 +1281,19 @@ greet(name) - callback-функція, що приймає ім'я і вивод
 // --------------------------
 /** Завдання 2
 |============================
+// Завдання 2
+Напишіть дві функції:
+1. makeProduct(name, price, callback), яка приймає
+ім'я, ціну товару, а також callback-функцію.
+Функція makeProduct() створює об'єкт товару <product>, додаючи йому унікальний
+ідентифікатор, ключ з імʼям <id> (для цього використайте виклик new Date().getTime())
+і викликає callback-функцію, передаючи їй створений об'єкт
+2. showProduct(product) - коллбек, який приймає об'єкт
+продукту і виводить інформацію у консоль
 
+//++++++++++++++++++ Рішення ++++++++++++++++++
+
+// makeProduct("Fish", 350, showProduct);
 |============================
 */
 // --------------------------
@@ -1348,9 +1360,39 @@ letMeSeeYourName(greet);
 // Відповідь - Завдання 2
 // --------------------------
 
-// ---------- Вариант-1
+// ---------- Мой вариант
+function makeProduct(name, price, callback) {
+  const product = {
+    id: new Date().getTime(),
+    name,
+    price,
+  };
+  showProduct(product);
+}
 
-// ---------- Вариант-2 (мой вариант) 
+function showProduct(product) {
+  console.log(product);
+}
+
+makeProduct('Fish', 350, showProduct);
+
+// ---------- Вариант видео
+function makeProduct(name, price, callback) {
+  const product = {
+    id: new Date().getTime(),
+    name,
+    price,
+  };
+  showProduct(product);
+}
+
+function showProduct(product) {
+  for (const item in product) {
+    console.log(`${item}: ${product[item]}`);
+  }
+}
+
+makeProduct('Fish', 350, showProduct);
 
 |============================
 */
