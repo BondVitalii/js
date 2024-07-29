@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Module-6-Georg-Dom</title>
+    <!------------ Modern-normalize ------------>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/2.0.0/modern-normalize.min.css"
+      integrity="sha512-4xo8blKMVCiXpTaLzQSLSw3KFOVPWhm/TRtuPVc4WG6kUgjH6J03IBuG7JZPkcWMxJ5huwaBpOpnwYElP/m6wg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- Styles -->
+    <link rel="stylesheet" href="./css/styles.css" />
+    <link rel="stylesheet" href="./css/module-6-georg.css" />
+  </head>
+
+  <body>
+    <!-- Моё (кгопка на главную) -->
+    <ul class="list-home list">
+      <li class="item-home">
+        <a class="link-home link" href="./index.html">Главная</a>
+      </li>
+    </ul>
+
+    <!-- Георг стили -->
+    <a
+      href="https://goit.global/textbooks/javascript-yk5evp/v2/uk/docs/lesson-11/dom"
+      target="_blank"
+    >
+      <h3>Module 6.11</h3>
+    </a>
+
+    <div class="todos">
+      <form class="todo-form">
+        <input type="text" name="todo-text" />
+        <button type="submit">+ Add</button>
+      </form>
+      <!-- Изночальный код на начало видео -->
+      <!-- <ul class="todo-list">
+        <li class="todo-item">
+          <label class="todo-description">
+            <input type="checkbox" />
+            <span>купить хлеб</span>
+          </label>
+          <button>x</button>
+        </li>
+
+        <li class="todo-item">
+          <label class="todo-description">
+            <input type="checkbox" />
+            <span>купить масло</span>
+          </label>
+          <button>x</button>
+        </li>
+
+        <li class="todo-item">
+          <label class="todo-description">
+            <input type="checkbox" />
+            <span>купить салями</span>
+          </label>
+          <button>x</button>
+        </li>
+      </ul> -->
+
+      <ul class="todo-list"></ul>
+    </div>
+    <!-- <div class="todos">
+      <form class="todo-form">
+        <input type="text" name="todo-text" />
+        <button type="submit">+ Add</button>
+      </form>
+
+      <ul class="todo-list"></ul>
+    </div> -->
+
+    <button class="my-button">Push me</button>
+
+    <!-- Для контекстного меню -->
+    <div class="context-menu show">
+      <span class="add-todo">add todo</span>
+      <span>do something 1</span>
+      <span>do something 2</span>
+      <span>do something 3</span>
+      <span>do something 4</span>
+    </div>
+
+    <!-- Для примера по домашке -->
+    <!-- <div
+      class="context-menu show"
+      data-id="1234567890"
+      data-trololo="loren ipsum"
+    >
+      <span class="add-todo">add todo</span>
+      <div>
+        <div>
+          <span class="show-id">show id</span>
+        </div>
+      </div>
+      <span>do something 3</span>
+    </div> -->
+
+    <!-- <div
+      class="context-menu show"
+      data-id="12345667890"
+      data-trololo="lorem ipsum"
+    >
+      <span class="add-todo">add todo</span>
+      <div>
+        <div>
+          <span class="show-id">show id</span>
+        </div>
+      </div>
+      <span>do something 3</span>
+      <span>do something 4</span>
+    </div> -->
+
+    <!-- Scripts -->
+    <script
+      src="./js/module-6-1-georg/georg-module-6-1.js"
+      type="module"
+    ></script>
+  </body>
+</html>

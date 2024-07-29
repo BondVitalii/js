@@ -1,0 +1,34 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+li {
+  margin: 0;
+  padding: 0;
+}
+.list {
+  list-style: none;
+}
+.link {
+  text-decoration: none;
+  color: currentColor;
+}
+
+body {
+  background-color: #87cefa;
+  padding: 10px;
+}
+.home-nav-list {
+  display: inline-block;
+}
+.home-nav-item {
+  display: block;
+  margin-bottom: 5px;
+  padding: 4px 10px;
+  background-color: #6495ed;
+  border: 2px solid black;
+}
