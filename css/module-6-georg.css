@@ -9,6 +9,7 @@ body {
   padding: 2px 10px;
   text-align: center;
   border: 1px solid black;
+  border-radius: 4px;
   background-color: cornflowerblue;
 }
 /* --------- Стили Георг ----------- */
