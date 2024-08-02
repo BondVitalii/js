@@ -17,17 +17,16 @@ li {
   text-decoration: none;
   color: currentColor;
 }
-
 body {
-  background-color: #87cefa;
-  padding: 10px;
+  padding: 6px;
 }
 .home-list {
   display: inline-block;
+  margin-top: 4px;
 }
 .home-item {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
   padding: 4px 10px;
   background-color: #6495ed;
   border: 2px solid black;
@@ -37,4 +36,11 @@ body {
   display: block;
   min-width: 100%;
   min-height: 100%;
+}
+/* index-repeta */
+.link-home {
+  display: block;
+}
+.home-item.repeta {
+  background-color: tomato;
 }
