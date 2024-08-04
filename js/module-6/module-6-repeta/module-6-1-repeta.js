@@ -1,3 +1,4 @@
+/* ===== Репета модуль-6, занятие-1 ===== */
 // ==============================================================
 /** Поиск элементов (Файл 01-query-selectors.js)
 |============================
@@ -313,16 +314,12 @@ console.log(secondNavItemElem); // <li class="site-nav__item second"></li>
 // ==============================================================
 /** Создание элементов (05-creating-elements.js)
 |============================
-
-|============================
-*/
-// ==============================================================
 //  * - Создание элементов
 //  * - Вставка узлов: appendChild(elem), insertBefore(elem, nextSibling), append(...elems), prepend(...elems)
 
-// ===============================
+// ==========================================================
 // * Создаём заголовок
-// ===============================
+// ==========================================================
 // 1) Сначала создаем объект и полностью его заполняем. Он пока есть только в памяти, в разметке DOM его нет.
 // 2) Добавляем созданный заголовок в DOM дерево.
 // * елемент-А.appendChild(элемент-В) - Добавляет в конец родительского элемента.
@@ -340,9 +337,9 @@ titleEl.textContent = 'Это заголовок страницы :)'; // Соз
 //  * Создаём изображение
 //  * https://cdn.pixabay.com/photo/2018/07/26/07/45/valais-3562988_1280.jpg
 //  * valais-alpine-mountains-glacier
-// ===============================
+// ==========================================================
 // * Создаем картинку и добовляем её в DOM
-// ===============================
+// ==========================================================
 // 1) Создаем тег img.
 const imageEl = document.createElement('img');
 // 2) Создаем атрибут src и добовляем в него ссылку.
@@ -362,9 +359,9 @@ document.body.appendChild(imageEl); // Добавляем картинку в к
 
 // Тут очень важно понимать а Html уже что-то должно быть куда ты это добавляешь. Подругому оно не будет работать.
 
-// ===============================
+// ==========================================================
 //  * Создаём и добавляем новый пункт меню
-// ===============================
+// ==========================================================
 // ----- Создаем.
 const navItemEl = document.createElement('li'); // Создаем элемент тег li.
 navItemEl.classList.add('site-nav__item'); // Создаем элементу li класс site-nav__item.
@@ -381,70 +378,427 @@ console.log(navItemEl); // <li class="site-nav__item"><a class="site-nav__link" 
 
 // После того как мы создали и заполнили элемент(li) и элемент(а), и вложили элемент(а) в элемент(li), только после этого за одну операцию добавляем элемент(li) в DOM.
 
-// ---------------------------------------------
+// ==========================================================
 // Добавление элемента в DOM.
-// ---------------------------------------------
-// Примечание из конспекта.
+// ==========================================================
+// Примечание из конспекта. Добавление нескольких элементов сразу
 // ** element.append(el1, el2, ...) - додає один або декілька елементів після всіх дітей елемента element.
 // ** element.prepend(el1, el2, ...) - додає один або декілька елементів перед усіма дітьми елемента element.
 // ** element.after(el1, el2, ...) - додає один або декілька елементів після елемента element.
 // ** element.before(el1, el2, ...) - додає один або декілька елементів перед елементом element.
-// ---------------------------------------------
+// ==========================================================
 
-const navEl = document.querySelector('.site-nav'); // Получаем ссылку на элемент (ul)-(список), в который будем вставлять наши созданный элемен (li) c элементом-ссылкой(а)
+// Сначала получаем ссылку на элемент (ul)-(список), в который будем вставлять наши созданный элемен (li) c элементом-ссылкой(а)
 
-// ---------------------------------------------
+const navEl = document.querySelector('.site-nav');
+
+// ==========================================================
 // Добавляем созданый элемент(li), в DOM.
-// ---------------------------------------------
-
-// -------- Вставляем элемент(li) в конец, после всех детей элемента(ul), в DOM.
+// ==========================================================
+// Вставляем элемент(li) в конец, после всех детей элемента(ul), в DOM.
+// --------------------------
 // Вариант-1 .append()
-// navEl.append(navItemEl); // Вставляем в конец элемента(ul).
+// navEl.append(navItemEl);
 
 // Вариант-2 .appendChild() (Репета)
-// navEl.appendChild(navItemEl); // Вставляем в конец элемента(ul).
+// navEl.appendChild(navItemEl);
 
-// -------- Вставляем элемент(li) в начало перед всеми детьми элемента(ul), в DOM.
+// --------------------------
+// Вставляем элемент(li) в начало перед всеми детьми элемента(ul), в DOM.
+// --------------------------
 // Вариант-1 .prepend()
-// navEl.prepend(navItemEl); // Вставляем в начало перед детьми элемента(ul).
+// navEl.prepend(navItemEl);
 
 // Вариант-2 .insertBefore() (Репета)
-// navEl.insertBefore(navItemEl, navEl.firstElementChild); //Вставляем в начало перед детьми элемента(ul).
+navEl.insertBefore(navItemEl, navEl.firstElementChild);
 
-// -------- Вставляем элемент(li) (предпоследним) - перед последним ребенком элемента(ul), в DOM.
-// Вариант-1 .insertBefore() (Репета)
-// navEl.insertBefore(navItemEl, navEl.lastElementChild); // Вставляем предпоследним в  элемент(ul).
+// --------------------------
+//Вставляем элемент(li) перед последним ребенком элемента(ul).(.insertBefore()-Репета)
+// --------------------------
+// navEl.insertBefore(navItemEl, navEl.lastElementChild);
 
-// -------- Вставляем элемент(li) перед самим элементом(ul), в DOM.
-// Вариант-1 .before()
-// navEl.before(navItemEl); // Вставляем элемент(li) перед элементом(ul).
+// --------------------------
+// Вставляем элемент(li) третим, перед вторым ребенком элемента(ul), в DOM. (по индексу)
+// --------------------------
+// navEl.insertBefore(navItemEl, navEl.children[1]);
 
-// -------- Вставляем элемент(li) после самого элемента(ul), в DOM.
-// Вариант-1 .after()
-// navEl.after(navItemEl); // Вставляем элемент(li) после элемента(ul).
+// --------------------------
+// Вставляем элемент(li) перед самим элементом(ul), в DOM. (.before())
+// --------------------------
+// navEl.before(navItemEl);
 
-// -----------------------------------------------------------------------------
+// --------------------------
+// Вставляем элемент(li) после самого элемента(ul), в DOM. (.after())
+// --------------------------
+// navEl.after(navItemEl);
 
-// const heroEl = document.querySelector('.hero');
-// // heroEl.appendChild(titleEl);
-// // heroEl.appendChild(imageEl);
-// heroEl.append(titleEl, imageEl);
+// ==========================================================
+// Добавление нескольких элементов в DOM за  одну операцию.
+// ==========================================================
+// Добавляем в Hero ранее нами созданные элементы titleEl и imageEl.
+// ---------------------------------------------
+const heroEl = document.querySelector('.hero');
+// Вариант вставки нескольких элементов по очереди отдельно.
+// heroEl.appendChild(titleEl);
+// heroEl.appendChild(imageEl);
 
-// /*
-//  * Создаём и добавляем новый пункт меню
-//  */
-// const navItemEl = document.createElement('li');
-// navItemEl.classList.add('site-nav__item');
+// Вариант вставки нескольких элементов за одну операцию.
+// Прописываем элементы через запятую в том порядке в котором хотим вставить.
 
-// const navLinkEl = document.createElement('a');
-// navLinkEl.classList.add('site-nav__link');
-// navLinkEl.textContent = 'Личный кабинет';
-// navLinkEl.href = '/profile';
+heroEl.append(titleEl, imageEl);
+|============================
+*/
+// ==============================================================
+/** Создём и добавляем коллекцию (06-collections.js)
+|============================
+// ==============================================================
+//  * Создём и добавляем коллекцию.
+// ==============================================================
+const colorPickerOptions = [
+  { label: 'red', color: '#F44336' },
+  { label: 'green', color: '#4CAF50' },
+  { label: 'blue', color: '#2196F3' },
+  { label: 'grey', color: '#607D8B' },
+  { label: 'pink', color: '#E91E63' },
+  { label: 'indigo', color: '#3F51B5' },
+];
 
-// navItemEl.appendChild(navLinkEl);
-// // console.log(navItemEl);
+// =========================
+// Пример: Cоздания одной кнопки для элемента масива colorPickerOptions
+// =========================
+// Создаю опцию для доступа к объекту в масиве colorPickerOptions.
+const option = colorPickerOptions[0];
 
-// const navEl = document.querySelector('.site-nav');
+const buttonEl = document.createElement('button'); // Создаем кнопку.
+buttonEl.type = 'button'; // Вешаю тип созданной кнопке.
+buttonEl.textContent = option.label; // Вешаю текст кнопке из свойства label.
+buttonEl.style.backgroundColor = option.color; // Добавл.цвет кнопке из свойства color.
+// buttonEl.style.width = 40; // Добавляю размер(ширину) кнопке.
 
-// // navEl.appendChild(navItemEl);
-// navEl.insertBefore(navItemEl, navEl.firstElementChild);
+// console.log(buttonEl);
+
+// =============================================================
+// Создаём масив опций(кнопок). Старый метод.
+// Вариант-1 Это совсем OLD SHOOL.
+// =============================================================
+// Находим контейнер (div с классом js-color-picker)
+const colorPickerContainerEl = document.querySelector('.js-color-picker');
+
+const elements = [];
+
+for (let i = 0; i < colorPickerOptions.length; i += 1) {
+  // Создаю опцию для доступа к объекту в масиве colorPickerOptions.
+  const option = colorPickerOptions[i];
+
+  const buttonEl = document.createElement('button'); // Создаем кнопку.
+  buttonEl.type = 'button'; // Вешаю тип созданной кнопке.
+  buttonEl.classList.add('color-picker__option'); // Вешаю класс на кнопку. Он есть в CSS.
+  buttonEl.textContent = option.label; // Вешаю текст кнопке из свойства label.
+  buttonEl.style.backgroundColor = option.color; // Добавл.цвет кнопке из свойства color.
+  // buttonEl.style.width = 40; // Добавляю размер(ширину) кнопке.
+
+  elements.push(buttonEl); // Пушу в масив elements.
+}
+
+console.log(elements); // Получаю масив кнопок.
+
+colorPickerContainerEl.append(...elements); // Распыляю в div (js-color-picker) элементы.
+// =============================================================
+// Создаём масив опций(кнопок). Современный метод.
+// =============================================================
+// Находим контейнер (div с классом js-color-picker)
+const colorPickerContainerEl = document.querySelector('.js-color-picker');
+
+const elements = colorPickerOptions.map(option => {
+  const buttonEl = document.createElement('button'); // Создаем кнопку.
+  buttonEl.type = 'button'; // Вешаю тип созданной кнопке.
+  buttonEl.classList.add('color-picker__option'); // Вешаю класс на кнопку. Он есть в CSS.
+  buttonEl.textContent = option.label; // Вешаю текст кнопке из свойства label.
+  buttonEl.style.backgroundColor = option.color; // Добавл.цвет кнопке из свойства color.
+  // buttonEl.style.width = 40; // Добавляю размер(ширину) кнопке.
+
+  return buttonEl;
+});
+
+console.log(elements); // Получаю масив кнопок.
+
+colorPickerContainerEl.append(...elements); // Распыляю в div (js-color-picker) элементы.
+
+// =============================================================
+// * Пишем функцию для создания разметки колорпикера (Тоже самое только в функции).
+// =============================================================
+// ** Эта функция будет получать масив опций(масив объектов colorPickerOptions) и возвращать масив разметки.
+
+// Находим контейнер (div с классом js-color-picker)
+const colorPickerContainerEl = document.querySelector('.js-color-picker');
+
+// Создаём функцию которая получает в параметр (options - масив объектов) и возвращает результат работы метода map(), который создает кнопки.
+const makeColorPickerOptions = options => {
+  return options.map(option => {
+    const buttonEl = document.createElement('button'); // Создаем кнопку.
+    buttonEl.type = 'button'; // Вешаю тип созданной кнопке.
+    buttonEl.classList.add('color-picker__option'); // Вешаю класс на кнопку. Он есть в CSS.
+    buttonEl.textContent = option.label; // Вешаю текст кнопке из свойства label.
+    buttonEl.style.backgroundColor = option.color; // Добавл.цвет кнопке из свойства color.
+    // buttonEl.style.width = 40; // Добавляю размер(ширину) кнопке.
+
+    return buttonEl;
+  });
+};
+
+const elements = makeColorPickerOptions(colorPickerOptions); // Вызываем функцию и передаем в аргументы масив объектов.
+
+colorPickerContainerEl.append(...elements); // Распыляю в div (js-color-picker) элементы.
+|============================
+*/
+// ==============================================================
+/** Создаём карточку продукта (07-products.js)
+|============================
+//  * Создаём карточку продукта. (Работа с шаблоном).
+//  * - В классе продукта может быть product--on-sale product--not-available
+// ==============================================================
+// У меня есть продукт. Допустим он пришел из базы данных.
+
+const product = {
+  name: 'Сервоприводы',
+  description:
+    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla in consectetur quia nobis reprehenderit cupiditate, quas soluta.',
+  price: 2000,
+  available: true,
+  onSale: true,
+};
+
+// -----------------
+// Я хочу создать карточку продукта с такой разметкой как в этом шаблоне.
+// 
+// <article class="product">
+//   <h2 class="product__name">Название</h2>
+//   <p class="product__descr">Описание</p>
+//   <p product__price>Цена: 1111 кредитов</p>
+// </article>
+// -----------------
+
+// Шаблон. Сначало продумывается какая будет разметка, пишется под неё стили, а потом с помощью JS это всё можно создавать. Это называется шаблон.
+// -----------------------------------------------------------
+const productEl = document.createElement('article');   // Создаём элемент(тег -"article").
+productEl.classList.add('product');                    // Добавляем класс для "article".
+
+const nameEl = document.createElement('h2');           // Создаём заголовок "h2".
+nameEl.textContent = product.name;          // Вставляем текст в заголовок, из свойства "name"
+nameEl.classList.add('product__name');                 // Добавляем класс заголовку.
+
+const descrEl = document.createElement('p');           // Создаём абзац "p".
+descrEl.textContent = product.description; // Вставляем текст в абзац, свойства "description"
+descrEl.classList.add('product__descr');               // Добавляем класс абзацу.
+
+const priceEl = document.createElement('p');           // Создаём price "p".
+priceEl.textContent = `Цена: ${product.price} кредитов`; // Вставляем текст в абзац, свойства "price"
+priceEl.classList.add('product__price');               // Добавляем класс к price.
+
+productEl.append(nameEl, descrEl, priceEl);      // Соединяем все в productEl и добовляем как гроздь винограда в DOM.
+
+// console.log(productEl);         // <article class="product">...</article> получаем карточку продукта.
+// ==============================================================
+// Идём дальше...
+//  * Пишем функцию для создания карточки продукта.
+// Это тоже самое, но только теперь будет масив этих объектов.
+
+// --------------------------------------------------------------
+// Импортируем масив, он хранится в файле products!!! (Будем считать что он пришел из базы данных).
+
+import products from './products.js';
+// console.log(products);
+// --------------------------------------------------------------
+
+// ==============================================================
+// Функция получает один объект и из этого объекта создаёт одну карточку продукта.
+
+const makeProductCard = ({ name, description, price }) => {
+  const productEl = document.createElement('article');    // Создаём элемент(тег -"article").
+  productEl.classList.add('product');                     // Добавляем класс для "article".
+
+  const nameEl = document.createElement('h2');           // Создаём заголовок "h2".
+  nameEl.textContent = name;                // Вставляем текст в заголовок, из свойства "name"
+  nameEl.classList.add('product__name');                 // Добавляем класс заголовку.
+
+  const descrEl = document.createElement('p');           // Создаём абзац "p".
+  descrEl.textContent = description;       // Вставляем текст в абзац, свойства "description"
+  descrEl.classList.add('product__descr');               // Добавляем класс абзацу.
+
+  const priceEl = document.createElement('p');           // Создаём price "p".
+  priceEl.textContent = `Цена: ${price} кредитов`;       // Вставляем текст в абзац, свойства "price"
+  priceEl.classList.add('product__price');               // Добавляем класс к price.
+
+  productEl.append(nameEl, descrEl, priceEl);      // Соединяем все в productEl и добовляем их, получается гроздь винограда.
+
+  return productEl;
+};
+
+// console.log(makeProductCard(products[0])); // Вызов функции вернет один объект - карточку.
+// ==============================================================
+// Идём дальше...
+// Делаем много этих карточек.
+// ==============================================================
+// Вариант-1 (как пример)
+// Пишем функцию и в ней внутри через map() колбек создаёт карточку продукта.
+// Тоже что мы делали выше но в функции.
+
+const elem = products.map(({ name, description, price }) => {
+  const productEl = document.createElement('article');    // Создаём элемент(тег -"article").
+  productEl.classList.add('product');                     // Добавляем класс для "article".
+
+  const nameEl = document.createElement('h2');            // Создаём заголовок "h2".
+  nameEl.textContent = name;                // Вставляем текст в заголовок, из свойства "name"
+  nameEl.classList.add('product__name');                  // Добавляем класс заголовку.
+
+  const descrEl = document.createElement('p');            // Создаём абзац "p".
+  descrEl.textContent = description;        // Вставляем текст в абзац, свойства "description"
+  descrEl.classList.add('product__descr');                // Добавляем класс абзацу.
+
+  const priceEl = document.createElement('p');            // Создаём price "p".
+  priceEl.textContent = `Цена: ${price} кредитов`;       // Вставляем текст в абзац, свойства "price"
+  priceEl.classList.add('product__price');               // Добавляем класс к price.
+
+  productEl.append(nameEl, descrEl, priceEl);      // Соединяем все в productEl и добовляем как гроздь винограда в DOM.
+
+  return productEl;
+});
+
+// console.log(elem);      // (4) [article.product, article.product, article.product, article.product]
+
+// ==============================================================
+// Вариант-2 (Пример)
+// Функция создающая карточку продукта makeProductCard вынесена отдельно, а сюда передаём её как параметр.
+// Это просто колбек.
+
+const elements = products.map(makeProductCard);
+
+console.log(elements);     // (4) [article.product, article.product, article.product, article.product]
+// ==============================================================
+// Идём дальше...
+// Все что мы создали вешаем(вкладываем) в контейнер в документе, в DOM.
+// ==============================================================
+// Получаем ссылку на контейнер.
+
+const productsContainerEl = document.querySelector('.js-products');
+
+productsContainerEl.append(...elements);     // Распыляем наши элементы(карточки) в контейнер.
+|============================
+*/
+// ==============================================================
+/** Свойство innerHTML, Парс строк, Вставка разметки с insertAdjacentHTML() (08-templating.js)
+|============================
+// =============================================
+//  * Свойство innerHTML
+//  * - чтение
+//  * - запись
+// =============================================
+
+const titleEl = document.querySelector('.title'); // Получаем доступ к заголовку.
+
+// ** textContent - Вернёт весь текстовый контент внутри тега без вложеных тегов.
+// ** innerHTML - Вернёт всю вложеную разметку в виде одной строки.
+
+console.log(titleEl.textContent); // Это заголовок
+console.log(titleEl.innerHTML); // Это <span>заголовок</span>
+
+// Используя свойство innerHTML перизаписать внутренность. Перезапишет на место старого,новое.
+// Когда мы что-то ставим через innerHTML и парсер внутри этой строки видит теги, он эти теги будет создовать.
+
+titleEl.innerHTML = '<a href="">Это ссылка)</a>'; // В заголовок вставляем ссылку.
+// ---------------------------------------------
+// Используйте innerHTML только в том случае, если нам нужно или полностью очистить значение элемента, сделатьего пустым (пустую строку), или записать полностью по верх старого что-то новое, не сохраняя старого.
+
+// Так можно! Старое все удалит, а новую ссылку(а) создаст.
+
+titleEl.innerHTML = '<a href="">Это ссылка)</a>'; // <h1 class="title"><a href="">Это ссылка)</a></h1>
+
+// Так можно! Если я хочу что-то почистить полностью, оставить пустую строку.
+// Плюс innerHTML в том, что с помощью innerHTML очень просто очистить контент тега.
+
+titleEl.innerHTML = ''; // <h1 class="title"></h1> Очистит полностью, title будет пустой.
+
+// ---------------------------------------------
+// Так нельзя! Дабавлять что-то с innerHTML через (+=)
+// ---------------------------------------------
+// (+=) использовать через innerHTML нельзя. То-есть дабовлять что-то новое к уже существующему через innerHTML нельзя. Потому как innerHTML в этом случае удалит все старое, потом опять создаст то - что было, и потом добавит новое. А это в свою очередь перегружает систему.
+
+// Так нельзя!
+// titleEl.innerHTML += '<a href="">Это ссылка)</a>'; // В заголовок добавлять ссылку.
+
+// ========================================================
+// Добавление разметки с помощью insertAdjacentHTML()
+// ========================================================
+// * Вставка разметки с insertAdjacentHTML()
+// * http://fecore.net.ua/books/m5ph3r-javascript/module-07/dom-manipulation.html#%D0%BC%D0%B5%D1%82%D0%BE%D0%B4-insertadjacenthtml
+// ========================================================
+// Современный метод добавление строки с Html тегами перед, после или в середину элемента.
+
+// element.insertAdjacentHTML(position, string);
+// -------------------
+// Аргумент position это строка, позиция относительно элемента на которую хотим добавить.
+// Принимает один из четырех значений.
+
+// * "beforebegin" - перед elem
+// * "afterbegin" - в середине elem, перед всеми детьми
+// * "beforeend" - в середине elem, после всех детей
+// * "afterend" - посля elem
+// -------------------------------------------
+titleEl.insertAdjacentHTML(
+  'beforebegin',
+  '<a href="" class="title__link">Это ссылка)</a>'
+); // Поставит перед элементом titleEl, буквально ссылку поставит перед тегом h1.
+
+titleEl.insertAdjacentHTML(
+  'afterend',
+  '<a href="" class="title__link">Это ссылка)</a>'
+); // Поставит после элементом titleEl, буквально ссылку поставит после тега h1.
+
+titleEl.insertAdjacentHTML(
+  'afterbegin',
+  '<a href="" class="title__link">Это ссылка)</a>'
+); // Поставит после начала, тоесть поставит самым первым элементом в элементе теге h1.
+
+titleEl.insertAdjacentHTML(
+  'beforeend',
+  '<a href="" class="title__link">Это ссылка)</a>'
+); // Поставит перед самым концом , тоесть поставит самым последним элементом в элементе теге h1.
+|============================
+*/
+// ==============================================================
+/** Транзакции (Таблица транзакций) (09-transactions.js)
+|============================
+// Импортируем масив объектов, он хранится в файле transactions!!! (Будем считать что он пришел из базы данных).
+
+import transactionHistory from './transactions.js';
+
+const makeTransactionTableRowMarkup = transaction => {
+  const { id, amount, date, business, type, name, account } = transaction;
+
+  return `
+  <tr>
+    <td>${id}</td>
+    <td>${amount}</td>
+    <td>${date}</td>
+    <td>${business}</td>
+    <td>${type}</td>
+    <td>${name}</td>
+    <td>${account}</td>
+  </tr>
+  `;
+};
+
+console.log(transactionHistory);
+
+const tableEl = document.querySelector('.js-transaction-table');
+
+const transactionTableRowsMarkup = transactionHistory
+  .map(makeTransactionTableRowMarkup)
+  .join('');
+
+tableEl.insertAdjacentHTML('beforeend', transactionTableRowsMarkup);
+
+console.log(transactionTableRowsMarkup);
+|============================
+*/
+// ==============================================================
