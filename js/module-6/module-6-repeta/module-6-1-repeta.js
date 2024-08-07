@@ -164,7 +164,7 @@ console.log(imageEl.hasAttribute('src')); // true если есть атрибу
 // В Html указывая клас с приставкой js, пример: js-actions - тем самым мы явно говорим  не трогайте его(не меняйте его - он не для верстки, он для js) потому как это класс с которым работает скрипт js.
 // ------------------------------
 // Возврат значения Data-атрибута.
-// Выбираем все кнопки и ищем в нутри класа actions любую кнопку.
+// Выбираем все кнопки и ищем в середине класа actions любую кнопку.
 const actions = document.querySelectorAll('.js-actions button');
 
 console.log(actions); // NodeList(3) [button, button, button]  (Вернет три кнопки).
@@ -172,8 +172,8 @@ console.log(actions); // NodeList(3) [button, button, button]  (Вернет т�
 // Вариант-1
 console.log(actions[0].dataset); // DOMStringMap {action: 'add'} (.dataset - откидывает слово data и оставляет action + значение).
 console.log(actions[0].dataset.action); // add (вернет значение Data-атрибута 1й кнопки).
-console.log(actions[1].dataset.action); // remove (значение Data-атрибута 2й кнопки).
-console.log(actions[2].dataset.action); // edit (значение Data-атрибута 3й кнопки).
+console.log(actions[1].dataset.action);     // remove (значение Data-атрибута 2й кнопки).
+console.log(actions[2].dataset.action);       // edit (значение Data-атрибута 3й кнопки).
 
 // Вариант-2 (но он очень длинный и не удобный)
 console.log(actions[2].getAttribute('data-action')); // edit (значение Data-атрибута 3й кнопки).
@@ -183,10 +183,13 @@ console.log(actions[2].getAttribute('data-action')); // edit (значение D
 // =======================================
 magicBtn.addEventListener('click', () => {
   // Получаю ссылку на  этот input.
+
   const inputEl = document.querySelector('.js-input');
   console.log(inputEl); // <input type="text" class="js-input"> (При клике по кнопке вернет ссылку на input.)
   console.log(inputEl.value); // qweqwe (Вернет то что ввели в input, при кликнули по кнопке)
+
   // Если я хочу что-то написать в input, то...
+
   inputEl.value = 'пишу что хочу в input';
   console.log(inputEl.value); // пишу что хочу в input
 });

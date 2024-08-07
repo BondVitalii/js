@@ -20,27 +20,29 @@ li {
 body {
   padding: 6px;
 }
-.home-list {
+.home-wrapper {
   display: inline-block;
-  margin-top: 4px;
-}
-.home-item {
-  display: block;
+  margin-right: 200px;
+  padding: 4px 10px;
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 6px;
   margin-bottom: 4px;
+}
+.module-list {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 4px;
+}
+.module-item {
   padding: 4px 10px;
   background-color: #6495ed;
   border: 2px solid black;
   border-radius: 6px;
 }
-.home-link {
-  display: block;
+.module-link {
+  display: inline-block;
   min-width: 100%;
   min-height: 100%;
-}
-/* index-repeta */
-.link-home {
-  display: block;
-}
-.home-item.repeta {
-  background-color: tomato;
 }
