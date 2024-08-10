@@ -9,15 +9,15 @@ import cars from './cars.js';
 // const title1 = document.querySelector('h1');        // Получаем доступ к h1 по тегу.
 // const title2 = document.querySelector('#title');    // Получаем доступ к h1 по id.
 
-// console.log('По классу:', title); // По классу: <h1 id="title" class="js-title">Hello world</h1>
+// console.log('По классу:', title);                    // По классу: <h1 id="title" class="js-title">Hello world</h1>
 
-// console.log('По тегу:', title1);    // По тегу: <h1 id="title" class="js-title">Hello JS</h1>
+// console.log('По тегу:', title1);                     // По тегу: <h1 id="title" class="js-title">Hello JS</h1>
 
-// console.log('По id:', title2); // По id: <h1 id="title" class="js-title">Hello JS</h1>
+// console.log('По id:', title2);                       // По id: <h1 id="title" class="js-title">Hello JS</h1>
 
 // 1) Правило № 1. Если мы работаем с Html элементом, мы должны выводить его через console.dir(), данная команда позволяет нам его открыть в виде объекта.
 
-// console.dir(title);                    // h1#title.js-title (это объект).
+// console.dir(title);                                  // h1#title.js-title (это объект).
 
 // ===================================================
 
@@ -159,7 +159,7 @@ import cars from './cars.js';
 // const list = document.querySelector('.js-list');
 
 // console.log(list.children);            // HTMLCollection(3)[(li, li, li)];
-// console.dir([...list.children]);  // Array(3) [li, li, li] Распыляем детей ul в масив.
+// console.dir([...list.children]);       // Array(3) [li, li, li] Распыляем детей ul в масив.
 
 // ==============================================================
 // Добавление в DOM.
@@ -183,9 +183,9 @@ import cars from './cars.js';
 // const h2 = document.createElement('h2');       // Создаем элемент h2.
 // h2.textContent = 'Hello';                      // Добовляем текст в созданую h2.
 
-// li.append(div);                               // Добавляем div в li.
-// div.append(h2);                               // Добавляем h2 в div.
-// list.append(li);                              // Добавляем li в ul, в DOM.
+// li.append(div);                                // Добавляем div в li.
+// div.append(h2);                                // Добавляем h2 в div.
+// list.append(li);                               // Добавляем li в ul, в DOM.
 // console.log(li);
 
 // ----------------------------------------------------
@@ -199,7 +199,7 @@ import cars from './cars.js';
 //     <h2>Hello</h2>
 //     </div>
 // </li>`;
-// list.insertAdjacentHTML('beforeend', li); // Добавляем созданные элементы в ul, в DOM.
+// list.insertAdjacentHTML('beforeend', li);       // Добавляем созданные элементы в ul, в DOM.
 
 // ==============================================================
 // Живая и неживая коллекция. (Статичный или динамичный масив.) (видео-1:05:28)
@@ -221,8 +221,8 @@ import cars from './cars.js';
 // list.append(li2);
 
 // Смотрим разницу. До внесения данных
-// console.log('listStatic', listStatic);       // listStatic NodeList(3) [li, li, li]
-// console.log('listDynamics', listDynamics);   // listDynamics HTMLCollection(4) [li, li, li, li, li]
+// console.log('listStatic', listStatic);              // listStatic NodeList(3) [li, li, li]
+// console.log('listDynamics', listDynamics);          // listDynamics HTMLCollection(4) [li, li, li, li, li]
 // ------------------
 // Мы видим что querySelectorAll при добавлении элементов позже не показывает изменения. Он показывает только те элементы которые были во время его вызова. Если его вызвать после добавления элементов, то он покажет актуальные данные.
 
@@ -234,8 +234,8 @@ import cars from './cars.js';
 // const listDynamics = document.getElementsByTagName('li');
 
 // Смотрим разницу. После внесения данных
-// console.log('listStatic', listStatic);  // listStatic NodeList(3) [li, li, li, li, li]
-// console.log('listDynamics', listDynamics); // listDynamics HTMLCollection(4) [li, li, li, li, li]
+// console.log('listStatic', listStatic);               // listStatic NodeList(3) [li, li, li, li, li]
+// console.log('listDynamics', listDynamics);           // listDynamics HTMLCollection(4) [li, li, li, li, li]
 
 // В этом и состоит разница Динамических и Статических операций.
 
@@ -269,7 +269,7 @@ import cars from './cars.js';
 // ----------------------------------------------
 // Нам нужно cтараться добавить полностью всю разметку за одну операцию. Рассмотрим это в этом варианте.
 
-// const container = document.querySelector('.js-container'); // Доступ к контейнеру.
+// const container = document.querySelector('.js-container');       // Доступ к контейнеру.
 
 // const markup = cars
 //   .map(

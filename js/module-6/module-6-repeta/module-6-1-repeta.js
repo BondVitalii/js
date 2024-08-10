@@ -35,11 +35,10 @@ console.log('navLinksEl', navLinksEl);        // navLinksEl [a.site-nav__link, a
 
 const navLastItemElem = document.querySelector('#last-item');
 console.log('navLastItemElem', navLastItemElem);     // navLastItemElem <li class="site-nav__item" id="last-item">
-// -----------------------------------------------------------
-// ! * Поиск querySelectorAll на элементе.
-// ============================
-// * Document.querySelector* и Element.querySelector*
 
+// -----------------------------------------------------------
+// ! * Поиск querySelectorAll на элементе.  * Document.querySelector* и Element.querySelector*
+// ============================
 // querySelector на элементе удобно использовать тогда - когда у нас есть какой-то элемент и мы хотим внутри его поискать, делаем поиск относительно этого элемента querySelectorAll и браузер вернет только те элементы которые являются потомками этого элемента.
 
 const navEl = document.querySelector('.site-nav');
