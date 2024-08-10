@@ -21,21 +21,21 @@
 // ----- Поиск по тегу.
 
 const navItemEl = document.querySelector('li');
-console.log(navItemEl); // <li class="site-nav__item"></li>
+console.log(navItemEl);                                       // <li class="site-nav__item"></li>
 
 // ----- Поиск по CSS селектору (класса).
 
 const navEl = document.querySelector('.site-nav');
-console.log('navEl', navEl); // <ul class="site-nav"></ul>
+console.log('navEl', navEl);                                  // <ul class="site-nav"></ul>
 
 const navLinksEl = document.querySelectorAll('.site-nav__link');
-console.log('navLinksEl', navLinksEl); // navLinksEl [a.site-nav__link, a.site-nav__link, a.site-nav__link]
+console.log('navLinksEl', navLinksEl);        // navLinksEl [a.site-nav__link, a.site-nav__link, a.site-nav__link]
 
 // ----- Поиск по селектору id.
 
 const navLastItemElem = document.querySelector('#last-item');
-console.log('navLastItemElem', navLastItemElem); // navLastItemElem <li class="site-nav__item" id="last-item">
-// _______________________________________________________________________________________
+console.log('navLastItemElem', navLastItemElem);     // navLastItemElem <li class="site-nav__item" id="last-item">
+// -----------------------------------------------------------
 // ! * Поиск querySelectorAll на элементе.
 // ============================
 // * Document.querySelector* и Element.querySelector*
@@ -44,13 +44,13 @@ console.log('navLastItemElem', navLastItemElem); // navLastItemElem <li class="s
 
 const navEl = document.querySelector('.site-nav');
 
-console.log('navEl', navEl); // <ul class="site-nav"></ul>
+console.log('navEl', navEl);                         // <ul class="site-nav"></ul>
 
 // Поиск линков. Этот вариант найдет все линки с таким селектором, которые есть в документе.
 
 const navLinksEl = document.querySelectorAll('.site-nav__link');
 
-console.log('navLinksEl', navLinksEl); // navLinksEl NodeList(5) [a.site-nav__link, a.site-nav__link, a.site-nav__link, a.site-nav__link, a.site-nav__link]
+console.log('navLinksEl', navLinksEl);              // navLinksEl NodeList(5) [a.site-nav__link, a.site-nav__link, a.site-nav__link, a.site-nav__link, a.site-nav__link]
 
 // ----- Поиск всех потомков элемента. Два варианта -----
 
@@ -64,8 +64,8 @@ console.log('navLinksElem', navLinksElem); // navLinksElem  [a.site-nav__link, a
 
 const navLinksElement = document.querySelectorAll('.site-nav .site-nav__link');
 
-console.log('navLinksElement', navLinksElement); // navLinksElement  [a.site-nav__link, a.site-nav__link, a.site-nav__link]
-// _______________________________________________________________________________________
+console.log('navLinksElement', navLinksElement);     // navLinksElement  [a.site-nav__link, a.site-nav__link, a.site-nav__link]
+// -----------------------------------------------------------
 
 // ! * Тоже самое но при нажатии на кнопку "Сделать магию"
 // ============================
@@ -78,7 +78,7 @@ magicBtn.addEventListener('click', () => {
   const navLinksEl = document.querySelectorAll('.site-nav__link');
   console.log('navLinksEl', navLinksEl);
 });
-// _______________________________________________________________________________________
+// -----------------------------------------------------------
 |============================
 */
 // ==============================================================
@@ -116,18 +116,20 @@ magicBtn.addEventListener('click', () => {
 // ========================================================
 // Получаем доступ к картинке.
 const imageEl = document.querySelector('.hero__image');
+
 // В src присваиваем ссылку на другую картинку.
 imageEl.src =
   'https://images.pexels.com/photos/1870376/pexels-photo-1870376.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=480';
+
 // В alt присваиваем новый текст.
 imageEl.alt = 'Это новый котик';
 
 // Меняем текст заголовка.
 const heroTitleEl = document.querySelector('.hero__title');
-// console.log('heroTitleEl', heroTitleEl); // heroTitleEl <h1 class="hero__title">Всё про меня</h1>
-// console.log(heroTitleEl.textContent); // Всё про меня
-heroTitleEl.textContent = 'Я сладкий пирожочек!'; // Меняем текстовый контент.
-// console.log(heroTitleEl.textContent); // Я сладкий пирожочек!
+// console.log('heroTitleEl', heroTitleEl);               // heroTitleEl <h1 class="hero__title">Всё про меня</h1>
+// console.log(heroTitleEl.textContent);                  // Всё про меня
+heroTitleEl.textContent = 'Я сладкий пирожочек!';         // Меняем текстовый контент.
+// console.log(heroTitleEl.textContent);                  // Я сладкий пирожочек!
 
 // ========================================================
 //  * Атрибуты
@@ -142,19 +144,23 @@ heroTitleEl.textContent = 'Я сладкий пирожочек!'; // Меняе
 // А get(имя-атрибута) и set(имя-атрибута) не очень полезно честно говоря.
 
 // Вариант-1 Доступ к значению атрибута
-console.log(imageEl.getAttribute('src')); // Вернет значение этого атрибута.
+console.log(imageEl.getAttribute('src'));                  // Вернет значение этого атрибута.
+
 // Вариант-2 Доступ к значению атрибута. Это тоже самое что и вариант-1.
-console.log(imageEl.src); // Вернет значение этого атрибута.
+console.log(imageEl.src);                                  // Вернет значение этого атрибута.
 
 // В чем разница между этими вариантами?
 // Вариант-1 появился раньше, это стандартизированный интерфейс для работы с абсолютно любым атрибутом который ты можешь придумать себе.
 // Вариант-2 появился позже, это идет только для тех атрибутов которые идут как свойство объекта. Но практически все полезные атрибуты идут как свойство объекта.
+
 // -----------------------------------------
 // Если мы хотим удалить у элемента атрибут. Используем .removeAttribute()
-// imageEl.removeAttribute('src'); // Это действие удалит атрибут у элемента.
+
+// imageEl.removeAttribute('src');                        // Это действие удалит атрибут у элемента.
 // -----------------------------------------
 // Если мы хотим проверить есть ли атрибут у элемента?
-console.log(imageEl.hasAttribute('src')); // true если есть атрибут и false если нет.
+
+console.log(imageEl.hasAttribute('src'));                 // true если есть атрибут и false если нет.
 
 // ========================================================
 //  * Data-атрибуты
@@ -167,16 +173,16 @@ console.log(imageEl.hasAttribute('src')); // true если есть атрибу
 // Выбираем все кнопки и ищем в середине класа actions любую кнопку.
 const actions = document.querySelectorAll('.js-actions button');
 
-console.log(actions); // NodeList(3) [button, button, button]  (Вернет три кнопки).
+console.log(actions);                              // NodeList(3) [button, button, button]  (Вернет три кнопки).
 
 // Вариант-1
-console.log(actions[0].dataset); // DOMStringMap {action: 'add'} (.dataset - откидывает слово data и оставляет action + значение).
-console.log(actions[0].dataset.action); // add (вернет значение Data-атрибута 1й кнопки).
-console.log(actions[1].dataset.action);     // remove (значение Data-атрибута 2й кнопки).
-console.log(actions[2].dataset.action);       // edit (значение Data-атрибута 3й кнопки).
+console.log(actions[0].dataset);                   // DOMStringMap {action: 'add'} (.dataset - откидывает слово data и оставляет action + значение).
+console.log(actions[0].dataset.action);            // add (вернет значение Data-атрибута 1й кнопки).
+console.log(actions[1].dataset.action);            // remove (значение Data-атрибута 2й кнопки).
+console.log(actions[2].dataset.action);            // edit (значение Data-атрибута 3й кнопки).
 
 // Вариант-2 (но он очень длинный и не удобный)
-console.log(actions[2].getAttribute('data-action')); // edit (значение Data-атрибута 3й кнопки).
+console.log(actions[2].getAttribute('data-action'));        // edit (значение Data-атрибута 3й кнопки).
 
 // =======================================
 // Использую магическую кнопку. Пример.
@@ -185,13 +191,13 @@ magicBtn.addEventListener('click', () => {
   // Получаю ссылку на  этот input.
 
   const inputEl = document.querySelector('.js-input');
-  console.log(inputEl); // <input type="text" class="js-input"> (При клике по кнопке вернет ссылку на input.)
-  console.log(inputEl.value); // qweqwe (Вернет то что ввели в input, при кликнули по кнопке)
+  console.log(inputEl);      // <input type="text" class="js-input"> (При клике по кнопке вернет ссылку на input.)
+  console.log(inputEl.value);                      // qweqwe (Вернет то что ввели в input, при кликнули по кнопке)
 
   // Если я хочу что-то написать в input, то...
 
   inputEl.value = 'пишу что хочу в input';
-  console.log(inputEl.value); // пишу что хочу в input
+  console.log(inputEl.value);                      // пишу что хочу в input
 });
 // =======================================
 |============================
@@ -200,51 +206,52 @@ magicBtn.addEventListener('click', () => {
 /** Свойства classList (Файл 03-classlist.js)
 |============================
 const magicBtn = document.querySelector('.js-magic-btn');
-// ===========================================================
+// -----------------------------------------------------------
 //  * Интерфейс classList()
 //  * - add(класс)          - добавляет класс.
 //  * - remove(класс)       - удаляет класс.
 //  * - toggle(класс)       - если нет класса - то добавляет, если класс есть - то удаляет.
 //  * - replace(старыйКласс, новыйКЛасс) - меняет старый класс на новый.
 //  * - contains(класс) - возвращает true или false в зависимости есть такой класс или нету.
-// ===========================================================
+// -----------------------------------------------------------
 // У каждого элемента есть специальный интерфейс называется classList - это просто свойство в котором хранится объект у которого в прототипе есть всякие методы.
+
 // classList - работает только с классами.
-// ===========================================================
-const navEl = document.querySelector('.site-nav'); // Ищем элемент ul в документе.
+// -----------------------------------------------------------
+const navEl = document.querySelector('.site-nav');    // Ищем элемент ul в документе.
 console.log(navEl.classList);
 
 // .classList.add() Добавляет классы, можно через запятую добавлять несколько штук.
-navEl.classList.add('super-cool', 'qweqwe'); // Добавляем класс 'super-cool' и 'qweqwe' к тегу ul в Html.
+navEl.classList.add('super-cool', 'qweqwe');          // Добавляем класс 'super-cool' и 'qweqwe' к тегу ul в Html.
 
 // .classList.remove() Удаляем классы с тега.
-navEl.classList.remove('super-cool'); // Удаляем класс 'super-cool' с тега ul в Html.
+navEl.classList.remove('super-cool');                 // Удаляем класс 'super-cool' с тега ul в Html.
 
 // .toggle() Если нет класса - то добавляет, если класс есть - то удаляет.
-navEl.classList.toggle('abc'); // добавит клас abc, так как его небыло.
-navEl.classList.toggle('abc'); // удалит клас abc, так как он был.
+navEl.classList.toggle('abc');                        // добавит клас abc, так как его небыло.
+navEl.classList.toggle('abc');                        // удалит клас abc, так как он был.
 
 // .replace() Меняет старый класс на новый.
-navEl.classList.replace('qweqwe', 'new-class'); // Меняем класс qweqwe на new-class
+navEl.classList.replace('qweqwe', 'new-class');       // Меняем класс qweqwe на new-class
 
 // .contains() Возвращает true или false в зависимости есть такой класс или нету.
-navEl.classList.contains('new-class'); // true
+navEl.classList.contains('new-class');                // true
 
-// ===========================================================
+// -----------------------------------------------------------
 // Поиск по значению атрибута у элемента.
 // Юзкейс Если нам нужно где-то к элементу подменить,удалить,добавить класс или еще что-то.
-// ===========================================================
+// -----------------------------------------------------------
 const currentPageUrl = '/portfolio';
 
 // ! Пример поиска по атрибуту href элемента и значению этого атрибута.
 // Это приктически одинаковые записи.
-// |============================
+// ---------------------------------
 .site-nav__link[href = "/about}"] 
 // поиск по более специфичному селектору .site-nav__link у которого есть атрибут href и значение этого атрибута "/about".
 
 a[href="/about"]
 // поиск по тегу (а) у которого есть атрибут href и значение этого атрибута "/about".
-// |============================
+// ---------------------------------
 
 const linkEl = document.querySelector(
   `.site-nav__link[href ="${currentPageUrl}"]`
@@ -258,7 +265,7 @@ linkEl.classList.add('site-nav__link--current'); // Портфолио надп�
 // ==============================================================
 /** Свойство «навигации» по DOM  (04-dom-traversal.js) 
 |============================
-// =======================================================
+// -----------------------------------------------------------
 //  * Свойства «навигации» по DOM-узлам (взять список)
 //  * http://fecore.net.ua/books/m5ph3r-javascript/module-07/dom-traversal.html
 //  *
@@ -273,7 +280,7 @@ linkEl.classList.add('site-nav__link--current'); // Портфолио надп�
 //  * elem.previousElementSibling - вибере вузол-елемент «зліва» від elem (його попереднього сусіда).
 //  * elem.nextSibling - вибере елемент «праворуч» від elem (його наступного сусіда)
 //  * elem.nextElementSibling - вибере вузол-елемент «праворуч» від elem (його наступного сусіда).
-// =======================================================
+// -----------------------------------------------------------
 // Навигации по DOM.
 
 const navEl = document.querySelector('.site-nav');
@@ -281,34 +288,40 @@ const navEl = document.querySelector('.site-nav');
 // Вариант-1 (Один подход).
 // -----------------------------------
 // Получаем псевдомасив, элементов отвечающих данному селектору. И будем правы. Но...
+
 const navElAll = document.querySelectorAll('.site-nav__item');
-console.log(navElAll); // NodeList(3) [li.site-nav__item, li.site-nav__item, li.site-nav__item]
+console.log(navElAll);                   // NodeList(3) [li.site-nav__item, li.site-nav__item, li.site-nav__item]
 
 // Допустим мне нужно внутри этого <ul class="site-nav"> очень быстро получить ссылку на первый элемент.
 
 // Получаем первый дочирний узел-элемент в середине элемента. И будем правы. Но...
+
 const firstNavItemEl = navEl.querySelector('.site-nav__item');
-console.log(firstNavItemEl); // <li class="site-nav__item"></li>
+console.log(firstNavItemEl);                                        // <li class="site-nav__item"></li>
 
 // ----- ТЕПЕРЬ ПЕРЕПИСЫВАЕМ ТОЖЕ САМОЕ, НО В ЛУДШЕМ ВАРИАНТЕ! -----
 
 // Вариант-2  // (Другой подход). Результат тот-же самый, что и вариант - 1.
 // -----------------------------------
 // Псевдомасив, сохраняет только дочерние узлы-элементы, тоесть только те, которые отвечают тегам.
+
 const navElemAll = navEl.children;
 console.log(navElemAll); // HTMLCollection(3) [li.site-nav__item, li.site-nav__item, li.site-nav__item]
 
 // Получаем первый дочерний узел-элемент в середине элемента.
+
 const firstNavItemElem = navEl.firstElementChild;
-console.log(firstNavItemElem); // <li class="site-nav__item first"></li>
+console.log(firstNavItemElem);                                       // <li class="site-nav__item first"></li>
 
 // Получаем последний дочерний узел-элемент в середине элемента.
+
 const lastNavItemElem = navEl.lastElementChild;
-console.log(lastNavItemElem); // <li class="site-nav__item last"></li>
+console.log(lastNavItemElem);                                       // <li class="site-nav__item last"></li>
 
 // Получаем второй дочерний узел-элемент в середине элемента.
+
 const secondNavItemElem = navEl.children[1];
-console.log(secondNavItemElem); // <li class="site-nav__item second"></li>
+console.log(secondNavItemElem);                                     // <li class="site-nav__item second"></li>
 
 // Нам нужно хорошо помнить про firstElementChild, children, lastElementChild, а остальные предыдущий-следующий-сосед не очень полезно!
 
@@ -329,12 +342,13 @@ console.log(secondNavItemElem); // <li class="site-nav__item second"></li>
 // - елемент-А - это элемент в который добовляем.
 // - элемент-В - это элемент который хотим добавить.
 
-const titleEl = document.createElement('h1'); // Создаем заголовок h1.
-titleEl.classList.add('page-title'); // Создаём клас page-title элементу h1.
-titleEl.textContent = 'Это заголовок страницы :)'; // Создаем текст заголовку.
-// console.log(titleEl); // <h1 class="page-title">Это заголовок страницы :)</h1>
+const titleEl = document.createElement('h1');           // Создаем заголовок h1.
+titleEl.classList.add('page-title');                    // Создаём клас page-title элементу h1.
+titleEl.textContent = 'Это заголовок страницы :)';      // Создаем текст заголовку.
+// console.log(titleEl);                                // <h1 class="page-title">Это заголовок страницы :)</h1>
 
-// document.body.appendChild(titleEl); // Добавляем созданный заголовок h1 в DOM дерево, в элемент body.
+// Добавляем созданный заголовок h1 в DOM дерево, в элемент body.
+// document.body.appendChild(titleEl); 
 
 // ===============================
 //  * Создаём изображение
@@ -345,37 +359,41 @@ titleEl.textContent = 'Это заголовок страницы :)'; // Соз
 // ==========================================================
 // 1) Создаем тег img.
 const imageEl = document.createElement('img');
+
 // 2) Создаем атрибут src и добовляем в него ссылку.
 imageEl.src =
   'https://cdn.pixabay.com/photo/2018/07/26/07/45/valais-3562988_1280.jpg';
+
 // 3) Создаем атрибут alt и добовляем в него текст.
 imageEl.alt = 'valais-alpine-mountains-glacier';
+
 // 4) Записываем размер высоты картинки.
 // Вариант-1
 imageEl.width = 320;
-// Вариант-2
-// imageEl.setAttribute('width', 640); // Но этот вариант громоздкий.
 
+// Вариант-2
+// imageEl.setAttribute('width', 640);                       // Но этот вариант громоздкий.
 // console.log('imageEl', imageEl);
 
-document.body.appendChild(imageEl); // Добавляем картинку в конец элемента body, в DOM.
+// Добавляем картинку в конец элемента body, в DOM.
+document.body.appendChild(imageEl); 
 
 // Тут очень важно понимать а Html уже что-то должно быть куда ты это добавляешь. Подругому оно не будет работать.
 
 // ==========================================================
 //  * Создаём и добавляем новый пункт меню
 // ==========================================================
-// ----- Создаем.
-const navItemEl = document.createElement('li'); // Создаем элемент тег li.
-navItemEl.classList.add('site-nav__item'); // Создаем элементу li класс site-nav__item.
+const navItemEl = document.createElement('li');      // Создаем элемент тег li.
+navItemEl.classList.add('site-nav__item');           // Создаем элементу li класс site-nav__item.
 
-const navLinkEl = document.createElement('a'); // Создаем новый элемент(а) ссылку.
-navLinkEl.classList.add('site-nav__link'); // Создаем ссылке класс site-nav__link.
-navLinkEl.textContent = 'Личный кабинет'; // Создаем текст ссылки элементу(а).
-navLinkEl.href = '/profile'; // Создаем(вставляем) ссылку в элемент(а).
+const navLinkEl = document.createElement('a');       // Создаем новый элемент(а) ссылку.
+navLinkEl.classList.add('site-nav__link');           // Создаем ссылке класс site-nav__link.
+navLinkEl.textContent = 'Личный кабинет';            // Создаем текст ссылки элементу(а).
+navLinkEl.href = '/profile';                         // Создаем(вставляем) ссылку в элемент(а).
 
 // После создания элемента (li) и элемента (а), и заполнили их, мы их объединяем-вкладываем элемент(а) в элемент(li).
-navItemEl.appendChild(navLinkEl); // Вкладываем ссылку(тег-а) в элемент li.
+
+navItemEl.appendChild(navLinkEl);                    // Вкладываем ссылку(тег-а) в элемент li.
 
 console.log(navItemEl); // <li class="site-nav__item"><a class="site-nav__link" href="/profile">Личный кабинет</a></li>
 
@@ -440,8 +458,11 @@ navEl.insertBefore(navItemEl, navEl.firstElementChild);
 // ==========================================================
 // Добавляем в Hero ранее нами созданные элементы titleEl и imageEl.
 // ---------------------------------------------
+
 const heroEl = document.querySelector('.hero');
+
 // Вариант вставки нескольких элементов по очереди отдельно.
+
 // heroEl.appendChild(titleEl);
 // heroEl.appendChild(imageEl);
 
@@ -470,13 +491,14 @@ const colorPickerOptions = [
 // Пример: Cоздания одной кнопки для элемента масива colorPickerOptions
 // =========================
 // Создаю опцию для доступа к объекту в масиве colorPickerOptions.
+
 const option = colorPickerOptions[0];
 
-const buttonEl = document.createElement('button'); // Создаем кнопку.
-buttonEl.type = 'button'; // Вешаю тип созданной кнопке.
-buttonEl.textContent = option.label; // Вешаю текст кнопке из свойства label.
-buttonEl.style.backgroundColor = option.color; // Добавл.цвет кнопке из свойства color.
-// buttonEl.style.width = 40; // Добавляю размер(ширину) кнопке.
+const buttonEl = document.createElement('button');       // Создаем кнопку.
+buttonEl.type = 'button';                                // Вешаю тип созданной кнопке.
+buttonEl.textContent = option.label;                     // Вешаю текст кнопке из свойства label.
+buttonEl.style.backgroundColor = option.color;           // Добавл.цвет кнопке из свойства color.
+// buttonEl.style.width = 40;                            // Добавляю размер(ширину) кнопке.
 
 // console.log(buttonEl);
 
@@ -485,6 +507,7 @@ buttonEl.style.backgroundColor = option.color; // Добавл.цвет кноп
 // Вариант-1 Это совсем OLD SHOOL.
 // =============================================================
 // Находим контейнер (div с классом js-color-picker)
+
 const colorPickerContainerEl = document.querySelector('.js-color-picker');
 
 const elements = [];
@@ -493,39 +516,41 @@ for (let i = 0; i < colorPickerOptions.length; i += 1) {
   // Создаю опцию для доступа к объекту в масиве colorPickerOptions.
   const option = colorPickerOptions[i];
 
-  const buttonEl = document.createElement('button'); // Создаем кнопку.
+  const buttonEl = document.createElement('button');           // Создаем кнопку.
   buttonEl.type = 'button'; // Вешаю тип созданной кнопке.
-  buttonEl.classList.add('color-picker__option'); // Вешаю класс на кнопку. Он есть в CSS.
-  buttonEl.textContent = option.label; // Вешаю текст кнопке из свойства label.
-  buttonEl.style.backgroundColor = option.color; // Добавл.цвет кнопке из свойства color.
-  // buttonEl.style.width = 40; // Добавляю размер(ширину) кнопке.
+  buttonEl.classList.add('color-picker__option');              // Вешаю класс на кнопку. Он есть в CSS.
+  buttonEl.textContent = option.label;                         // Вешаю текст кнопке из свойства label.
+  buttonEl.style.backgroundColor = option.color;               // Добавл.цвет кнопке из свойства color.
+  // buttonEl.style.width = 40;                                // Добавляю размер(ширину) кнопке.
 
-  elements.push(buttonEl); // Пушу в масив elements.
+  elements.push(buttonEl);                                     // Пушу в масив elements.
 }
 
-console.log(elements); // Получаю масив кнопок.
+console.log(elements);                                         // Получаю масив кнопок.
 
-colorPickerContainerEl.append(...elements); // Распыляю в div (js-color-picker) элементы.
+colorPickerContainerEl.append(...elements);                    // Распыляю в div (js-color-picker) элементы.
+
 // =============================================================
 // Создаём масив опций(кнопок). Современный метод.
 // =============================================================
 // Находим контейнер (div с классом js-color-picker)
+
 const colorPickerContainerEl = document.querySelector('.js-color-picker');
 
 const elements = colorPickerOptions.map(option => {
-  const buttonEl = document.createElement('button'); // Создаем кнопку.
-  buttonEl.type = 'button'; // Вешаю тип созданной кнопке.
-  buttonEl.classList.add('color-picker__option'); // Вешаю класс на кнопку. Он есть в CSS.
-  buttonEl.textContent = option.label; // Вешаю текст кнопке из свойства label.
-  buttonEl.style.backgroundColor = option.color; // Добавл.цвет кнопке из свойства color.
-  // buttonEl.style.width = 40; // Добавляю размер(ширину) кнопке.
+  const buttonEl = document.createElement('button');           // Создаем кнопку.
+  buttonEl.type = 'button';                                    // Вешаю тип созданной кнопке.
+  buttonEl.classList.add('color-picker__option');              // Вешаю класс на кнопку. Он есть в CSS.
+  buttonEl.textContent = option.label;                         // Вешаю текст кнопке из свойства label.
+  buttonEl.style.backgroundColor = option.color;               // Добавл.цвет кнопке из свойства color.
+  // buttonEl.style.width = 40;                                // Добавляю размер(ширину) кнопке.
 
   return buttonEl;
 });
 
-console.log(elements); // Получаю масив кнопок.
+console.log(elements);                                        // Получаю масив кнопок.
 
-colorPickerContainerEl.append(...elements); // Распыляю в div (js-color-picker) элементы.
+colorPickerContainerEl.append(...elements);                   // Распыляю в div (js-color-picker) элементы.
 
 // =============================================================
 // * Пишем функцию для создания разметки колорпикера (Тоже самое только в функции).
@@ -533,25 +558,27 @@ colorPickerContainerEl.append(...elements); // Распыляю в div (js-color
 // ** Эта функция будет получать масив опций(масив объектов colorPickerOptions) и возвращать масив разметки.
 
 // Находим контейнер (div с классом js-color-picker)
+
 const colorPickerContainerEl = document.querySelector('.js-color-picker');
 
 // Создаём функцию которая получает в параметр (options - масив объектов) и возвращает результат работы метода map(), который создает кнопки.
+
 const makeColorPickerOptions = options => {
   return options.map(option => {
-    const buttonEl = document.createElement('button'); // Создаем кнопку.
-    buttonEl.type = 'button'; // Вешаю тип созданной кнопке.
-    buttonEl.classList.add('color-picker__option'); // Вешаю класс на кнопку. Он есть в CSS.
-    buttonEl.textContent = option.label; // Вешаю текст кнопке из свойства label.
-    buttonEl.style.backgroundColor = option.color; // Добавл.цвет кнопке из свойства color.
-    // buttonEl.style.width = 40; // Добавляю размер(ширину) кнопке.
+    const buttonEl = document.createElement('button');          // Создаем кнопку.
+    buttonEl.type = 'button';                                   // Вешаю тип созданной кнопке.
+    buttonEl.classList.add('color-picker__option');             // Вешаю класс на кнопку. Он есть в CSS.
+    buttonEl.textContent = option.label;                        // Вешаю текст кнопке из свойства label.
+    buttonEl.style.backgroundColor = option.color;              // Добавл.цвет кнопке из свойства color.
+    // buttonEl.style.width = 40;                               // Добавляю размер(ширину) кнопке.
 
     return buttonEl;
   });
 };
 
-const elements = makeColorPickerOptions(colorPickerOptions); // Вызываем функцию и передаем в аргументы масив объектов.
+const elements = makeColorPickerOptions(colorPickerOptions);    // Вызываем функцию и передаем в аргументы масив объектов.
 
-colorPickerContainerEl.append(...elements); // Распыляю в div (js-color-picker) элементы.
+colorPickerContainerEl.append(...elements);                     // Распыляю в div (js-color-picker) элементы.
 |============================
 */
 // ==============================================================
@@ -587,20 +614,20 @@ const productEl = document.createElement('article');   // Создаём эле�
 productEl.classList.add('product');                    // Добавляем класс для "article".
 
 const nameEl = document.createElement('h2');           // Создаём заголовок "h2".
-nameEl.textContent = product.name;          // Вставляем текст в заголовок, из свойства "name"
+nameEl.textContent = product.name;                     // Вставляем текст в заголовок, из свойства "name"
 nameEl.classList.add('product__name');                 // Добавляем класс заголовку.
 
 const descrEl = document.createElement('p');           // Создаём абзац "p".
-descrEl.textContent = product.description; // Вставляем текст в абзац, свойства "description"
+descrEl.textContent = product.description;             // Вставляем текст в абзац, свойства "description"
 descrEl.classList.add('product__descr');               // Добавляем класс абзацу.
 
 const priceEl = document.createElement('p');           // Создаём price "p".
 priceEl.textContent = `Цена: ${product.price} кредитов`; // Вставляем текст в абзац, свойства "price"
 priceEl.classList.add('product__price');               // Добавляем класс к price.
 
-productEl.append(nameEl, descrEl, priceEl);      // Соединяем все в productEl и добовляем как гроздь винограда в DOM.
+productEl.append(nameEl, descrEl, priceEl);            // Соединяем все в productEl и добовляем как гроздь винограда в DOM.
 
-// console.log(productEl);         // <article class="product">...</article> получаем карточку продукта.
+// console.log(productEl);                   // <article class="product">...</article> получаем карточку продукта.
 // ==============================================================
 // Идём дальше...
 //  * Пишем функцию для создания карточки продукта.
@@ -613,7 +640,6 @@ import products from './products.js';
 // console.log(products);
 // --------------------------------------------------------------
 
-// ==============================================================
 // Функция получает один объект и из этого объекта создаёт одну карточку продукта.
 
 const makeProductCard = ({ name, description, price }) => {
@@ -621,23 +647,23 @@ const makeProductCard = ({ name, description, price }) => {
   productEl.classList.add('product');                     // Добавляем класс для "article".
 
   const nameEl = document.createElement('h2');           // Создаём заголовок "h2".
-  nameEl.textContent = name;                // Вставляем текст в заголовок, из свойства "name"
+  nameEl.textContent = name;                             // Вставляем текст в заголовок, из свойства "name"
   nameEl.classList.add('product__name');                 // Добавляем класс заголовку.
 
   const descrEl = document.createElement('p');           // Создаём абзац "p".
-  descrEl.textContent = description;       // Вставляем текст в абзац, свойства "description"
+  descrEl.textContent = description;                     // Вставляем текст в абзац, свойства "description"
   descrEl.classList.add('product__descr');               // Добавляем класс абзацу.
 
   const priceEl = document.createElement('p');           // Создаём price "p".
   priceEl.textContent = `Цена: ${price} кредитов`;       // Вставляем текст в абзац, свойства "price"
   priceEl.classList.add('product__price');               // Добавляем класс к price.
 
-  productEl.append(nameEl, descrEl, priceEl);      // Соединяем все в productEl и добовляем их, получается гроздь винограда.
+  productEl.append(nameEl, descrEl, priceEl);            // Соединяем все в productEl и добовляем их, получается гроздь винограда.
 
   return productEl;
 };
 
-// console.log(makeProductCard(products[0])); // Вызов функции вернет один объект - карточку.
+// console.log(makeProductCard(products[0]));            // Вызов функции вернет один объект - карточку.
 // ==============================================================
 // Идём дальше...
 // Делаем много этих карточек.
@@ -651,23 +677,23 @@ const elem = products.map(({ name, description, price }) => {
   productEl.classList.add('product');                     // Добавляем класс для "article".
 
   const nameEl = document.createElement('h2');            // Создаём заголовок "h2".
-  nameEl.textContent = name;                // Вставляем текст в заголовок, из свойства "name"
+  nameEl.textContent = name;                              // Вставляем текст в заголовок, из свойства "name"
   nameEl.classList.add('product__name');                  // Добавляем класс заголовку.
 
   const descrEl = document.createElement('p');            // Создаём абзац "p".
-  descrEl.textContent = description;        // Вставляем текст в абзац, свойства "description"
+  descrEl.textContent = description;                      // Вставляем текст в абзац, свойства "description"
   descrEl.classList.add('product__descr');                // Добавляем класс абзацу.
 
   const priceEl = document.createElement('p');            // Создаём price "p".
-  priceEl.textContent = `Цена: ${price} кредитов`;       // Вставляем текст в абзац, свойства "price"
-  priceEl.classList.add('product__price');               // Добавляем класс к price.
+  priceEl.textContent = `Цена: ${price} кредитов`;        // Вставляем текст в абзац, свойства "price"
+  priceEl.classList.add('product__price');                // Добавляем класс к price.
 
-  productEl.append(nameEl, descrEl, priceEl);      // Соединяем все в productEl и добовляем как гроздь винограда в DOM.
+  productEl.append(nameEl, descrEl, priceEl);             // Соединяем все в productEl и добовляем как гроздь винограда в DOM.
 
   return productEl;
 });
 
-// console.log(elem);      // (4) [article.product, article.product, article.product, article.product]
+// console.log(elem);                // (4) [article.product, article.product, article.product, article.product]
 
 // ==============================================================
 // Вариант-2 (Пример)
@@ -676,7 +702,7 @@ const elem = products.map(({ name, description, price }) => {
 
 const elements = products.map(makeProductCard);
 
-console.log(elements);     // (4) [article.product, article.product, article.product, article.product]
+console.log(elements);                // (4) [article.product, article.product, article.product, article.product]
 // ==============================================================
 // Идём дальше...
 // Все что мы создали вешаем(вкладываем) в контейнер в документе, в DOM.
@@ -685,7 +711,7 @@ console.log(elements);     // (4) [article.product, article.product, article.pro
 
 const productsContainerEl = document.querySelector('.js-products');
 
-productsContainerEl.append(...elements);     // Распыляем наши элементы(карточки) в контейнер.
+productsContainerEl.append(...elements);                    // Распыляем наши элементы(карточки) в контейнер.
 |============================
 */
 // ==============================================================
@@ -697,29 +723,29 @@ productsContainerEl.append(...elements);     // Распыляем наши эл
 //  * - запись
 // =============================================
 
-const titleEl = document.querySelector('.title'); // Получаем доступ к заголовку.
+const titleEl = document.querySelector('.title');             // Получаем доступ к заголовку.
 
 // ** textContent - Вернёт весь текстовый контент внутри тега без вложеных тегов.
 // ** innerHTML - Вернёт всю вложеную разметку в виде одной строки.
 
-console.log(titleEl.textContent); // Это заголовок
-console.log(titleEl.innerHTML); // Это <span>заголовок</span>
+console.log(titleEl.textContent);                            // Это заголовок
+console.log(titleEl.innerHTML);                              // Это <span>заголовок</span>
 
 // Используя свойство innerHTML перизаписать внутренность. Перезапишет на место старого,новое.
 // Когда мы что-то ставим через innerHTML и парсер внутри этой строки видит теги, он эти теги будет создовать.
 
-titleEl.innerHTML = '<a href="">Это ссылка)</a>'; // В заголовок вставляем ссылку.
+titleEl.innerHTML = '<a href="">Это ссылка)</a>';            // В заголовок вставляем ссылку.
 // ---------------------------------------------
 // Используйте innerHTML только в том случае, если нам нужно или полностью очистить значение элемента, сделатьего пустым (пустую строку), или записать полностью по верх старого что-то новое, не сохраняя старого.
 
 // Так можно! Старое все удалит, а новую ссылку(а) создаст.
 
-titleEl.innerHTML = '<a href="">Это ссылка)</a>'; // <h1 class="title"><a href="">Это ссылка)</a></h1>
+titleEl.innerHTML = '<a href="">Это ссылка)</a>';            // <h1 class="title"><a href="">Это ссылка)</a></h1>
 
 // Так можно! Если я хочу что-то почистить полностью, оставить пустую строку.
 // Плюс innerHTML в том, что с помощью innerHTML очень просто очистить контент тега.
 
-titleEl.innerHTML = ''; // <h1 class="title"></h1> Очистит полностью, title будет пустой.
+titleEl.innerHTML = '';                          // <h1 class="title"></h1> Очистит полностью, title будет пустой.
 
 // ---------------------------------------------
 // Так нельзя! Дабавлять что-то с innerHTML через (+=)
@@ -727,7 +753,7 @@ titleEl.innerHTML = ''; // <h1 class="title"></h1> Очистит полност
 // (+=) использовать через innerHTML нельзя. То-есть дабовлять что-то новое к уже существующему через innerHTML нельзя. Потому как innerHTML в этом случае удалит все старое, потом опять создаст то - что было, и потом добавит новое. А это в свою очередь перегружает систему.
 
 // Так нельзя!
-// titleEl.innerHTML += '<a href="">Это ссылка)</a>'; // В заголовок добавлять ссылку.
+// titleEl.innerHTML += '<a href="">Это ссылка)</a>';        // В заголовок добавлять ссылку.
 
 // ========================================================
 // Добавление разметки с помощью insertAdjacentHTML()
@@ -747,25 +773,30 @@ titleEl.innerHTML = ''; // <h1 class="title"></h1> Очистит полност
 // * "beforeend" - в середине elem, после всех детей
 // * "afterend" - посля elem
 // -------------------------------------------
+
+// Поставит перед элементом titleEl, буквально ссылку поставит перед тегом h1.
 titleEl.insertAdjacentHTML(
   'beforebegin',
   '<a href="" class="title__link">Это ссылка)</a>'
-); // Поставит перед элементом titleEl, буквально ссылку поставит перед тегом h1.
+);                                  
 
+// Поставит после элементом titleEl, буквально ссылку поставит после тега h1.
 titleEl.insertAdjacentHTML(
   'afterend',
   '<a href="" class="title__link">Это ссылка)</a>'
-); // Поставит после элементом titleEl, буквально ссылку поставит после тега h1.
+); 
 
+// Поставит после начала, тоесть поставит самым первым элементом в элементе теге h1.
 titleEl.insertAdjacentHTML(
   'afterbegin',
   '<a href="" class="title__link">Это ссылка)</a>'
-); // Поставит после начала, тоесть поставит самым первым элементом в элементе теге h1.
+); 
 
+// Поставит перед самым концом , тоесть поставит самым последним элементом в элементе теге h1.
 titleEl.insertAdjacentHTML(
   'beforeend',
   '<a href="" class="title__link">Это ссылка)</a>'
-); // Поставит перед самым концом , тоесть поставит самым последним элементом в элементе теге h1.
+);
 |============================
 */
 // ==============================================================

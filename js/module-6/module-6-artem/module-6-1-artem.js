@@ -206,6 +206,7 @@ import cars from './cars.js';
 // ==============================================================
 
 // До внесения данных (добавления дополнительных элементов li)
+
 // const listStatic = document.querySelectorAll('li');
 // const listDynamics = document.getElementsByTagName('li');
 
@@ -214,6 +215,7 @@ import cars from './cars.js';
 // const li = document.createElement('li');            // Добавляем еще элемент li.
 // li.textContent = list.children.length + 1;
 // list.append(li);
+
 // const li2 = document.createElement('li');           // И еще добавляем элемент li.
 // li2.textContent = list.children.length + 1;
 // list.append(li2);
@@ -291,23 +293,23 @@ import cars from './cars.js';
 // Удаление Html элементов.
 // ==============================================================
 
-const container = document.querySelector('.js-container');
+// const container = document.querySelector('.js-container');
 
-const markup = cars
-  .map(
-    ({ id = 'none', model, type, price, img }) =>
-      `<li data-id="${id}">
-        <img src="${img}" alt="${model}" class="img" />
-        <h2>Марка - ${model}</h2>
-        <h3>Модель - ${type}</h3>
-        <p>Цена - ${price}</p>
-    </li>`
-  )
-  .join('');
+// const markup = cars
+//   .map(
+//     ({ id = 'none', model, type, price, img }) =>
+//       `<li data-id="${id}">
+//         <img src="${img}" alt="${model}" class="img" />
+//         <h2>Марка - ${model}</h2>
+//         <h3>Модель - ${type}</h3>
+//         <p>Цена - ${price}</p>
+//     </li>`
+//   )
+//   .join('');
 
-container.insertAdjacentHTML('beforeend', markup);
+// container.insertAdjacentHTML('beforeend', markup);
 
-const containerAfter = document.querySelector('.js-container');
+// const containerAfter = document.querySelector('.js-container');
 
 // --------------------------------------------------------------------
 // Если нам нужно полностью почистить наш контейнер, удалить всех детей.
@@ -331,11 +333,11 @@ const containerAfter = document.querySelector('.js-container');
 // --------------------------------------------------------------------
 // Допустим мы хочем удалить те эл., у которых есть data-атрибут-id. Это у нас один эл., почледний Volvo.
 
-[...containerAfter.children].forEach(item => {
-  if (item.dataset.id !== 'none') {
-    item.remove();
-  }
-});
+// [...containerAfter.children].forEach(item => {
+//   if (item.dataset.id !== 'none') {
+//     item.remove();
+//   }
+// });
 
 // ----------------------------------------
 // На сегоднишний день нам самое важное
