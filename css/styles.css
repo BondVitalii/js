@@ -18,16 +18,17 @@ li {
   color: currentColor;
 }
 body {
-  padding: 6px;
+  padding: 42px 6px 6px 6px;
 }
 .home-wrapper {
-  display: inline-block;
-  margin-right: 200px;
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  display: block;
   padding: 4px 10px;
   background-color: white;
   border: 2px solid black;
   border-radius: 6px;
-  margin-bottom: 4px;
 }
 .module-list {
   display: inline-flex;

@@ -1,4 +1,4 @@
-import cars from './cars.js';
+import cars from './cars-6-1.js';
 
 // console.log(cars);
 
