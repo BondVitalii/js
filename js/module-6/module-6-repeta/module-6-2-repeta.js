@@ -87,21 +87,24 @@ function onTargetButtonClick() {
 // -------------------------------------------------------------------------
 // Когда я клацну кнопку "Добавить слушатель" - это действие на целевую кнопку вешает слушателя. Тоесть при клике на одну кнопку вешаю слушателя на другую. И тоже самое когда я клацну на кнопку "Снять слушатель" - это действие снимет с целевой кнопки слушателя.
 
-// Внутри этой функции addListenerBtn я буду добавлять слушателя событий на целевую кнопку.
+// * Внутри этой функции addListenerBtn я буду добавлять слушателя событий на целевую кнопку.
+
 addListenerBtn.addEventListener('click', () => {
   console.log('Вешаю слушателя событий на целевую кнопку');
 
   targetBtn.addEventListener('click', onTargetBtnClick);
 });
 
-// Внутри этой функции removeListenerBtn я буду убирать слушателя событий с целевой кнопки.
+// * Внутри этой функции removeListenerBtn я буду убирать слушателя событий с целевой кнопки.
+
 removeListenerBtn.addEventListener('click', () => {
   console.log('Снимаю слушателя событий с целевой кнопки');
 
   targetBtn.removeEventListener('click', onTargetBtnClick);
 });
 
-// Пишу функцию которая регестирирует событие клик.
+// * Пишу функцию которая регестирирует событие клик.
+
 function onTargetBtnClick() {
   console.log('Клик по целевой кнопке');
 }
@@ -141,19 +144,19 @@ function onTargetBtnClick(event) {
 //  * - Класс FormData - https://developer.mozilla.org/en-US/docs/Web/API/FormData
 // ---------------------------------------
 
-const form = document.querySelector('.js-register-form'); // Получаю дочтуп к форме.
+const form = document.querySelector('.js-register-form');   // Получаю дочтуп к форме.
 
-form.addEventListener('submit', onFormSubmit); // Вешаю слушателя событий для формы.
+form.addEventListener('submit', onFormSubmit);              // Вешаю слушателя событий для формы.
 
 function onFormSubmit(event) {
-  event.preventDefault(); // Предотвращаем по умолчанию перезагрузку вкладки браузером.
+  event.preventDefault();                                   // Предотвращаем по умолчанию перезагрузку вкладки браузером.
 
-  const formData = new FormData(event.currentTarget); // Делаю ссылку на сам DOM элемент.
+  const formData = new FormData(event.currentTarget);       // Делаю ссылку на сам DOM элемент.
 
   console.dir(formData);
 
   // Первым параметром объявляем значения этого поля, а вторым параметром имя этого поля.
-  
+
   formData.forEach((value, name) => {
     console.log('onFormSubmit -> name', name);
     console.log('onFormSubmit -> value', value);
@@ -168,7 +171,7 @@ function onFormSubmit(event) {
 |============================
 */
 // ==============================================================
-/** События инпутов и ввода (Файл - 03 - input - events.js)
+/** События инпутов и ввода (Паттерн «Объект ссылок», События: focus и blur, input и change, Чекбоксы и свойство checked) (Файл - 03 - input - events.js)
 |============================
 // ---------------------------------------
 //  * Паттерн «Объект ссылок»
@@ -258,7 +261,7 @@ function onLicenseChange(event) {
 |============================
 */
 // ==============================================================
-/** События клавиатуры (04-keyboard-events.js) (видео 56:33)
+/** События клавиатуры (Cобытий: keypress, keydown, keyup) (04-keyboard-events.js) (видео 56:33)
 |============================
 // ---------------------------------------
 //  * Типы событий: keypress, keydown, keyup
@@ -331,7 +334,7 @@ function onClearOutput() {
 |============================
 */
 // ==============================================================
-/** События мыши (05-mouse-events.js) (видео 1:05:30)
+/** События мыши () (05-mouse-events.js) (видео 1:05:30)
 |============================
 // =======================================
 //  * События мыши
@@ -343,22 +346,22 @@ function onClearOutput() {
 // =======================================
 // ** Ховер - Фокус. Пример: Меняем цвет на боксе при наведении мышки.
 // ---------------------------------------
-const boxRef = document.querySelector('.js-box'); // Получаем ссылку на элемент js-box.
+const boxRef = document.querySelector('.js-box');         // Получаем ссылку на элемент js-box.
 // ---------------------------------------
 // * - mouseenter - срабатывает когда мышка заходит в границы блока и находится над ним и  его детьми которые внутри него.
 // * - mouseleave - срабатывает когда мышка выходит за границы блока.
 // ---------------------------------------
-// boxRef.addEventListener('mouseenter', onMouseEnter); // Когда мышка на боксе.
-// boxRef.addEventListener('mouseleave', onMouseLeave); // Когда мышка выходит за этот бокс
+// boxRef.addEventListener('mouseenter', onMouseEnter);   // Когда мышка на боксе.
+// boxRef.addEventListener('mouseleave', onMouseLeave);   // Когда мышка выходит за этот бокс
 
 // function onMouseEnter(event) {
-//   const box = event.currentTarget; // Получаем ссылку на этот бокс.
-//   box.classList.add('box--active'); // Дабавляем ему класс box--active (его стили в CSS).
+//   const box = event.currentTarget;        // Получаем ссылку на этот бокс.
+//   box.classList.add('box--active');       // Дабавляем ему класс box--active (его стили в CSS).
 // }
 
 // function onMouseLeave(event) {
-//   const box = event.currentTarget; // Получаем ссылку на этот бокс.
-//   box.classList.remove('box--active'); // Убираем у него класс box--active.
+//   const box = event.currentTarget;        // Получаем ссылку на этот бокс.
+//   box.classList.remove('box--active');    // Убираем у него класс box--active.
 // }
 
 // function onMouseMove(event) {
@@ -368,17 +371,17 @@ const boxRef = document.querySelector('.js-box'); // Получаем ссылк
 // * - mouseover - Срабатывает когда мышка заходит в границы бокса и работает над самим элементом, как только мышка переходит на детей которые внутри этого бокса, то срабатывает mouseout.
 // * - mouseout  - Срабатывает когда мышка над детьми элемента mouseover.
 // ---------------------------------------
-// boxRef.addEventListener('mouseover', onMouseEnter); // Когда мышка на боксе.
-// boxRef.addEventListener('mouseout', onMouseLeave); // Когда мышка выходит за этот бокс
+// boxRef.addEventListener('mouseover', onMouseEnter);    // Когда мышка на боксе.
+// boxRef.addEventListener('mouseout', onMouseLeave);     // Когда мышка выходит за этот бокс
 
 // function onMouseEnter(event) {
-//   const box = event.currentTarget; // Получаем ссылку на этот бокс.
-//   box.classList.add('box--active'); // Дабавляем ему класс box--active (его стили в CSS).
+//   const box = event.currentTarget;                    // Получаем ссылку на этот бокс.
+//   box.classList.add('box--active');                   // Дабавляем ему класс box--active (его стили в CSS).
 // }
 
 // function onMouseLeave(event) {
-//   const box = event.currentTarget; // Получаем ссылку на этот бокс.
-//   box.classList.remove('box--active'); // Убираем у него класс box--active.
+//   const box = event.currentTarget;                   // Получаем ссылку на этот бокс.
+//   box.classList.remove('box--active');               // Убираем у него класс box--active.
 // }
 
 // function onMouseMove(event) {
@@ -391,13 +394,13 @@ const boxRef = document.querySelector('.js-box'); // Получаем ссылк
 boxRef.addEventListener('mousemove', onMouseMove);
 
 function onMouseEnter(event) {
-  const box = event.currentTarget; // Получаем ссылку на этот бокс.
-  box.classList.add('box--active'); // Дабавляем ему класс box--active (его стили в CSS).
+  const box = event.currentTarget;                     // Получаем ссылку на этот бокс.
+  box.classList.add('box--active');                    // Дабавляем ему класс box--active (его стили в CSS).
 }
 
 function onMouseLeave(event) {
-  const box = event.currentTarget; // Получаем ссылку на этот бокс.
-  box.classList.remove('box--active'); // Убираем у него класс box--active.
+  const box = event.currentTarget;                    // Получаем ссылку на этот бокс.
+  box.classList.remove('box--active');                // Убираем у него класс box--active.
 }
 
 function onMouseMove(event) {
@@ -424,28 +427,29 @@ const refs = {
 };
 
 // ** Вешаем слушателей события.
-refs.openModalBtn.addEventListener('click', onOpenModal); // Открыть по кнопке модалку.
-refs.closeModalBtn.addEventListener('click', onCloseModal); // Закрыть по кнопке модалку.
-refs.backdrop.addEventListener('click', onBackdropClick); // Клик в серое модалку закрываем.
+refs.openModalBtn.addEventListener('click', onOpenModal);              // Открыть по кнопке модалку.
+refs.closeModalBtn.addEventListener('click', onCloseModal);            // Закрыть по кнопке модалку.
+refs.backdrop.addEventListener('click', onBackdropClick);              // Клик в серое модалку закрываем.
 
 // ***** Открыть по кнопке модалку.
 function onOpenModal() {
   // Для открытия модалки всё что мне нужно - это на body повесить класс show-modal.
-  document.body.classList.add('show-modal'); // Вешаю класс show-modal на body.
+  document.body.classList.add('show-modal');                           // Вешаю класс show-modal на body.
+
   // Вешаем слушателя событий onEscKeyPress.
-  window.addEventListener('keydown', onEscKeyPress); // Вешаю слушателя клавиш на window,когда модалка открыта.
+  window.addEventListener('keydown', onEscKeyPress);                   // Вешаю слушателя клавиш на window,когда модалка открыта.
 }
 
 // ***** Закрыть по кнопке модалку.
 function onCloseModal() {
-  document.body.classList.remove('show-modal'); // Снимаю класс show-modal при закрытии модалки.
-  window.removeEventListener('keydown', onEscKeyPress); // Снимаю слушателя на window при закрытии модалки. Что он не прослушивал клавиши при закрытой модалке.
+  document.body.classList.remove('show-modal');                        // Снимаю класс show-modal при закрытии модалки.
+  window.removeEventListener('keydown', onEscKeyPress);                // Снимаю слушателя на window при закрытии модалки. Что он не прослушивал клавиши при закрытой модалке.
 }
 
 // ***** Закрытие модалки по клику в серое.
 function onBackdropClick(event) {
-  // console.log(event.currentTarget); // Текущий эл. Это где висит этот addEventListener
-  // console.log(event.target); // target это целевой эл. Это куда мы в интерфейсе жмакнули.
+  // console.log(event.currentTarget);                                // Текущий эл. Это где висит этот addEventListener
+  // console.log(event.target);                                       // target это целевой эл. Это куда мы в интерфейсе жмакнули.
   if (event.currentTarget === event.target) {
     console.log('Кликнули именно в бекдроп!!!!');
     onCloseModal();
@@ -455,8 +459,8 @@ function onBackdropClick(event) {
 // ***** Закрытие модалки по клавиши Esc.
 function onEscKeyPress(event) {
   // ----- Вариант-1 с константами -----
-  const ESC_KEY_CODE = 'Escape'; // Делаем переменную ESC_KEY_CODE константу.
-  const isEscKey = event.code === ESC_KEY_CODE; // Переменная с проверкой.
+  const ESC_KEY_CODE = 'Escape';                                     // Делаем переменную ESC_KEY_CODE константу.
+  const isEscKey = event.code === ESC_KEY_CODE;                      // Переменная с проверкой.
 
   if (isEscKey) {
     onCloseModal();
