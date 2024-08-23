@@ -12,8 +12,8 @@
 //  * - Ссылочная идентичность колбеков
 //  * - Объект события
 // ---------------------------------------
-
 // Доступ к кнопкам.
+
 const targetBtn = document.querySelector('.js-target-btn');
 const addListenerBtn = document.querySelector('.js-add-listener');
 const removeListenerBtn = document.querySelector('.js-remove-listener');
@@ -153,6 +153,7 @@ function onFormSubmit(event) {
   console.dir(formData);
 
   // Первым параметром объявляем значения этого поля, а вторым параметром имя этого поля.
+  
   formData.forEach((value, name) => {
     console.log('onFormSubmit -> name', name);
     console.log('onFormSubmit -> value', value);
