@@ -174,6 +174,7 @@ function decreaseСhangeBoxSize() {
 2. "Клік відбувся поза зоною елемента js."
 https://developer.mozilla.org/en-US/docs/Web/API/Node/contains
 */
+
 //TODO:==============================================
 /* ** Завдання 6 (видео 2:53:40) Натиснувши кнопку "Подвоювати", збільшити значення у кожному елементі списку у 2 рази
 ** Завдання 6
@@ -202,13 +203,14 @@ https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/MouseEvent
 https://developer.mozilla.org/ru/docs/Web/API/MouseEvent/pageX
 https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/pageY
 */
+
 //TODO:==============================================
 /* ** Завдання 8 (видео 3:09:10) При натисканні на кожну з кнопок підсумовуються значення з data-атрибутів.
 Завдання 8
 При натисканні на кожну з кнопок підсумовуються значення з data-атрибутів.
 За натисканням на кнопку "Вивести результат" виводиться сума значення, а також статистика з
 інформацією про те, яка кнопка була натиснута скільки разів.
-*/
+
 const buttons = document.querySelectorAll('.calcButton');
 const resultBtn = document.querySelector('#resultButton');
 const result = document.querySelector('#resultSection');
@@ -241,7 +243,7 @@ function handleBtnsClick(event) {
     ? (clickedValues[btnName] += 1)
     : (clickedValues[btnName] = 1);
 }
-
+*/
 //TODO:==============================================
 /*
 Завдання 9
