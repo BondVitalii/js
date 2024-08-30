@@ -195,131 +195,72 @@ function onSubmit(event) {
 // ------------------------------------------------------------
 // Работаем с событием change, input для самих элементов форм.(Видео 1:43:45)
 // ------------------------------------------------------------
-|============================
-*/
+// Событие input
+// ----------------
+// Событие input - Срабатывает сразу при каждом нажатии клавиши.
+// Событие input - Используется тогда, когда нужно делать проверки.
+//  - Например:
+//    -- Во время введения пользователем данных.
+//    -- Или автопроверки. Во время набора текста он делает проверки, подсказки, то-есть поиск так можно делать, проверки во время написания полей и т.п.
+
 const mainForm = document.getElementById('mainForm');
 const { username, pass } = mainForm.elements;
 
 username.addEventListener('input', handleInput);
-// ---------------------------------------------------------------
-// Порядок работы с разными типами событий.
-// ---------------------------------------------------------------
 
-/**
-|============================
-// const refs = {
-//   overlay: document.getElementById("overlay"),
-//   modalCloseBtn: document.getElementById("modalCloseBtn"),
-//   openModalBtn: document.getElementById("openModalBtn"),
-// };
+function handleInput(event) {
+  //   console.log(event);
+  console.log(event.target.value);
+  const valueLength = event.target.value.length;
+  if (valueLength <= 3 || valueLength >= 10) {
+    console.log('Некорректный размер текста');
+  } else {
+    console.log('Все ок');
+  }
+}
 
-// const classes = {
-//   open: "open",
-// };
+// ----------------
+// Событие change (Видео 1:51:10)
+// ----------------
+// Событие change - Срабатывает как только убираем фокус.
+// Событие change - Используется тоже для проверок, но для тех проверок которым не нужна проверка во время ввода текста.
 
-// refs.openModalBtn.addEventListener("click", openModal);
-// refs.overlay.addEventListener("click", closeModal);
-// refs.modalCloseBtn.addEventListener("click", closeModal);
+const mainForm = document.getElementById('mainForm');
+const { username, pass } = mainForm.elements;
 
-// function openModal() {
-//   document.body.classList.add(classes.open);
-//   window.addEventListener("keydown", closeModalOnESC);
-// }
+username.addEventListener('input', handleInput);
+pass.addEventListener('change', handleСhange);
 
-// function closeModal() {
-//   document.body.classList.remove(classes.open);
-//   window.removeEventListener("keydown", closeModalOnESC);
-// }
+function handleInput(event) {
+  //   console.log(event);
+  console.log(event.target.value);
+  const valueLength = event.target.value.length;
+  if (valueLength <= 3 || valueLength >= 10) {
+    console.log('Некорректный размер текста');
+  } else {
+    console.log('Все ок');
+  }
+}
 
-// function closeModalOnESC(event) {
-//   console.log(`key: ${event.key} | code: ${event.code}`);
-//   if (event.code === "Escape") closeModal();
-// }
-
-//! 2 спосіб
-
-// const refs = {
-//   overlay: document.getElementById("overlay"),
-//   modalCloseBtn: document.getElementById("modalCloseBtn"),
-//   openModalBtn: document.getElementById("openModalBtn"),
-// };
-
-// const classes = {
-//   open: "open",
-// };
-
-// refs.openModalBtn.addEventListener("click", toggleModal);
-// refs.overlay.addEventListener("click", toggleModal);
-// refs.modalCloseBtn.addEventListener("click", toggleModal);
-
-// function toggleModal() {
-//   document.body.classList.toggle(classes.open);
-//   if (document.body.classList.contains(classes.open))
-//     window.addEventListener("keydown", closeModalOnESC);
-//   else window.removeEventListener("keydown", closeModalOnESC);
-// }
-
-// function closeModalOnESC(event) {
-//   console.log(`key: ${event.key} | code: ${event.code}`);
-//   if (event.code === "Escape") toggleModal();
-// }
-
-//! =======================================
-
-// const mainForm = document.getElementById("mainForm");
-// const { username, pass } = mainForm.elements;
-
-// console.dir(mainForm.elements);
-
-// mainForm.addEventListener("submit", onSubmit);
-
-// function onSubmit(event) {
-//   event.preventDefault();
-//   console.log(event);
-//   console.log(username.value);
-//   console.log(pass.value);
-
-//   if (username.value.trim() === "" || pass.value.trim() === "") {
-//     mainForm.classList.add("wrong");
-//   } else {
-//     mainForm.classList.remove("wrong");
-//     alert("Data sent!");
-//     mainForm.reset();
-//   }
-// }
-
-//! =======================================
-
-// const mainForm = document.getElementById("mainForm");
-// const { username, pass } = mainForm.elements;
-
-// username.addEventListener("input", handleInput);
-// pass.addEventListener("change", handleChange);
-
-// function handleInput(event) {
-//   console.log(event.target.value);
-//   const valueLength = event.target.value.length;
-//   if (valueLength <= 3 || valueLength >= 10) {
-//     console.log("некоректний розмір тексту");
-//   } else {
-//     console.log("все окей");
-//   }
-// }
-
-// function handleChange(event) {
-//   console.log(event.target.value);
-// }
-
-// const lang = document.getElementById('lang');
-
-// lang.addEventListener('change', handleLangSwitch);
-
-// function handleLangSwitch(event) {
-//   console.log(this);
-//   console.log(event.target);
-//   console.log(event.target.value);
-// }
-
-//! =======================================
+function handleСhange(event) {
+  console.log(event.target.value);
+}
 |============================
 */
+// ================================================================
+/** Вопросы из таблицы. (Видео 1:57:25). Пример работы this с колбэк функциями и слушателями событий (Видео 1:58:05)
+|============================
+1) Пример работы this с колбэк функциями и слушателями событий (Видео 1:58:05)
+
+const lang = document.getElementById('lang');
+
+lang.addEventListener('change', handleLangSwitch);
+
+function handleLangSwitch(event) {
+  console.log(this);
+  console.log(event.target);
+  console.log(event.target.value);
+}
+|============================
+*/
+// ================================================================
