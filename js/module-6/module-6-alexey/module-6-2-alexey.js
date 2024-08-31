@@ -264,35 +264,3 @@ function handleLangSwitch(event) {
 |============================
 */
 // ================================================================
-// Работа с объектом elements. Тоже самое с деструктуризацией.(Чтоб обращаться без точки).
-
-const mainForm = document.getElementById('mainForm');
-
-// Делаем деструктуризацию.
-
-const { username, pass } = mainForm.elements;
-
-console.dir(mainForm.elements); // HTMLFormControlsCollection(3)
-// console.dir(mainForm.elements.pass); // input
-
-mainForm.addEventListener('submit', onSubmit);
-
-function onSubmit(event) {
-  event.preventDefault();
-  console.log(event);
-  console.log(username.value); // qwe - Выводит результат того что введено в поле username
-  console.log(pass.value); // 12345 - Выводит результат того что введено в поле pass
-
-  // Делаем проверку на пустые поля и пробелы. Если поля пустые, то при нажатии Send отправить, поля станут красными.
-
-  if (username.value.trim() === '' || pass.value.trim() === '') {
-    mainForm.classList.add('wrong');
-  } else {
-    mainForm.classList.remove('wrong');
-    alert('Data sent!');
-
-    // Очищаем поля submit формы, через reset. Этот метод есть только у форм. У инпутов его нет.
-
-    mainForm.reset();
-  }
-}
