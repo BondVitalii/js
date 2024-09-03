@@ -95,7 +95,7 @@ btn.addEventListener('click', () => {
 Завдання 4
 Кнопка "Зменшити" робить квадрат менше на 10 пікселів, кнопка "Збільшити" - більше на 10 пікселів. Використай інструкцію switch
 
-// ========== Вариант-1 ==========
+// ========== Вариант-1 switch() ==========
 
 const decreaseBtn = document.querySelector('#decrease');
 const increaseBtn = document.querySelector('#increase');
@@ -106,19 +106,19 @@ increaseBtn.addEventListener('click', changeBoxSize);
 
 function changeBoxSize(event) {
   // console.log(event.target);                    // Скажет нам на каком элементе сработал обработчик событий.
-  // console.log(event.target.getAttribute('id')); // increase или decrease. Куда кликнули.
+  // console.log(event.target.getAttribute('id')); // increase или decrease. Где клик.
 
   const btnType = event.target.getAttribute('id'); // Сохраняет строку (кнопки у которой клик).
   const width = boxEl.offsetWidth;                 // Переменные для (исходных-начальных) размеров бокса.
   const height = boxEl.offsetHeight;               // Переменные для (исходных-начальных) размеров бокса.
 
   switch (btnType) {
-    case 'decrease':                  // если тут true-то выполняется это тело, если false-то двигаемся дальше.
+    case 'decrease':                               // если тут true-то выполняется это тело, если false-то двигаемся дальше.
       //   console.log('this is case decrease');   // this is case decrease
       boxEl.style.width = `${width - 10}px`;       // Увелич. ширину бокса при каждом клике на 10px.
       boxEl.style.height = `${height - 10}px`;     // Увелич. высоту бокса при каждом клике на 10px.
       break;
-    case 'increase':                  // если тут true-то выполняется это тело, если false-то двигаемся дальше.
+    case 'increase':                               // если тут true-то выполняется это тело, если false-то двигаемся дальше.
       //   console.log('this is case increase');   // this is case increase
       boxEl.style.width = `${width + 10}px`;       // Увелич. ширину бокса при каждом клике на 10px.
       boxEl.style.height = `${height + 10}px`;     // Увелич. высоту бокса при каждом клике на 10px.
