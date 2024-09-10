@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>module-7-1-repeta</title>
+    <!-- Styles -->
+    <!-- <link rel="stylesheet" href="/css/styles.css" /> -->
+    <link rel="stylesheet" href="/css/module-7/module-7-1-repeta-styles.css" />
+    <!-- Для всплытие событий style. -->
+    <!-- <style>
+      #parent,
+      #child,
+      #inner-child {
+        margin: 16px;
+        padding: 16px;
+        border: 1px solid #ffc107;
+        border-radius: 4px;
+        color: #fff;
+        font-weight: 500;
+        font-size: 18px;
+      }
+
+      #parent {
+        background-color: #673ab7;
+      }
+
+      #child {
+        background-color: #448aff;
+      }
+
+      #inner-child {
+        background-color: #009688;
+      }
+    </style> -->
+    <!-- Для делегирование событий style. -->
+    <style>
+      .container {
+        display: flex;
+        flex-wrap: wrap;
+        outline: 2px solid tomato;
+      }
+
+      button {
+        margin: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ------------------------------------------- -->
+    <!-- Возврат на модуль-7 -->
+
+    <div class="home-wrapper">
+      <a class="home-link link" href="/pages/index-module-7.html"
+        >На главную module-7->></a
+      >
+    </div>
+    <!-- ------------------------------------------- -->
+    <!-- Всплытие событий -->
+    <!-- ------------------------------------------- -->
+    <!-- <div id="parent">
+      PARENT
+      <div id="child">
+        CHILD
+        <div id="inner-child">INNER-CHILD</div>
+      </div>
+    </div> -->
+    <!-- ------------------------------------------- -->
+    <!-- Делегирование событий (Видео 14:50) -->
+    <!-- ------------------------------------------- -->
+    <button class="js-add-btn">Добавить кнопку</button>
+    <hr />
+
+    <div class="container js-container">
+      <button type="button">Кнопка 1</button>
+      <button type="button">Кнопка 2</button>
+      <button type="button">Кнопка 3</button>
+      <button type="button">Кнопка 4</button>
+      <button type="button">Кнопка 5</button>
+    </div>
+    <!-- ------------------------------------------- -->
+
+    <!-- ========== SCRIPTS ========== -->
+    <script
+      src="/js/module-7/module-7-repeta/module-7-1-repeta.js"
+      type="module"
+    ></script>
+  </body>
+</html>
