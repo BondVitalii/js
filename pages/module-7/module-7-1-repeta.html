@@ -7,6 +7,10 @@
     <!-- Styles -->
     <!-- <link rel="stylesheet" href="/css/styles.css" /> -->
     <link rel="stylesheet" href="/css/module-7/module-7-1-repeta-styles.css" />
+    <link
+      rel="stylesheet"
+      href="/css/module-7/module-7-1-repeta-colorpicker.css"
+    />
     <!-- Для всплытие событий style. -->
     <!-- <style>
       #parent,
@@ -34,7 +38,7 @@
       }
     </style> -->
     <!-- Для делегирование событий style. -->
-    <style>
+    <!-- <style>
       .container {
         display: flex;
         flex-wrap: wrap;
@@ -44,20 +48,65 @@
       button {
         margin: 4px;
       }
+    </style> -->
+    <!-- Для Мастерская: теги style. -->
+    <style>
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+        padding: 8px;
+        background-color: #fff;
+        list-style: none;
+        user-select: none;
+        outline: 1px solid tomato;
+      }
+
+      .tags__item {
+        margin: 4px;
+
+        /* padding: 10px;
+        outline: 1px solid greenyellow; */
+      }
+
+      .tags__btn {
+        border: 1px solid #212121;
+        border-radius: 4px;
+        display: inline-block;
+        padding: 4px 10px 4px;
+
+        font-size: 24px;
+        font-family: inherit;
+        color: #212121;
+        font-weight: 500;
+        text-align: center;
+        white-space: nowrap;
+        text-decoration: none;
+        outline: none;
+
+        background-color: #fff;
+        cursor: pointer;
+      }
+
+      .tags__btn--active {
+        color: #fff;
+        background-color: #3f51b5;
+      }
     </style>
   </head>
   <body>
     <!-- ------------------------------------------- -->
     <!-- Возврат на модуль-7 -->
-
     <div class="home-wrapper">
       <a class="home-link link" href="/pages/index-module-7.html"
         >На главную module-7->></a
       >
     </div>
-    <!-- ------------------------------------------- -->
+    <!-- =========================================== -->
     <!-- Всплытие событий -->
-    <!-- ------------------------------------------- -->
+    <!-- ----------------------- -->
     <!-- <div id="parent">
       PARENT
       <div id="child">
@@ -65,10 +114,10 @@
         <div id="inner-child">INNER-CHILD</div>
       </div>
     </div> -->
-    <!-- ------------------------------------------- -->
+    <!-- =========================================== -->
     <!-- Делегирование событий (Видео 14:50) -->
-    <!-- ------------------------------------------- -->
-    <button class="js-add-btn">Добавить кнопку</button>
+    <!-- ----------------------- -->
+    <!-- <button class="js-add-btn">Добавить кнопку</button>
     <hr />
 
     <div class="container js-container">
@@ -77,9 +126,41 @@
       <button type="button">Кнопка 3</button>
       <button type="button">Кнопка 4</button>
       <button type="button">Кнопка 5</button>
-    </div>
-    <!-- ------------------------------------------- -->
-
+    </div> -->
+    <!-- =========================================== -->
+    <!-- Мастерская: теги (Видео 25:00) -->
+    <!-- ----------------------- -->
+    <!-- <ul class="tags js-tags">
+      <li class="tags__item">
+        <button class="tags__btn" data-value="html">#html</button>
+      </li>
+      <li class="tags__item">
+        <button class="tags__btn" data-value="css">#css</button>
+      </li>
+      <li class="tags__item">
+        <button class="tags__btn" data-value="javascript">#javascript</button>
+      </li>
+      <li class="tags__item">
+        <button class="tags__btn" data-value="npm">#npm</button>
+      </li>
+      <li class="tags__item">
+        <button class="tags__btn" data-value="webpack">#webpack</button>
+      </li>
+      <li class="tags__item">
+        <button class="tags__btn" data-value="react">#react</button>
+      </li>
+      <li class="tags__item">
+        <button class="tags__btn" data-value="redux">#redux</button>
+      </li>
+      <li class="tags__item">
+        <button class="tags__btn" data-value="nodejs">#nodejs</button>
+      </li>
+    </ul> -->
+    <!-- =========================================== -->
+    <!-- Мастерская: колорпикер (Видео 1:00:25) -->
+    <!-- ----------------------- -->
+    <div class="palette js-palette"></div>
+    <!-- =========================================== -->
     <!-- ========== SCRIPTS ========== -->
     <script
       src="/js/module-7/module-7-repeta/module-7-1-repeta.js"
