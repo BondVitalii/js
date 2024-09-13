@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alexey-module-7-1</title>
+    <!------------ Modern-normalize ------------>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/2.0.0/modern-normalize.min.css"
+      integrity="sha512-4xo8blKMVCiXpTaLzQSLSw3KFOVPWhm/TRtuPVc4WG6kUgjH6J03IBuG7JZPkcWMxJ5huwaBpOpnwYElP/m6wg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- <link rel="stylesheet" href="/css/styles.css" /> -->
+    <link rel="stylesheet" href="/css/module-7/module-7-1-alexey.css" />
+    <!-- <link rel="stylesheet" href="/css/module-6/module-6-2-artem-rysich.css" /> -->
+  </head>
+  <body>
+    <!-- ------------------------------------------- -->
+    <!-- Возврат на модуль-6 -->
+    <div class="home-wrapper">
+      <a class="home-link link" href="/pages/index-module-6.html"
+        >На главную module-7</a
+      >
+    </div>
+    <!-- ------------------------------------------- -->
+    <!-- Погружение и Всплытие -->
+    <!-- ---------------------- -->
+    <!-- <div>
+      DIV
+      <p>
+        P
+        <span> SPAN </span>
+      </p>
+    </div> -->
+    <!-- ------------------------------------------- -->
+    <!-- Практика (Видео 45:40) -->
+    <!-- ---------------------- -->
+    <div class="container">
+      <h2 class="title">Скільки коштує мʼясо на шашлики?</h2>
+      <form action="#" class="form" id="form">
+        <label for="price">Ціна грн</label>
+        <input type="number" id="price" name="price" value="150" />
+        <label for="quantity"
+          >Кількість<span class="amount" id="amount"></span>кг
+        </label>
+        <input
+          type="range"
+          id="quantity"
+          name="quantity"
+          value="1"
+          min="1"
+          ,
+          max="20"
+        />
+      </form>
+      <p class="text-right total" id="total"></p>
+    </div>
+
+    <!-- ========== SCRIPTS ========== -->
+    <script
+      src="/js/module-7/module-7-alexey/module-7-1-alexey.js"
+      type="module"
+    ></script>
+  </body>
+</html>
