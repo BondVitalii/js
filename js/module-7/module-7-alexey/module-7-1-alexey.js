@@ -66,9 +66,11 @@ const refs = {
 };
 
 // Создаем объект с свойствами и методом. Для умножения кол-ва на стоимость.
+
 const data = {
   price: 0,
   quantity: 0,
+
   // Метод высчитывающий финальную стоимость продукта
   calcTotalPrice() {
     return Number((this.price * this.quantity).toFixed(2));
@@ -86,22 +88,24 @@ function handleFormInput({ target }) {
   // console.log(target.name);
   if (target.name === 'quantity') updateAmount(); // Проверка, если клик пришел из инпута quantity,то...
 
-  target.setAttribute('value', target.value); // Изменение значения атрибута value в инпуте на текущее.
-  dataFill(); // Вызов функции заполнения полей объекта data из полей инпутов
-  displayTotal(); // Вызов функции показа результата умножения товара на стоимость.
+  target.setAttribute('value', target.value);  // Изменение значения атрибута value в инпуте на текущее.
+  dataFill();                            // Вызов функции.
+  displayTotal();                        // Вызов функции.
 }
 
 // ** Функция заполнения свойств объекта data из соответствующих полей инпутов.
+
 function dataFill() {
-  data.price = Number(refs.price.value); // Запись знач.поля(инпута price), в свойство price объекта data.
+  data.price = Number(refs.price.value);     // Запись знач.поля(инпута price), в свойство price объекта data.
   data.quantity = Number(refs.quantity.value); // Запись знач.поля(инпута quantity), в свойство quantity объекта data.
 
   // console.log(data); // Для проверки изменений в атрибутах инпута, при изменении в полях инпута.
 }
 
 // ** Функция показа результата умножения товара на стоимость.
+
 function displayTotal() {
-  const totalPrice = data.calcTotalPrice(); // Константа сохраняющая финальную цену.
+  const totalPrice = data.calcTotalPrice();              // Константа сохраняющая финальную цену.
 
   // Если целое число,то добавляем в конце два ноля, если чило не целое,то выводим его результат.
   refs.total.textContent =
@@ -109,11 +113,11 @@ function displayTotal() {
 }
 
 // ** Функция обновления показа кол-ва в span, соответствии с кол-вом в инпуте quantity.
+
 function updateAmount() {
   refs.amount.textContent = quantity.value;
 }
 |============================
 */
 // =============================================================
-
 // -------------------------------------------------------------------
