@@ -78,7 +78,7 @@ h2 {
 } */
 /* ------------------------------------ */
 /* stopPropagation() (Видео 2:30:17) (Видео 2:38:50) */
-#parent,
+/* #parent,
 #child,
 #descendant {
   margin: 16px;
@@ -101,4 +101,4 @@ h2 {
 
 #descendant {
   background-color: #ff9800;
-}
+} */
