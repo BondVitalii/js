@@ -1,13 +1,15 @@
 /** Погружение и Всплытие
 |============================
-const allElements = document.querySelectorAll('*'); // Выберет обсалютно все элементы на странице.
-console.dir(allElements); // Получим масив всех элементов на странице.
+const allElements = document.querySelectorAll('*');       // Выберет обсалютно все элементы на странице.
+
+// console.dir(allElements);                              // Получим масив всех элементов на странице.
 
 // ** Остановка всплытия, и остановка обработчиков на текущем элементе.
 // ** Использовать эти штуки очень окуратно, чтоб ничего не сломать в коде.
+
 // document.querySelector('span').addEventListener('click', event => {
-//   event.stopPropagation();                       // Останавливаем всплытие выше spana.
-//   event.stopImmediatePropagation();              // Останавливаем все обработчики на текущем элементе.
+//   event.stopPropagation();                             // Останавливаем всплытие выше spana.
+//   event.stopImmediatePropagation();                    // Останавливаем все обработчики на текущем элементе.
 // });
 
 // Вешаем слушателя на el
@@ -18,15 +20,19 @@ for (const el of allElements) {
     'click',
     event => alert(`Погружение: ${el.tagName}`),
     true
-  );                                                                         // Событие на погружение.
+  );                                                       // Событие на погружение.
   el.addEventListener('click', event => alert(`Всплытие: ${el.tagName}`));
 }
 // -------------------------
+// Разъяснение.
+
 // el.addEventListener("click", () => {}, useCapture = true/false);
 // el.addEventListener("click", () => {}, {
-//   capture: true - занурення, false - сплиття,
-//   once: true - подія спрацює тільки один раз, false - подія відпрацює до тих пір, поки ми не знімемо обробник,
-//   passive: true - забороняємо використовувати event.preventDefault(), false - можна
+
+// ** capture: true - занурення, false - сплиття.
+// ** once: true - подія спрацює тільки один раз, false - подія відпрацює до тих пір, поки ми не знімемо обробник.
+// ** passive: true - забороняємо використовувати event.preventDefault(), false - можна
+
 // });
 
 |============================
@@ -43,6 +49,7 @@ for (const el of allElements) {
 Кольорова підказка має змінювати своє значення при перетягувані повзунка.
 В інпуті №2 мін і мах поріг встановлюєте самостійно.
 При завантаженні сторінки сприпт має автоматично розрахувати вартість на основі даних за замовчуванням які ви встановите в розмітці.
+
 // -----------------------------------------------------------------------------
 ** Мікрозадача 1: зміна кількості кілограм під час зміни повзунка
 1. отримати refs
@@ -55,6 +62,7 @@ for (const el of allElements) {
 2. заповнити поля обʼєкту значеннями з інпутів
 3. вивести результат розрахунку на екран
 // -----------------------------------------------------------------------------
+
 const refs = {
   form: document.getElementById('form'),
   amount: document.getElementById('amount'),
@@ -114,11 +122,13 @@ const refs = {
   quantity: document.getElementById('quantity'),
 };
 
-const data = {   // Создаем объект с свойствами и методом. Для умножения кол-ва на стоимость.
+// ** Создаем объект с свойствами и методом. Для умножения кол-ва на стоимость.
+const data = {                    
   price: 0,
   quantity: 0,
 
-  calcTotalPrice() {                     // Метод высчитывающий финальную стоимость продукта.
+  // ** Метод высчитывающий финальную стоимость продукта.
+  calcTotalPrice() {                     
     return Number((this.price * this.quantity).toFixed(2));
   },
 };
@@ -127,32 +137,32 @@ dataFill();
 displayTotal();
 updateAmount();
 
-refs.form.addEventListener('input', handleFormInput);           // Вешаем слушателя на форму.
+refs.form.addEventListener('input', handleFormInput);    // Вешаем слушателя на форму.
 
-function handleFormInput({ target }) {            // Деструктуризируем event.target в target.
+function handleFormInput({ target }) {                   // Деструктуризируем event.target в target.
   // console.log(target.name);
-  if (target.name === 'quantity') updateAmount(); // Проверка, если клик пришел из инпута quantity,то...
+  if (target.name === 'quantity') updateAmount();        // Проверка, если клик пришел из инпута quantity,то...
 
-  target.setAttribute('value', target.value);  // Изменение значения атрибута value в инпуте на текущее.
-  dataFill();                                      // Вызов функции.
-  displayTotal();                                  // Вызов функции.
+  target.setAttribute('value', target.value);         // Изменение значения атрибута value в инпуте на текущее.
+  dataFill();                                           // Вызов функции.
+  displayTotal();                                       // Вызов функции.
 }
 
 // ** Функция заполнения свойств объекта data из соответствующих полей инпутов.
 function dataFill() {
-  data.price = Number(refs.price.value);     // Запись знач.поля(инпута price), в свойство price объекта data.
+  data.price = Number(refs.price.value);      // Запись знач.поля(инпута price), в свойство price объекта data.
   data.quantity = Number(refs.quantity.value); // Запись знач.поля(инпута quantity), в свойство quantity объекта data.
 
-  // console.log(data); // Для проверки изменений в атрибутах инпута, при изменении в полях инпута.
+  // console.log(data);             // Для проверки изменений в атрибутах инпута, при изменении в полях инпута.
 }
 
 // ** Функция показа результата умножения товара на стоимость.
 function displayTotal() {
   const totalPrice = data.calcTotalPrice();              // Константа сохраняющая финальную цену.
 
-  // Если число целое,то добавляем в конце два ноля, если не целое,то выводим его результат.
   refs.total.textContent =
     (Number.isInteger(totalPrice) ? `${totalPrice}.00` : totalPrice) + ' грн';
+    // Если число целое,то добавляем в конце два ноля, если не целое,то выводим его результат.
 }
 
 // ** Функция обновления показа кол-ва в span, соответствии с кол-вом в инпуте quantity.

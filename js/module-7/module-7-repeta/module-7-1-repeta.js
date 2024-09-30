@@ -51,22 +51,20 @@ container.addEventListener('click', onClick);
 
 function onClick(evt) {
   console.log(evt);
-  console.log(evt.target); // <button type="button">Кнопка 1</button> (Куда кликнули).
-  console.log(evt.target.textContent); // Кнопка 1 (получу текстовый контент кнопки).
+  console.log(evt.target);               // <button type="button">Кнопка 1</button> (Куда кликнули).
+  console.log(evt.target.textContent);   // Кнопка 1 (получу текстовый контент кнопки).
 
   // Я хочу чтоб тело этой функции срабатывало только тогда когда я кликнул на кнопку, а по клику на контейнер в котором лежат кнопки не срабатывало. Свойство nodeName.
-
-  console.log(evt.target.nodeName); // BUTTON
+  // console.log(evt.target.nodeName);   // BUTTON
 
   // Если клик не по кнопке, то уходим. Патерн "гадклоус" то уходим.
   if (evt.target.nodeName !== 'BUTTON') {
     return;
   }
-  console.log(evt.target.textContent); // Кнопка 1
+  // console.log(evt.target.textContent); // Кнопка 1
 }
 
-// * Код добавления кнопок
-
+// ** Код добавления кнопок
 const addBtn = document.querySelector('.js-add-btn');
 let labelCounter = 6;
 
@@ -91,32 +89,26 @@ function onAddBtnClick() {
 //  * - несколько из многих и Set
 
 const tagsContainer = document.querySelector('.js-tags');
-
-console.log(tagsContainer);               // 1) Проверяем, получаем доступ к ul
+// console.log(tagsContainer);               // 1) Проверяем, получаем доступ к ul
 
 let selectedTag = null;
 
 tagsContainer.addEventListener('click', onTagsContainerClick);
 
 function onTagsContainerClick(evt) {
-
-  console.log(evt.target);       // 2) Выведет то, куда был клик, в кнопку или в ul, или в li.
-  console.log(evt.target.nodeName);        // 3) BUTTON (Проверяем что клик именно по кнопке).
+  // console.log(evt.target);                // 2) Выведет то, куда был клик, в кнопку или в ul, или в li.
+  // console.log(evt.target.nodeName);       // 3) BUTTON (Проверяем что клик именно по кнопке).
 
   // ** Делаем проверку, если это не кнопка, тогда не делаем ничего.
-
   if (evt.target.nodeName !== 'BUTTON') {
     return;
   }
-  
   console.log(evt.target);
 
   // ** Создаём слушателя активного состояния для элемента на котором будет клик.
-
   const currentActiveBtn = document.querySelector('.tags__btn--active');
 
   // ** Делаем проверку, (если currentActiveBtn - true), то-есть если уже есть активный елемент, то снимаем с него активность (класс tags__btn--active), и вешаем его на другой элем. на котором произошол клик.
-
   if (currentActiveBtn) {
     currentActiveBtn.classList.remove('tags__btn--active');   // Удаляем активный класс с ел.
   }
@@ -131,7 +123,6 @@ function onTagsContainerClick(evt) {
 // -------------------------------------------------------------------------------
 /** (Видео 38:40) Мастерская: теги. Все тоже самое, но пример с новым оператором (?.) заменяющим if() при доступе к свойству. 
 |============================
-
 const tagsContainer = document.querySelector('.js-tags');
 
 let selectedTag = null;
@@ -169,8 +160,7 @@ function onTagsContainerClick(evt) {
 // -------------------------------------------------------------------------------
 /* (Видео 40:08) Разъясняет как работает оператор (?.) и для чего он нужен. */
 // -------------------------------------------------------------------------------
-/** (Видео 43:20) Мастерская: теги. Делаем чтоб этих тегов можно было выбрать сколько угнодно. 
- * .classList.toggle(), 
+/** (Видео 43:20) Мастерская: теги. Делаем чтоб этих тегов можно было выбрать много. classList.toggle() 
 |============================
 // ------------------------------
 (Видео 43:20) .classList.toggle()
@@ -245,54 +235,59 @@ const colors = [
 // ----------------------------------------
 // Предварительный вариант без оптимизации.
 // ----------------------------------------
-const paletteContainer = document.querySelector('.js-palette'); // Получ. доступ к контейнеру.
-const cardsMarkup = createColorCardsMarkup(colors); // Переменная вызывает функцию создания разметки.
+const paletteContainer = document.querySelector('.js-palette');      // Получ. доступ к контейнеру.
+const cardsMarkup = createColorCardsMarkup(colors);                  // Переменная вызывает функцию создания разметки.
 
-paletteContainer.insertAdjacentHTML('beforeend', cardsMarkup); // Вставляем разметку в DOM ел.
+paletteContainer.insertAdjacentHTML('beforeend', cardsMarkup);       // Вставляем разметку в DOM ел.
 
 paletteContainer.addEventListener('click', onPaletteContainerClick); // Делегирование вешаем, слушателя на контейнер.
 
-// Функция создания разметки по шаблону. Она рендерит всю нашу разметку.
-function createColorCardsMarkup(colors) {
+// ** Функция создания разметки по шаблону. Она рендерит всю нашу разметку.
+function createColorCardsMarkup(colors) {                     
   return colors
     .map(({ hex, rgb }) => {
       return `
-    <div class="color-card">
-     <div><div><div> <div
-     class="color-swatch"
-     data-hex="${hex}"
-     data-rgb="${rgb}"
-     style="background-color: ${hex}"
-   ></div></div></div></div>
-      <div class="color-meta">
-        <p>HEX: ${hex}</p>
-        <p>RGB: ${rgb}</p>
-      </div>
-    </div>
-    `;
+        <div class="color-card">
+          <div>
+            <div>
+              <div> 
+                <div
+                  class="color-swatch"
+                  data-hex="${hex}"
+                  data-rgb="${rgb}"
+                  style="background-color: ${hex}"
+                >
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="color-meta">
+            <p>HEX: ${hex}</p>
+            <p>RGB: ${rgb}</p>
+          </div>
+        </div>
+        `;
     })
     .join('');
 }
 
-// Функция проверки куда мы кликнули. Если клик не в цвет, а в пространство вокруг, то ничего не делаем.
-function onPaletteContainerClick(evt) {
-  const isColorSwatchEl = evt.target.classList.contains('color-swatch'); // Проверяем есть ли класс на елем.
-  // Если это не isColorSwatchEl, то выходим.
-  if (!isColorSwatchEl) {
+// ** Функция проверки куда мы кликнули. Если клик не в цвет, а в пространство вокруг, то ничего не делаем.
+function onPaletteContainerClick(evt) {  
+  const isColorSwatchEl = evt.target.classList.contains('color-swatch');   // Проверяем есть ли класс на елем.
+  if (!isColorSwatchEl) {                                                  // Если это не isColorSwatchEl, то выходим.
     return;
   }
 
-  const currentActiveCard = document.querySelector('.color-card.is-active'); // Ищем текущую активн. карточку.
+  const currentActiveCard = document.querySelector('.color-card.is-active');  // Ищем текущую активн. карточку.
 
-  // И если она есть, то у неё удаляем активный класс.
-  if (currentActiveCard) {
-    currentActiveCard.classList.remove('is-active'); // Удаляем активный класс.
+  if (currentActiveCard) {                                    // И если она есть, то у неё удаляем активный класс.
+    currentActiveCard.classList.remove('is-active');          // Удаляем активный класс.
   }
 
-  const swatchEl = evt.target; // Создаем переменную и вкладываем в неё целевой элемент.
-  const parentColorCard = swatchEl.closest('.color-card'); // Ищем ближайщего предка, с таким селектором с помощью closest(), он ищет только вверх по вложенности.
+  const swatchEl = evt.target;                                // Создаем переменную и вкладываем в неё целевой элемент.
+  const parentColorCard = swatchEl.closest('.color-card');    // Ищем ближайщего предка, с таким селектором с помощью closest(), он ищет только вверх по вложенности.
 
-  parentColorCard.classList.add('is-active'); // Добавляем активный класс на предка.
+  parentColorCard.classList.add('is-active');                 // Добавляем активный класс на предка.
   document.body.style.backgroundColor = swatchEl.dataset.hex; // Ставим на body, цвет карты на которой клик.
 
   // console.log(evt.target);
@@ -305,16 +300,15 @@ function onPaletteContainerClick(evt) {
 // Разносим несколько действий одной функции в разные функции.
 // -----------------------------------------------------------
 
-const paletteContainer = document.querySelector('.js-palette');       // Получ. доступ к контейнеру.
-const cardsMarkup = createColorCardsMarkup(colors);        // Переменная вызывает функцию создания разметки.
+const paletteContainer = document.querySelector('.js-palette');  // Получаем доступ к контейнеру.
+const cardsMarkup = createColorCardsMarkup(colors);              // Переменная вызывает функцию создания разметки.
 
-paletteContainer.insertAdjacentHTML('beforeend', cardsMarkup);       // Вставляем разметку в DOM ел.
+paletteContainer.insertAdjacentHTML('beforeend', cardsMarkup);       // Вставляем разметку в DOM елемент.
 
 paletteContainer.addEventListener('click', onPaletteContainerClick); // Делегирование, вешаем слушателя на контейнер.
 
-// Функция для создания разметки по шаблону. Она рендерит всю нашу разметку.
-
-function createColorCardsMarkup(colors) {
+// ** Функция для создания разметки по шаблону. Она рендерит всю нашу разметку.
+function createColorCardsMarkup(colors) {                
   return colors
     .map(({ hex, rgb }) => {
       return `
@@ -341,48 +335,42 @@ function createColorCardsMarkup(colors) {
     .join('');
 }
 
-// Функция проверки куда мы кликнули. Если клик не в цвет, в пространство вокруг, ничего не делаем.
 
-function onPaletteContainerClick(evt) {
-  const isColorSwatchEl = evt.target.classList.contains('color-swatch'); // Проверяем есть ли класс на елем.
+// ** Функция проверки куда мы кликнули. Если клик не в цвет, в пространство вокруг, ничего не делаем.
+function onPaletteContainerClick(evt) {  
+  const isColorSwatchEl = evt.target.classList.contains('color-swatch');   // Проверяем есть ли класс на елем.
 
-  // Если это не isColorSwatchEl, то выходим.
-
-  if (!isColorSwatchEl) {
+  if (!isColorSwatchEl) {                                  // Если это не isColorSwatchEl, то выходим.
     return;
   }
 
-  const swatchEl = evt.target;                     // Создаем переменную и вкладываем в неё целевой элемент.
+  const swatchEl = evt.target;                             // Создаем переменную и вкладываем в неё целевой элемент.
   const parentColorCard = swatchEl.closest('.color-card'); // Ищем ближайщего предка, с таким селектором с помощью closest(), он ищет только вверх по вложенности.
 
-  removeActiveCardClass();                         // Вызов функции.
-  addActiveCardClass(parentColorCard);             // Вызов функции добавления класса.
-  setBodyBgColor(swatchEl.dataset.hex);            // Вызов функции замены цвета на body.
+  removeActiveCardClass();                                 // Вызов функции.
+  addActiveCardClass(parentColorCard);                     // Вызов функции добавления класса.
+  setBodyBgColor(swatchEl.dataset.hex);                    // Вызов функции замены цвета на body.
 }
 
-// Функция меняет цвет на body.
-
-function setBodyBgColor(color) {
-  document.body.style.backgroundColor = color;     // Ставим на body, цвет карты на которой клик.
+// ** Функция меняет цвет на body.
+function setBodyBgColor(color) {                           
+  document.body.style.backgroundColor = color;             // Ставим на body, цвет карты на которой клик.
 }
 
-// Функция снимает класс с активного элемента если он есть, и добовлять на родительский елемент.
+// ** Функция снимает класс с активного элемента если он есть, и добовлять на родительский елемент.
+function removeActiveCardClass() {                         
+  const currentActiveCard = document.querySelector('.color-card.is-active');  // Ищем текущую активную карточку.
 
-function removeActiveCardClass() {
-  const currentActiveCard = document.querySelector('.color-card.is-active');      // Ищем текущую активн. карточку.
-
-  // И если она есть, то у неё удаляем активный класс.
-
-  if (currentActiveCard) {
-    currentActiveCard.classList.remove('is-active');                             // Удаляем активный класс.
+  if (currentActiveCard) {                                // И если она есть, то у неё удаляем активный класс.
+    currentActiveCard.classList.remove('is-active');      // Удаляем активный класс.
   }
 }
 
-// Функция добавления класса.
-
-function addActiveCardClass(card) {
-  card.classList.add('is-active');                                 // Добавляем активный класс на предка.
+// ** Функция добавления класса.
+function addActiveCardClass(card) {                        
+  card.classList.add('is-active');                         // Добавляем активный класс на предка.
 }
+
 |============================
 */
 // -------------------------------------------------------------------------------
