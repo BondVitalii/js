@@ -29,7 +29,7 @@ function onClick(evt) {
 |============================
 */
 // =============================================
-/** Крестики нолики (Видео 21:05).
+/** (Видео 21:05) Крестики нолики.
 |============================
 const container = document.querySelector('.js-content');    
 const nameWinner = document.querySelector('.js-winner');
@@ -196,9 +196,7 @@ function resetGame() {
 |============================
 */
 // =============================================
-/** ДЗ какточки авто с библиотекой (Видео 1:38:10).
-|============================
-// Масим объектов с автомобилями.
+// Масив объектов cars с автомобилями для работы с карточками.
 const cars = [
   {
     id: 1,
@@ -237,8 +235,92 @@ const cars = [
   },
 ];
 
+const container = document.querySelector('.js-container');
+
+// Создаем наши карточки.
+const markup = cars.map(
+  ({ img, car, id }) => `
+    <li data-car-id="${id}" class="js-target js-card">
+        <img class="js-target" src="${img}" alt="${car}" width="200" />
+        <h2 class="js-target">${car}</h2>
+    </li>`
+);
+
+container.insertAdjacentHTML('beforeend', markup.join(''));
+container.addEventListener('click', onClick);
+
+function onClick(evt) {
+  const { target } = evt;
+  if (!target.classList.contains('js-target')) {
+    return;
+  }
+
+  // ** вариант-1
+  const carId =
+    target.dataset.carId ?? target.closest('.js-card').dataset.carId;
+
+  // ** вариант-2 const carId = target.dataset.carId ?? target.closest('.js-target');
+  // ** вариант-3 const carId = target.dataset.carId ?? target.closest('li').dataset.carId;
+
+  const currentItem = cars.find(({ id }) => id === Number(carId));
+
+  //   console.log(currentItem);
+
+  const instance = basicLightbox.create(`
+      <div class="bg">
+        <img src="${currentItem.img}" width="300" alt="${currentItem.car}" />
+        <h2>${currentItem.car}</h2>
+        <h3>${currentItem.type}</h3>
+        <p>${currentItem.price}</p>
+      </div>
+ `);
+  instance.show();
+}
+/** (Видео 1:38:10) ДЗ какточки авто с библиотекой.
+|============================
+// Максим объектов с автомобилями.
+const cars = [
+  {
+    id: 1,
+    car: 'Honda',
+    type: 'Civic',
+    price: 12000,
+    img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTCOHzdE-dK6WK7ax8NzQolTcCWA_jhJD-CRGWfqKJIJuGs8ML_-OyiDwzsdC8jOi_K10&usqp=CAU',
+  },
+  {
+    id: 2,
+    car: 'Audi',
+    type: 'Q7',
+    price: 40000,
+    img: 'https://upload.wikimedia.org/wikipedia/commons/8/8b/2017_Audi_Q7_S_Line_Quattro_3.0_Front.jpg',
+  },
+  {
+    // Ломаем, убрали id, как будто он не пришел с бекенда. Для варианта без id.
+    car: 'BMW',
+    type: '5 siries',
+    price: 9000,
+    img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUH96e58ynLO8SXMsFTNYkJci79eAZ8CyqcZsZ8snvzz2sfLl3Ojd1BQoaWBcrMKWvSYc&usqp=CAU',
+  },
+  {
+    id: 4,
+    car: 'Honda',
+    type: 'Accord',
+    price: 20000,
+    number: '+380000000000',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/7/76/2021_Honda_Accord_Sport_%28facelift%29%2C_front_11.30.21.jpg',
+  },
+  {
+    id: 5,
+    car: 'Volvo',
+    type: 'XC60',
+    price: 7000,
+    img: 'https://www.volvocars.com/media/shared-assets/master/images/pages/my19/xc60-my19/accessories/xc60my19_accessories_exteriorfeature2_1.jpg?w=320',
+  },
+];
+
 // ---------------------------------------------------------------
-// ** Из библиотеки.
+// ** Из библиотеки. Проба, работает ли библиотека, все ли мы подключили.
+
 // const instance = basicLightbox.create(`
 //     <h1>Dynamic Content</h1>
 //     <p>You can set the content of the lightbox with JS.</p>
@@ -270,9 +352,58 @@ function onClick(evt) {
   // ** вариант-1
   const carId =
     target.dataset.carId ?? target.closest('.js-card').dataset.carId;
+
+  // ** вариант-2 const carId = target.dataset.carId ?? target.closest('.js-target');
+  // ** вариант-3 const carId = target.dataset.carId ?? target.closest('li').dataset.carId;
+
+  const currentItem = cars.find(({ id }) => id === Number(carId));
+
+  //   console.log(currentItem);
+
+  const instance = basicLightbox.create(`
+      <div class="bg">
+        <img src="${currentItem.img}" width="300" alt="${currentItem.car}" />
+        <h2>${currentItem.car}</h2>
+        <h3>${currentItem.type}</h3>
+        <p>${currentItem.price}</p>
+      </div>
+ `);
+  instance.show();
+}
+
+// ** Разъясняет что мы написали (видео 2:19:43).
+
+// ====================================================================
+(Видео 2:25:00) Продолжение. ДЗ какточки авто с библиотекой. Вариант если не найдёт id.
+// ====================================================================
+
+const container = document.querySelector('.js-container');
+
+// Создаем наши карточки.
+const markup = cars.map(
+  ({ img, car, id }) => `
+    <li data-car-id="${id}" class="js-target js-card">
+        <img class="js-target" src="${img}" alt="${car}" width="200" />
+        <h2 class="js-target">${car}</h2>
+    </li>`
+);
+
+container.insertAdjacentHTML('beforeend', markup.join(''));
+container.addEventListener('click', onClick);
+
+function onClick(evt) {
+  const { target } = evt;
+  if (!target.classList.contains('js-target')) {
+    return;
+  }
+
+  // ** вариант-1
+  const carId = target.dataset.carId ?? target.closest('.js-card').dataset.carId;
   // ** вариант-2  const carId = target.dataset.carId ?? target.closest('.js-target');
   // ** вариант-3  const carId = target.dataset.carId ?? target.closest('li').dataset.carId;
+
   const currentItem = cars.find(({ id }) => id === Number(carId));
+
   //   console.log(currentItem);
 
   if (!currentItem) {
@@ -297,12 +428,9 @@ function onClick(evt) {
   }
 }
 
-// Разъясняет что мы написали (видео 2:19:43).
-
-// -----------------------------------------------------
+// --------------------------------------------------------------------------
 // Ниже тот-же самый код но с пояснениями.
-// -----------------------------------------------------
-
+// --------------------------------------------------------------------------
 const container = document.querySelector('.js-container');     // Получаем наш ul из html.
 
 // Создаем наши карточки.
@@ -315,41 +443,59 @@ const markup = cars.map(
 );
 
 container.insertAdjacentHTML('beforeend', markup.join(''));   // Помещаем наши карточки в DOM.
-container.addEventListener('click', onClick); // Добавляем на общий отсовский ел. слушателя.
+container.addEventListener('click', onClick);                 // Добавляем на общий отсовский ел. слушателя.
 
-// Реализуем делегирование событий.
+// ** Реализуем делегирование событий.
 function onClick(evt) {
-  const { target } = evt;              // Деструктуризируем target (элемент по которому мы кликнули).
+  const { target } = evt;                                  // Деструктуризируем target (элемент по которому мы клик).
   if (!target.classList.contains('js-target')) {
-    // Если в список классов данного ел. не входит класс "js-target", то сразу выходим из функции (return).
     return;
+    // Если false (в список классов данного ел. не входит класс "js-target"), то сразу выходим из функции (return).
   }
   //   console.log(evt.target);
 
-  // ** Указываем переменную carId (время 2:21:00)
-  //  - Мы пытаемся элем. по которому кликнули(target) достать дата-атрибут id (.dataset.carId).
-  // ** Используем оператор нолевого сравнения "??".
-  //  ?? - Работает на два значения (null и undefined).
-  //  || - Работает на шесть значений которые всегда вернут false,- это: ('', 0, null, false, undefined, Nan).
+  // ** Вариант-1 (пытаемся элем. по которому клик(target) достать дата-атрибут id).
+  const carId = target.dataset.carId ?? target.closest('.js-card').dataset.carId; 
 
-  // ** вариант-1
-  const carId =
-    target.dataset.carId ?? target.closest('.js-card').dataset.carId;
-  // ** вариант-2  const carId = target.dataset.carId ?? target.closest('.js-target');
-  // ** вариант-3  const carId = target.dataset.carId ?? target.closest('li').dataset.carId;
+  // ** Вариант-2  const carId = target.dataset.carId ?? target.closest('.js-target');
+  // ** Вариант-3  const carId = target.dataset.carId ?? target.closest('li').dataset.carId;
+
+  // ----------------
+  // (время 2:21:00) Объяснение кода в строке (** Варианта-1)
+  // ** Создаём переменную carId.
+  // ** Используем оператор нолевого сравнения "??" (потому что id может прийти "0").
+  // -- Пытаемся элем. по которому клик-(target) достать дата-атрибут id(.dataset.carId). Потому что думаем что клик сразу по li.
+  // -- Если вышло достать дата-атрибут-id target.dataset.carId, то он присваивается в carId.
+  // -- Если не вышло достать дата-атрибут-id, то target.closest('.js-card') находим найближайший отсовский элемент и из него берем дата-атрибут-id dataset.carId.
+  // --------
+  // ** Как работает оператор нолевого сравнения "??"
+  // -- Оператор нолевого сравнения "??" максимально подобный оператору "ИЛИ - ||".
+  // -- "||" работает на шесть значений которые всегда вернут false,- это: ('', 0, null, false, undefined, Nan).
+  // -- "??" работает на два значения (null, undefined).
+  // ----------------
+
   const currentItem = cars.find(({ id }) => id === Number(carId));
+
+  // --------
+  // (время 2:22:47) Объяснение кода в currentItem.
+  //  Создаем переменную const currentItem, перебираем массив-cars с помощью метода cars.find(({ id }), ищем только по id и деструктуризируем его. Говорим  => id === Number(carId)  что нам нужен ел. массива у которого id совпадает с carId то-есть с id того авто по которому кликнули, дата-атрибуты всегда возвращают строки, поэтому дата-атрибут приводим к числу с помощью Number(carId).
+  // --------
+
   //   console.log(currentItem);
+
+  // ** Если id не пришел с бекенда, делаем проверку ...
 
   if (!currentItem) {
     const instance = basicLightbox.create(`
       <div class="bg">
+        // ** Если id не пришел с бекенда, то ставим ссылку заглушку в <img src="", или сслыку с интернета как в данном случае.
         <img src="https://www.shutterstock.com/image-vector/no-image-available-icon-ui-600w-1458092489.jpg" width="300" alt="placeholder">" width="300" alt="placholder" />
       </div>
     `);
     instance.show();
     return;
   } else {
-    // Создаем экземпляр класса (модалки).
+    // ** Создаем экземпляр класса (модалки).
     const instance = basicLightbox.create(`
       <div class="bg">
         <img src="${currentItem.img}" width="300" alt="${currentItem.car}" />
@@ -358,13 +504,13 @@ function onClick(evt) {
         <p>${currentItem.price}</p>
       </div>
  `);
-    instance.show(); // Берем из библиотеки.
+    instance.show();                               // Берем из библиотеки.
   }
 }
 |============================
 */
 // ---------------------------------------------------------------------------------------
-/** stopPropagation() (Видео 2:30:17)(Видео 2:38:50)
+/** (Видео 2:30:17)(Видео 2:38:50) stopPropagation() 
 |============================
 const parent = document.querySelector('#parent');
 const child = document.querySelector('#child');
@@ -389,7 +535,7 @@ descendant.addEventListener('click', event => {
 |============================
 */
 // ---------------------------------------------------------------------------------------
-/** Emmit вопрос из таблицы (Видео 2:48:50)
+/** (Видео 2:48:50) Emmit вопрос из таблицы 
 |============================
 const emmetConfig = {
   'editor.matchBrackets': 'never',

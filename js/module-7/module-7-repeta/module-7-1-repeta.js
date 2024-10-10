@@ -284,11 +284,13 @@ function onPaletteContainerClick(evt) {
     currentActiveCard.classList.remove('is-active');          // Удаляем активный класс.
   }
 
-  const swatchEl = evt.target;                                // Создаем переменную и вкладываем в неё целевой элемент.
-  const parentColorCard = swatchEl.closest('.color-card');    // Ищем ближайщего предка, с таким селектором с помощью closest(), он ищет только вверх по вложенности.
+  const swatchEl = evt.target;                            // Создаем переменную и вкладываем в неё целевой элемент.
 
-  parentColorCard.classList.add('is-active');                 // Добавляем активный класс на предка.
-  document.body.style.backgroundColor = swatchEl.dataset.hex; // Ставим на body, цвет карты на которой клик.
+  // ** Ищем ближайщего предка, с таким селектором с помощью closest(), он ищет только вверх по вложенности.
+  const parentColorCard = swatchEl.closest('.color-card');    
+
+  parentColorCard.classList.add('is-active');                     // Добавляем активный класс на предка.
+  document.body.style.backgroundColor = swatchEl.dataset.hex;     // Ставим на body, цвет карты на которой клик.
 
   // console.log(evt.target);
   // console.log(evt.target.dataset.hex);
